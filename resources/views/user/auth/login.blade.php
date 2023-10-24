@@ -1,55 +1,61 @@
-@extends('layouts.user.auth.t_auth')
+<!DOCTYPE html>
+<html lang="en">
 
-@section('title')
-<title>Masuk</title>
-@endsection
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="{{ asset('template/auth/user/style.css') }}">
+    <title>Login - Helpdesk HAI Kejati Jateng</title>
+</head>
 
-@section('content')
-<section class="vh-100">
-    <div class="container py-5 h-100">
-      <div class="row d-flex align-items-center justify-content-center h-100">
-        <div class="col-md-8 col-lg-7 col-xl-6">
-          <img src="{{ asset('template/landing_page/img/img_login.png') }}"
-               class="img-fluid" alt="Login image">
+<body>
+
+    <div class="container" id="container">
+        <div class="form-container sign-up">
+            <form method="POST" action="{{ route('register_user') }}">
+                @csrf
+                <h1>Daftar</h1>
+
+                <input name="name" required type="text" placeholder="Name">
+                <input name="email" required type="email" placeholder="Email">
+                <input name="password" minlength="8" required type="password" placeholder="Kata sandi">
+
+                <button type="submit">Daftar</button>
+            </form>
         </div>
-        <div class="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
-          <form  action="{{ route('login_user') }}" method="POST">
-            @csrf
-            <!-- Email input -->
-            <div class="form-outline mb-4">
-              <label class="form-label" for="form1Example13">Email</label>
-              <input name="email" type="email" id="form1Example13" class="form-control form-control-lg" />
-            </div>
+        <div class="form-container sign-in">
+            <form method="POST" action="{{ route('login_user') }}">
+                @csrf
+                <h1>Masuk</h1>
 
-            <!-- Password input -->
-            <div class="form-outline mb-4">
-                <label class="form-label" for="form1Example23">Kata sandi</label>
-              <input name="password" type="password" id="form1Example23" class="form-control form-control-lg" />
-            </div>
-            <div class="d-flex justify-content-between align-items-center mb-4">
-                <a href="#!">Lupa kata sandi?</a>
-            </div>
+                <input name="email" type="email" required placeholder="Email">
+                <input name="password" type="password" required minlength="8" placeholder="Kata sandi">
 
-            @if (session('error'))
-            <p>{{ session('error') }}</p>
-            @endif
-
-
-
-            <!-- Submit button -->
-            <button type="submit" style="width: 100%; background-color: #00923F; color: white" type="submit" class="btn btn-lg btn-block">Masuk</button>
-
-            <div class="divider d-flex align-items-center my-4">
-              <p class="text-center fw-bold mx-3 mb-0 text-muted">Atau</p>
-            </div>
-
-            <div class="mt-2 mb-5 text-muted text-center">
-            Belum memiliki akun? <a href="auth-register.html">Daftar</a>
-              </div>
-
-          </form>
+                @if (session('error'))
+                <span style="color: red">{{ session('error') }}</span>
+                @endif
+                <a href="#">Lupa kata sandi Anda?</a>
+                <button type="submit">Masuk</button>
+            </form>
         </div>
-      </div>
+        <div class="toggle-container">
+            <div class="toggle">
+                <div class="toggle-panel toggle-left">
+                    <h1>Selamat Datang Kembali!</h1>
+                    <p>Helpdesk HAI Kejati Jateng.</p>
+                    <button class="hidden" id="login">Masuk</button>
+                </div>
+                <div class="toggle-panel toggle-right">
+                    <h1>Selamat Datang!</h1>
+                    <p>Daftar dan bergabung bersama kami.</p>
+                    <button class="hidden" id="register">Daftar</button>
+                </div>
+            </div>
+        </div>
     </div>
-  </section>
-@endsection
+
+    <script src="{{ asset('template/auth/user/script.js') }}"></script>
+</body>
+
+</html>

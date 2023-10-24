@@ -1,6 +1,6 @@
 @extends('layouts.landing_page.index')
 @section('title')
-<title>Help Desk</title>
+<title>Helpdesk HAI Kejati Jateng</title>
 @endsection
 
 
