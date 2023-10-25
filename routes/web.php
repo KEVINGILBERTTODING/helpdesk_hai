@@ -41,3 +41,4 @@ Route::post('register_user', [AuthController::class, 'register'])->name('registe
 Route::get('dashboard', [MainController::class, 'index'])->name('dashboard');
 Route::get('logout', [AuthController::class, 'logout'])->name('logout');
 Route::get('createPermohonan', [MainController::class, 'createPermohonan'])->name('createPermohonan');
+Route::post('insertPermohonan', [MainController::class, 'insertPermohonan'])->name('insertPermohonan');
