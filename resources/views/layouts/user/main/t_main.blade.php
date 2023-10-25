@@ -39,7 +39,7 @@
     @yield('content')
       <footer class="main-footer">
         <div class="footer-left">
-          Copyright &copy; 2018 <div class="bullet"></div> Design By <a href="https://nauval.in/">Muhamad Nauval Azhar</a>
+          Copyright &copy; {{ date('Y') }} <div class="bullet"></div><a href="https://nauval.in/">Kejaksaan Tinggi Jawa Tengah</a>
         </div>
         <div class="footer-right">
 
@@ -71,5 +71,6 @@
   <!-- Template JS File -->
   <script src="{{ asset('template/main/dist/assets/js/scripts.js') }}"></script>
   <script src="{{ asset('template/main/dist/assets/js/custom.js') }}"></script>
+  <script src="https://kit.fontawesome.com/142d239858.js" crossorigin="anonymous"></script>
 </body>
 </html>

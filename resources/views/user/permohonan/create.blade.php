@@ -2,7 +2,7 @@
 
 {{-- Title --}}
 @section('title')
-<title>Dashboard</title>
+<title>Permohonan Baru</title>
 @endsection
 
 
@@ -176,14 +176,14 @@
       </div>
       <ul class="sidebar-menu">
         <li class="menu-header">Dashboard</li>
-        <li class="active">
+        <li >
             <a href="{{ route('dashboard') }}" ><i class="fa-solid fa-house"></i> <span>Dashboard</span></a>
         </li>
         <li class="menu-header">Data</li>
-        <li class="dropdown">
+        <li class="dropdown active">
           <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fa-regular fa-folder"></i> <span>Permohonan Saya</span></a>
           <ul class="dropdown-menu">
-            <li><a class="nav-link" href="{{ route('createPermohonan') }}">Permohonan Baru</a></li>
+            <li class="active"><a class="nav-link" href="{{ route('createPermohonan') }}">Permohonan Baru</a></li>
             <li><a class="nav-link" href="layout-transparent.html">Permohonan Selesai</a></li>
             <li><a class="nav-link" href="layout-transparent.html">Permohonan Proses</a></li>
             <li><a class="nav-link" href="layout-transparent.html">Permohonan ditolak</a></li>
@@ -201,80 +201,145 @@
 
 @section('content')
 <div class="main-content">
+    <div class="container-fluid">
+
+    </div>
     <section class="section">
       <div class="section-header">
-        <h1>Dashboard</h1>
-      </div>
-      <div class="row">
-        <div class="col-lg-3 col-md-6 col-sm-6 col-12">
-          <div class="card card-statistic-1">
-            <div class="card-icon bg-primary">
-                <i class="fa-regular fa-folder fa-2xl" style="color: #ffffff;"></i>
-            </div>
-            <div class="card-wrap">
-              <div class="card-header">
-                <h4>Total Permohonan</h4>
-              </div>
-              <div class="card-body">
-                {{ $totalPermohonan }}
-              </div>
-            </div>
-          </div>
+        <h1>Form Permohonan Baru</h1>
+        <div class="section-header-breadcrumb">
+          <div class="breadcrumb-item active"><a href="{{ route('dashboard') }}">Dashboard</a></div>
+          <div class="breadcrumb-item"><a href="{{ route('createPermohonan') }}">Permohonan Baru</a></div>
+
         </div>
-        <div class="col-lg-3 col-md-6 col-sm-6 col-12">
-            <div class="card card-statistic-1">
-              <div class="card-icon bg-success">
-                <i class="fa-solid fa-check fa-2xl" style="color: #ffffff;"></i>
-              </div>
-              <div class="card-wrap">
+      </div>
+
+      <div class="section-body">
+        <h2 class="section-title">Permohonan Baru</h2>
+        <p class="section-lead">Ajukan permohonan baru.</p>
+
+
+<div class="row">
+
+        <div class="col-12 col-md-12 col-lg-7">
+            <div class="card">
+              <form method="post" class="needs-validation" novalidate="">
                 <div class="card-header">
-                  <h4>Permohonan selesai</h4>
+                  <h4>Data Permohonan</h4>
                 </div>
                 <div class="card-body">
-                    {{ $permohonanValid }}
+                    <div class="row">
+                      <div class="form-group col-md-6 col-12">
+                        <label>Nama</label>
+                        <input type="text" readonly class="form-control" value="Ujang" required="">
+                        <div class="invalid-feedback">
+                          Please fill in the first name
+                        </div>
+                      </div>
+                      <div class="form-group col-md-6 col-12">
+                        <label>Departemen</label>
+
+                            <select class="form-control">
+                              <option>Option 1</option>
+                              <option>Option 2</option>
+                              <option>Option 3</option>
+                            </select>
+
+                        <div class="invalid-feedback">
+                          Please fill in the last name
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="form-group col-md-7 col-12">
+                        <label>Email</label>
+                        <input  readonly="email" class="form-control" value="ujang@maman.com" required="">
+                        <div class="invalid-feedback">
+                          Please fill in the email
+                        </div>
+                      </div>
+                      <div class="form-group col-md-5 col-12">
+                        <label>Domisili</label>
+
+                        <select class="form-control">
+                          <option>Option 1</option>
+                          <option>Option 2</option>
+                          <option>Option 3</option>
+                        </select>
+
+                      </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group col-md-7 col-12">
+                            <label>Layanan</label>
+
+                            <select class="form-control">
+                              <option>Option 1</option>
+                              <option>Option 2</option>
+                              <option>Option 3</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-5 col-12">
+                          <label>Tipe</label>
+
+                          <select class="form-control">
+                            <option>Option 1</option>
+                            <option>Option 2</option>
+                            <option>Option 3</option>
+                          </select>
+
+                        </div>
+                      </div>
+                    <div class="row">
+                        <div class="form-group col-12">
+                          <label>Alamat</label>
+                          <textarea class="form-control"></textarea>
+                        </div>
+                      </div>
+                    <div class="row">
+                        <div class="form-group col-12">
+                          <label>Subject</label>
+                        <input type="text" class="form-control" value="">
+
+                        </div>
+                      </div>
+
+                      <div class="row">
+                        <div class="form-group col-12">
+                        <label>File Pendukung</label>
+                        <input  type="file" class="form-control">
+                      </div>
+                      </div>
+
+
+
+
+                    <div class="row">
+                      <div class="form-group col-12">
+                        <label>Keterangan</label>
+                        <textarea class="form-control summernote-simple">Ujang maman is a superhero name in <b>Indonesia</b>, especially in my family. He is not a fictional character but an original hero in my family, a hero for his children and for his wife. So, I use the name as a user in this template. Not a tribute, I'm just bored with <b>'John Doe'</b>.</textarea>
+                      </div>
+                    </div>
+
 
                 </div>
-              </div>
+                <div class="card-footer text-right">
+                  <button class="btn btn-primary">Save Changes</button>
+                </div>
+              </form>
             </div>
           </div>
 
-        <div class="col-lg-3 col-md-6 col-sm-6 col-12">
-          <div class="card card-statistic-1">
-            <div class="card-icon bg-warning">
-                <i class="fa-sharp fa-solid fa-hourglass fa-2xl" style="color: #ffffff;"></i>
-            </div>
-            <div class="card-wrap">
-              <div class="card-header">
-                <h4>Permohonan Proses</h4>
-              </div>
-              <div class="card-body">
-                {{ $permohonanProses }}
+</div>
 
-              </div>
-            </div>
-          </div>
-        </div>
 
-        <div class="col-lg-3 col-md-6 col-sm-6 col-12">
-            <div class="card card-statistic-1">
-              <div class="card-icon bg-danger">
-                <i class="fa-sharp fa-solid fa-xmark fa-2xl" style="color: #ffffff;"></i>
-              </div>
-              <div class="card-wrap">
-                <div class="card-header">
-                  <h4>Permohonan ditolak</h4>
-                </div>
-                <div class="card-body">
-                {{ $permohonanTidakValid }}
-
-                </div>
-              </div>
-            </div>
           </div>
 
-      </div>
 
     </section>
+
+
   </div>
 @endsection
 

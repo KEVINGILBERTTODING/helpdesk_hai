@@ -16,16 +16,22 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('landing_page/index');
+    if (session('login') == true) {
+        return redirect('dashboard');
+    } else {
+        return view('landing_page/index');
+    }
 });
 
 Route::get('login', function () {
-    return view('user.auth.login');
+
+    if (session('login') == true) {
+        return redirect('dashboard');
+    } else {
+        return view('user.auth.login');
+    }
 })->name('login');
 
-Route::get('register', function () {
-    return view('user.auth.login');
-})->name('login');
 
 
 // user
@@ -33,3 +39,5 @@ Route::get('register', function () {
 Route::post('login_user', [AuthController::class, 'login'])->name('login_user');
 Route::post('register_user', [AuthController::class, 'register'])->name('register_user');
 Route::get('dashboard', [MainController::class, 'index'])->name('dashboard');
+Route::get('logout', [AuthController::class, 'logout'])->name('logout');
+Route::get('createPermohonan', [MainController::class, 'createPermohonan'])->name('createPermohonan');

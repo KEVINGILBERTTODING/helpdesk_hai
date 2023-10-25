@@ -21,7 +21,6 @@ class AuthController extends Controller
             'email' => 'required|email',
             'password' => 'required|string'
         ]);
-
         if ($validator->fails()) {
             return redirect('login')->with('error', $validator->errors()->first());
         }
@@ -85,5 +84,11 @@ class AuthController extends Controller
         } else {
             return redirect('login')->with('error', 'Email telah terdaftar');
         }
+    }
+
+    function logout()
+    {
+        session()->flush();
+        return redirect('login');
     }
 }
