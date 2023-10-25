@@ -93,7 +93,7 @@
     <script>
         $(document).ready(function() {
             var errorMessage = "{{ session('failed') }}";
-            swal('Good Job', errorMessage, 'error');
+            swal('Gagal', errorMessage, 'error');
 
         });
     </script>
@@ -101,7 +101,7 @@
     <script>
         $(document).ready(function() {
             var successMessage = "{{ session('success') }}";
-            swal('Good Job', successMessage, 'success');
+            swal('Berhasil', successMessage, 'success');
         });
     </script>
 @endif

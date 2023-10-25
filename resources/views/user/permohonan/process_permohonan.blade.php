@@ -192,9 +192,10 @@
                     <ul class="dropdown-menu">
                         <li><a class="nav-link" href="{{ route('createPermohonan') }}">Permohonan Baru</a>
                         </li>
-                        <li><a class="nav-link" href="layout-transparent.html">Semua Permohonan</a>
+                        <li><a class="nav-link" href="{{ route('allPermohonan') }}">Semua Permohonan</a>
                         </li>
-                        <li class="active"><a class="nav-link" href="layout-transparent.html">Permohonan Proses</a>
+                        <li class="active"><a class="nav-link" href="{{ route('processPermohonan') }}">
+                                Permohonan Proses</a>
                         </li>
                         <li><a class="nav-link" href="layout-transparent.html">Permohonan Selesai</a></li>
                         <li><a class="nav-link" href="layout-transparent.html">Permohonan ditolak</a></li>
@@ -231,13 +232,16 @@
                             <article class="article article-style-b">
                                 <div class="article-header">
                                     <div class="article-image"
-                                        data-background="{{ asset('template/main/dist/assets/img/news/img12.jpg') }}">
+                                        data-background="{{ asset('template/main/dist/assets/img/news/img09.jpg') }}">
                                     </div>
                                 </div>
+
                                 <div class="article-details">
+                                    <p class="text-sm" style="font-size: 12px;">{{ $dp->created_at }}</p>
                                     <div class="article-title">
                                         <h2><a href="#">{{ $dp->subject }}</a></h2>
                                     </div>
+
                                     @if ($dp->keterangan)
                                         @if (strlen($dp->keterangan) > 94)
                                             <p>{{ substr($dp->keterangan, 0, 94) }}...</p>

@@ -193,7 +193,7 @@
                         <li class="active"><a class="nav-link" href="{{ route('createPermohonan') }}">Permohonan Baru</a>
                         </li>
                         <li><a class="nav-link" href="{{ route('allPermohonan') }}">Semua Permohonan</a></li>
-                        <li><a class="nav-link" href="layout-transparent.html">Permohonan Proses</a></li>
+                        <li><a class="nav-link" href="{{ route('processPermohonan') }}">Permohonan Proses</a></li>
                         <li><a class="nav-link" href="layout-transparent.html">Permohonan Selesai</a></li>
                         <li><a class="nav-link" href="layout-transparent.html">Permohonan ditolak</a></li>
 

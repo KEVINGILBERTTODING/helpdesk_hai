@@ -230,7 +230,13 @@
                             <article class="article article-style-b">
                                 <div class="article-header">
                                     <div class="article-image"
-                                        data-background="{{ asset('template/main/dist/assets/img/news/img12.jpg') }}">
+                                        data-background="
+                                        @if ($dp->status == 1) {{ asset('template/main/dist/assets/img/news/img12.jpg') }}
+                                        @elseif ($dp->status == 2)
+                                        {{ asset('template/main/dist/assets/img/news/img09.jpg') }}
+                                        @elseif ($dp->status == 0)
+                                        {{ asset('template/main/dist/assets/img/news/img10.jpg') }} @endif
+                                        ">
                                     </div>
                                 </div>
                                 <div class="article-details">
