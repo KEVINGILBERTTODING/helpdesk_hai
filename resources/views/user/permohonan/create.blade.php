@@ -299,7 +299,8 @@
                                     <div class="row">
                                         <div class="form-group col-12">
                                             <label>Alamat</label>
-                                            <textarea name="address" required class="form-control"></textarea>
+                                            <textarea name="address" required class="form-control">{{ $address }}
+                                            </textarea>
                                         </div>
                                     </div>
                                     <div class="row">

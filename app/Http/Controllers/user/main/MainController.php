@@ -54,7 +54,8 @@ class MainController extends Controller
                 'profile_photo' => $dataUser['profile_photo'],
                 'type' => $type,
                 'layanan' => $layanan,
-                'city' => $city
+                'city' => $city,
+                'address' => $dataUser['address']
             ];
             return view('user.permohonan.create', $data);
         } else {
@@ -77,12 +78,11 @@ class MainController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return redirect('createPermohonan')->with('failed', $validator->errors()->first());
+            return redirect('createPermohonan')->with('failed', 'Terjadi kesalahan');
         }
 
         try {
             $dataUser = [
-                'city_id' => $request->input('city_id'),
                 'address' => $request->input('address')
             ];
 
