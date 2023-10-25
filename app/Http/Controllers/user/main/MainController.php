@@ -108,7 +108,7 @@ class MainController extends Controller
 
                 $insert = PuModel::insert($data);
                 if ($insert) {
-                    return 'berhasil';
+                    return redirect('processPermohonan')->with('success', 'Berhasil membuat permohonan baru');
                 } else {
                     return redirect('createPermohonan')->with('failed', 'Gagal mengajukan permohonan');
                 }
@@ -128,7 +128,7 @@ class MainController extends Controller
 
                 $insert = PuModel::insert($data);
                 if ($insert) {
-                    return 'berhasil';
+                    return redirect('processPermohonan')->with('success', 'Berhasil membuat permohonan baru');
                 } else {
                     return redirect('createPermohonan')->with('failed', 'Gagal mengajukan permohonan');
                 }
@@ -136,5 +136,37 @@ class MainController extends Controller
         } catch (\Throwable $th) {
             return redirect('createPermohonan')->with('failed', $th->getMessage());
         }
+    }
+
+    function allPermohonan()
+    {
+        if (session('login') != true) {
+            return redirect('login');
+        }
+        $dataUser = User::where('user_id', session('user_id'))->first();
+        $dataPermohonan = PuModel::where('user_id', session('user_id'))
+            ->orderBy('pm_id', 'desc')
+            ->get();
+        $data = [
+            'profile_photo' => $dataUser['profile_photo'],
+            'dataPermohonan' => $dataPermohonan
+        ];
+        return view('user.permohonan.all_permohonan', $data);
+    }
+
+    function processPermohonan()
+    {
+        if (session('login') != true) {
+            return redirect('login');
+        }
+        $dataUser = User::where('user_id', session('user_id'))->first();
+        $dataPermohonan = PuModel::where('user_id', session('user_id'))->where('status', 2)
+            ->orderBy('pm_id', 'desc')
+            ->get();
+        $data = [
+            'profile_photo' => $dataUser['profile_photo'],
+            'dataPermohonan' => $dataPermohonan
+        ];
+        return view('user.permohonan.process_permohonan', $data);
     }
 }

@@ -2,7 +2,7 @@
 
 {{-- Title --}}
 @section('title')
-    <title>Dashboard</title>
+    <title>Permohonan Proses</title>
 @endsection
 
 
@@ -151,13 +151,11 @@
                     <div class="d-sm-none d-lg-inline-block">Hi, {{ session('name') }}</div>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right">
-                    <div class="dropdown-title">Logged in 5 min ago</div>
+
                     <a href="features-profile.html" class="dropdown-item has-icon">
                         <i class="far fa-user"></i> Profile
                     </a>
-                    <a href="features-activities.html" class="dropdown-item has-icon">
-                        <i class="fas fa-bolt"></i> Activities
-                    </a>
+
                     <a href="features-settings.html" class="dropdown-item has-icon">
                         <i class="fas fa-cog"></i> Settings
                     </a>
@@ -184,17 +182,20 @@
             </div>
             <ul class="sidebar-menu">
                 <li class="menu-header">Dashboard</li>
-                <li class="active">
+                <li>
                     <a href="{{ route('dashboard') }}"><i class="fa-solid fa-house"></i> <span>Dashboard</span></a>
                 </li>
                 <li class="menu-header">Data</li>
-                <li class="dropdown">
+                <li class="dropdown active">
                     <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i
                             class="fa-regular fa-folder"></i> <span>Permohonan Saya</span></a>
                     <ul class="dropdown-menu">
-                        <li><a class="nav-link" href="{{ route('createPermohonan') }}">Permohonan Baru</a></li>
-                        <li><a class="nav-link" href="{{ route('allPermohonan') }}">Semua Permohonan</a>
-                        <li><a class="nav-link" href="{{ route('processPermohonan') }}">Permohonan Proses</a></li>
+                        <li><a class="nav-link" href="{{ route('createPermohonan') }}">Permohonan Baru</a>
+                        </li>
+                        <li><a class="nav-link" href="layout-transparent.html">Semua Permohonan</a>
+                        </li>
+                        <li class="active"><a class="nav-link" href="layout-transparent.html">Permohonan Proses</a>
+                        </li>
                         <li><a class="nav-link" href="layout-transparent.html">Permohonan Selesai</a></li>
                         <li><a class="nav-link" href="layout-transparent.html">Permohonan ditolak</a></li>
 
@@ -213,75 +214,47 @@
     <div class="main-content">
         <section class="section">
             <div class="section-header">
-                <h1>Dashboard</h1>
+                <h1>Daftar Permohonan Proses</h1>
+                <div class="section-header-breadcrumb">
+                    <div class="breadcrumb-item active"><a href="{{ route('dashboard') }}">Dashboard</a></div>
+                    <div class="breadcrumb-item">Permohonan Proses</div>
+                </div>
             </div>
-            <div class="row">
-                <div class="col-lg-3 col-md-6 col-sm-6 col-12">
-                    <div class="card card-statistic-1">
-                        <div class="card-icon bg-primary">
-                            <i class="fa-regular fa-folder fa-2xl" style="color: #ffffff;"></i>
+
+            <div class="section-body">
+                <h2 class="section-title">Articles</h2>
+                <p class="section-lead">This article component is based on card and flexbox.</p>
+
+                <div class="row">
+                    @foreach ($dataPermohonan as $dp)
+                        <div class="col-12 col-sm-6 col-md-6 col-lg-3">
+                            <article class="article article-style-b">
+                                <div class="article-header">
+                                    <div class="article-image"
+                                        data-background="{{ asset('template/main/dist/assets/img/news/img12.jpg') }}">
+                                    </div>
+                                </div>
+                                <div class="article-details">
+                                    <div class="article-title">
+                                        <h2><a href="#">{{ $dp->subject }}</a></h2>
+                                    </div>
+                                    @if ($dp->keterangan)
+                                        @if (strlen($dp->keterangan) > 94)
+                                            <p>{{ substr($dp->keterangan, 0, 94) }}...</p>
+                                        @else
+                                            <p>{{ $dp->keterangan }}</p>
+                                        @endif
+                                    @endif
+
+                                    <div class="article-cta">
+                                        <a href="#">Read More <i class="fas fa-chevron-right"></i></a>
+                                    </div>
+                                </div>
+                            </article>
                         </div>
-                        <div class="card-wrap">
-                            <div class="card-header">
-                                <h4>Total Permohonan</h4>
-                            </div>
-                            <div class="card-body">
-                                {{ $totalPermohonan }}
-                            </div>
-                        </div>
-                    </div>
+                    @endforeach
+
                 </div>
-                <div class="col-lg-3 col-md-6 col-sm-6 col-12">
-                    <div class="card card-statistic-1">
-                        <div class="card-icon bg-success">
-                            <i class="fa-solid fa-check fa-2xl" style="color: #ffffff;"></i>
-                        </div>
-                        <div class="card-wrap">
-                            <div class="card-header">
-                                <h4>Permohonan selesai</h4>
-                            </div>
-                            <div class="card-body">
-                                {{ $permohonanValid }}
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-3 col-md-6 col-sm-6 col-12">
-                    <div class="card card-statistic-1">
-                        <div class="card-icon bg-warning">
-                            <i class="fa-sharp fa-solid fa-hourglass fa-2xl" style="color: #ffffff;"></i>
-                        </div>
-                        <div class="card-wrap">
-                            <div class="card-header">
-                                <h4>Permohonan Proses</h4>
-                            </div>
-                            <div class="card-body">
-                                {{ $permohonanProses }}
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-3 col-md-6 col-sm-6 col-12">
-                    <div class="card card-statistic-1">
-                        <div class="card-icon bg-danger">
-                            <i class="fa-sharp fa-solid fa-xmark fa-2xl" style="color: #ffffff;"></i>
-                        </div>
-                        <div class="card-wrap">
-                            <div class="card-header">
-                                <h4>Permohonan ditolak</h4>
-                            </div>
-                            <div class="card-body">
-                                {{ $permohonanTidakValid }}
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
             </div>
 
         </section>

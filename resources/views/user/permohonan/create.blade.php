@@ -192,8 +192,9 @@
                     <ul class="dropdown-menu">
                         <li class="active"><a class="nav-link" href="{{ route('createPermohonan') }}">Permohonan Baru</a>
                         </li>
-                        <li><a class="nav-link" href="layout-transparent.html">Permohonan Selesai</a></li>
+                        <li><a class="nav-link" href="{{ route('allPermohonan') }}">Semua Permohonan</a></li>
                         <li><a class="nav-link" href="layout-transparent.html">Permohonan Proses</a></li>
+                        <li><a class="nav-link" href="layout-transparent.html">Permohonan Selesai</a></li>
                         <li><a class="nav-link" href="layout-transparent.html">Permohonan ditolak</a></li>
 
                     </ul>
@@ -217,7 +218,8 @@
                 <h1>Form Permohonan Baru</h1>
                 <div class="section-header-breadcrumb">
                     <div class="breadcrumb-item active"><a href="{{ route('dashboard') }}">Dashboard</a></div>
-                    <div class="breadcrumb-item"><a href="{{ route('createPermohonan') }}">Permohonan Baru</a></div>
+                    <div class="breadcrumb-item">Permohonan Baru</div>
+
                 </div>
             </div>
 
@@ -322,7 +324,7 @@
                                     <div class="row">
                                         <div class="form-group col-12">
                                             <label>Keterangan</label>
-                                            <textarea name="description" required class="form-control summernote-simple"></textarea>
+                                            <textarea required name="description" required class="form-control"></textarea>
                                         </div>
                                     </div>
 
