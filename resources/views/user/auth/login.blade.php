@@ -34,6 +34,9 @@
 
                 @if (session('error'))
                 <span style="color: red">{{ session('error') }}</span>
+                @elseif (session('success'))
+                <span style="color: #00923F">{{ session('success') }}</span>
+
                 @endif
                 <a href="#">Lupa kata sandi Anda?</a>
                 <button type="submit">Masuk</button>

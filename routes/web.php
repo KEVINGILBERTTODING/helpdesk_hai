@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\user\auth\AuthController;
+use App\Http\Controllers\user\main\MainController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -27,6 +28,8 @@ Route::get('register', function () {
 })->name('login');
 
 
+// user
 
 Route::post('login_user', [AuthController::class, 'login'])->name('login_user');
 Route::post('register_user', [AuthController::class, 'register'])->name('register_user');
+Route::get('dashboard', [MainController::class, 'index'])->name('dashboard');

@@ -30,10 +30,18 @@ class AuthController extends Controller
             $password = $request->input('password');
             $authValidate = UserModel::where('email', $email)->first();
             if ($authValidate) {
-                if (Hash::check($password, $authValidate['password'])) {
-                    return 'berhasil';
+                if ($authValidate['status'] != 1) {
+                    return redirect('login')->with('error', 'Akun telah dinonaktifkan oleh Admin');
                 } else {
-                    return redirect('login')->with('error', 'Kata sandi salah');
+                    if (Hash::check($password, $authValidate['password'])) {
+                        $request->session()->put('login', TRUE);
+                        $request->session()->put('user_id', $authValidate['user_id']);
+                        $request->session()->put('name', $authValidate['name']);
+                        $request->session()->put('email', $authValidate['email']);
+                        return redirect('dashboard');
+                    } else {
+                        return redirect('login')->with('error', 'Kata sandi salah');
+                    }
                 }
             } else {
                 return redirect('login')->with('error', 'Email belum terdaftar');
@@ -70,7 +78,7 @@ class AuthController extends Controller
 
             $insert = User::insert($dataUser);
             if ($insert) {
-                return 'berhasil mendaftar';
+                return redirect('login')->with('success', 'Berhasil mendaftar');
             } else {
                 return redirect('login')->with('error', 'Gagal mendaftar');
             }
