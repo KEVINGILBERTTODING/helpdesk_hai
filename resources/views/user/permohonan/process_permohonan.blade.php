@@ -223,8 +223,9 @@
             </div>
 
             <div class="section-body">
-                <h2 class="section-title">Articles</h2>
-                <p class="section-lead">This article component is based on card and flexbox.</p>
+                <h2 class="section-title">Permohonan Proses</h2>
+                <p class="section-lead">Daftar semua permohonan yang sedang diproses.</p>
+
 
                 <div class="row">
                     @foreach ($dataPermohonan as $dp)
@@ -234,7 +235,26 @@
                                     <div class="article-image"
                                         data-background="{{ asset('template/main/dist/assets/img/news/img09.jpg') }}">
                                     </div>
+                                    <div class="article-badge">
+                                        @if ($dp->status == 1)
+                                            <div class="article-badge-item bg-success"><i class="fa-solid fa-check"></i>
+                                                Selesai
+                                            </div>
+                                        @elseif ($dp->status == 2)
+                                            <div class="article-badge-item bg-warning"><i
+                                                    class="fa-solid fa-hourglass"></i>
+                                                Proses
+                                            </div>
+                                        @elseif ($dp->status == 0)
+                                            <div class="article-badge-item bg-danger"><i class="fa-solid fa-xmark"></i>
+                                                ditolak
+                                            </div>
+                                        @endif
+
+                                    </div>
                                 </div>
+
+
 
                                 <div class="article-details">
                                     <p class="text-sm" style="font-size: 12px;">{{ $dp->created_at }}</p>
@@ -251,7 +271,7 @@
                                     @endif
 
                                     <div class="article-cta">
-                                        <a href="#">Read More <i class="fas fa-chevron-right"></i></a>
+                                        <a href="#">Lihat detail <i class="fas fa-chevron-right"></i></a>
                                     </div>
                                 </div>
                             </article>
