@@ -280,7 +280,10 @@
 
                                     <div class="row">
                                         <div class="form-group col-md-7 col-12">
-                                            <label>Layanan</label>
+                                            <label>Layanan <a href="#" data-toggle="modal"
+                                                    data-target="#exampleModal"><i
+                                                        class="fa-regular fa-circle-question fa-lg"
+                                                        style="color: #226d31;"></a></i></label>
                                             <select name="layanan_id" class="form-control">
                                                 @foreach ($layanan as $ly)
                                                     <option value="{{ $ly->layanan_id }}">{{ $ly->nama_layanan }}
@@ -324,7 +327,7 @@
                                     <div class="row">
                                         <div class="form-group col-12">
                                             <label>Keterangan</label>
-                                            <textarea required name="description" required class="form-control"></textarea>
+                                            <textarea required name="description" required class="form-control" rows="7"></textarea>
                                         </div>
                                     </div>
 
@@ -344,6 +347,29 @@
 
 
         </section>
+
+        <div class="modal fade" tabindex="-1" role="dialog" id="exampleModal">
+            <div class="modal-dialog " role="document">
+                <div class="modal-content modal-dialog-scrollable">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Penjelasan Layanan</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        @foreach ($layanan as $lyn)
+                            <h6 class="text-sm">{{ $lyn->nama_layanan }}</h6>
+                            <p>{{ $lyn->description }}</p>
+                        @endforeach
+                        <h5></h5>
+                    </div>
+                    <div class="modal-footer bg-whitesmoke br">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                    </div>
+                </div>
+            </div>
+        </div>
 
 
     </div>

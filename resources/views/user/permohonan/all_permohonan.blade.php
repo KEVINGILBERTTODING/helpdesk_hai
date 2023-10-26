@@ -192,7 +192,7 @@
                     <ul class="dropdown-menu">
                         <li><a class="nav-link" href="{{ route('createPermohonan') }}">Permohonan Baru</a>
                         </li>
-                        <li class="active"><a class="nav-link" href="layout-transparent.html">Semua Permohonan</a>
+                        <li class="active"><a class="nav-link" href="{{ route('allPermohonan') }}">Semua Permohonan</a>
                         </li>
                         <li><a class="nav-link" href="{{ route('processPermohonan') }}">Permohonan Proses</a></li>
                         <li><a class="nav-link" href="layout-transparent.html">Permohonan Selesai</a></li>
