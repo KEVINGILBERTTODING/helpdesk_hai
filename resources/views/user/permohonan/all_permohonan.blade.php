@@ -271,7 +271,8 @@
 
                                     <div class="article-cta">
 
-                                        <a href="{{ route('detailPermohonan', Crypt::encrypt($dp->pm_id)) }}">Lihat detail
+                                        <a href="{{ route('detailPermohonan', Crypt::encrypt($dp->permohonan_id)) }}">Lihat
+                                            detail
                                             <i class="fas fa-chevron-right"></i></a>
                                         </form>
                                     </div>

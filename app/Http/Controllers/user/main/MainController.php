@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\user\main;
 
 use App\Http\Controllers\Controller;
+use App\Models\BidangModel;
 use App\Models\CityModel;
 use App\Models\LayananModel;
 use App\Models\PuModel;
@@ -176,6 +177,7 @@ class MainController extends Controller
             $puModel = new PuModel();
             $dataPermohonan = $puModel->getDetailPermohonan(Crypt::decrypt($id));
             $dataUser = User::where('user_id', session('user_id'))->first();
+            $namaBidang = BidangModel::where('bidang_id', $dataUser['bidang_id'])->first();
 
             if ($dataPermohonan == null || $dataPermohonan['user_id'] != session('user_id')) {
                 return redirect('dashboard')->with('failed', 'Terjadi kesalahan dalam memuat detail permohonan');
@@ -183,7 +185,8 @@ class MainController extends Controller
 
             $data = [
                 'dataPermohonan' => $dataPermohonan,
-                'profile_photo' => $dataUser['profile_photo']
+                'profile_photo' => $dataUser['profile_photo'],
+                'nama_bidang' => $namaBidang['nama_bidang']
             ];
 
             return view('user.permohonan.detail', $data);

@@ -245,8 +245,8 @@
                                             <p>{{ $dataPermohonan['nama'] }}</p>
                                         </div>
                                         <div class="form-group col-md-5 col-12">
-                                            <label>Departemen</label>
-                                            <p>{{ $dataPermohonan['nama_department'] }}</p>
+                                            <label>Bidang</label>
+                                            <p>{{ $nama_bidang }}</p>
                                         </div>
                                     </div>
                                     <div class="row">
@@ -255,8 +255,8 @@
                                             <p>{{ $dataPermohonan['email'] }}</p>
                                         </div>
                                         <div class="form-group col-md-5 col-12">
-                                            <label>Domisili</label>
-                                            <p>{{ $dataPermohonan['nama_kota'] }}</p>
+                                            <label>Tipe</label>
+                                            <p>{{ $dataPermohonan['nama_type'] }}</p>
 
                                         </div>
                                     </div>
@@ -266,17 +266,9 @@
                                             <label>Layanan</label>
                                             <p>{{ $dataPermohonan['nama_layanan'] }}</p>
                                         </div>
-                                        <div class="form-group col-md-5 col-12">
-                                            <label>Tipe</label>
-                                            <p>{{ $dataPermohonan['nama_type'] }}</p>
-                                        </div>
+
                                     </div>
-                                    <div class="row">
-                                        <div class="form-group col-12">
-                                            <label>Alamat</label>
-                                            <p>{{ $dataPermohonan['address'] }}</p>
-                                        </div>
-                                    </div>
+
                                     <div class="row">
                                         <div class="form-group col-12">
                                             <label>Subject</label>
