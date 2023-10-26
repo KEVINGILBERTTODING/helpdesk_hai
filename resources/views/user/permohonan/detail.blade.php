@@ -232,78 +232,76 @@
 
                     <div class="col-12 col-md-12 col-lg-7">
                         <div class="card">
-                            <form method="post" class="needs-validation" action="{{ route('insertPermohonan') }}"
-                                enctype="multipart/form-data">
-                                @csrf
-                                <div class="card-header">
-                                    <h4>Data Permohonan</h4>
+
+                            <div class="card-header">
+                                <h4>Data Permohonan</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="form-group col-md-7 col-12">
+                                        <label>Nama</label>
+                                        <p>{{ $dataPermohonan['nama'] }}</p>
+                                    </div>
+                                    <div class="form-group col-md-5 col-12">
+                                        <label>Bidang</label>
+                                        <p>{{ $nama_bidang }}</p>
+                                    </div>
                                 </div>
-                                <div class="card-body">
-                                    <div class="row">
-                                        <div class="form-group col-md-7 col-12">
-                                            <label>Nama</label>
-                                            <p>{{ $dataPermohonan['nama'] }}</p>
-                                        </div>
-                                        <div class="form-group col-md-5 col-12">
-                                            <label>Bidang</label>
-                                            <p>{{ $nama_bidang }}</p>
-                                        </div>
+                                <div class="row">
+                                    <div class="form-group col-md-7 col-12">
+                                        <label>Email</label>
+                                        <p>{{ $dataPermohonan['email'] }}</p>
                                     </div>
-                                    <div class="row">
-                                        <div class="form-group col-md-7 col-12">
-                                            <label>Email</label>
-                                            <p>{{ $dataPermohonan['email'] }}</p>
-                                        </div>
-                                        <div class="form-group col-md-5 col-12">
-                                            <label>Tipe</label>
-                                            <p>{{ $dataPermohonan['nama_type'] }}</p>
-
-                                        </div>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="form-group col-md-7 col-12">
-                                            <label>Layanan</label>
-                                            <p>{{ $dataPermohonan['nama_layanan'] }}</p>
-                                        </div>
+                                    <div class="form-group col-md-5 col-12">
+                                        <label>Tipe</label>
+                                        <p>{{ $dataPermohonan['nama_type'] }}</p>
 
                                     </div>
+                                </div>
 
-                                    <div class="row">
-                                        <div class="form-group col-12">
-                                            <label>Subject</label>
-                                            <p>{{ $dataPermohonan['subject'] }}</p>
-
-                                        </div>
+                                <div class="row">
+                                    <div class="form-group col-md-7 col-12">
+                                        <label>Layanan</label>
+                                        <p>{{ $dataPermohonan['nama_layanan'] }}</p>
                                     </div>
-
-                                    <div class="row">
-                                        <div class="form-group col-12">
-                                            <label>File Pendukung</label>
-                                            @if ($dataPermohonan['file'] != null)
-                                                <a href="{{ route('downloadFilePermohonan', $dataPermohonan['file']) }}"
-                                                    class="btn btn-primary form-control">Downlod</a>
-                                            @else
-                                                <p>Tidak ada file pendukung.</p>
-                                            @endif
-
-                                        </div>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="form-group col-12">
-                                            <label>Keterangan</label>
-                                            <p>{{ $dataPermohonan['keterangan'] }}</p>
-                                        </div>
-                                    </div>
-
 
                                 </div>
-                                <div class="card-footer text-right">
-                                    <button type="submit" class="btn btn-danger">Hapus</button>
-                                    <button type="submit" class="btn btn-warning">Ubah</button>
+
+                                <div class="row">
+                                    <div class="form-group col-12">
+                                        <label>Subject</label>
+                                        <p>{{ $dataPermohonan['subject'] }}</p>
+
+                                    </div>
                                 </div>
-                            </form>
+
+                                <div class="row">
+                                    <div class="form-group col-12">
+                                        <label>File Pendukung</label>
+                                        @if ($dataPermohonan['file'] != null)
+                                            <a href="{{ route('downloadFilePermohonan', $dataPermohonan['file']) }}"
+                                                class="btn btn-primary form-control">Downlod</a>
+                                        @else
+                                            <p>Tidak ada file pendukung.</p>
+                                        @endif
+
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="form-group col-12">
+                                        <label>Keterangan</label>
+                                        <p>{{ $dataPermohonan['keterangan'] }}</p>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                            <div class="card-footer text-right">
+                                <button id="btnDelete" class="btn btn-danger">Hapus</button>
+                                <button type="submit" class="btn btn-warning">Ubah</button>
+                            </div>
+
                         </div>
                     </div>
 
@@ -318,4 +316,26 @@
 
 
     </div>
+@endsection
+
+@section('sweet_alert')
+    <script>
+        $("#btnDelete").click(function() {
+
+            swal({
+                    title: 'Apakah Anda yakin?',
+                    text: 'Data yang telah dihapus tidak dapat dipulihkan kembali!',
+                    icon: 'warning',
+                    buttons: true,
+                    dangerMode: true,
+                })
+                .then((willDelete) => {
+                    if (willDelete) {
+                        window.location.href = '/deletePermohonan/{{ $dataPermohonan['permohonan_id'] }}';
+                    } else {
+
+                    }
+                });
+        });
+    </script>
 @endsection

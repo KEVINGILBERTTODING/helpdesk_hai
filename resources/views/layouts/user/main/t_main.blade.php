@@ -88,6 +88,7 @@
 </body>
 
 </html>
+@yield('sweet_alert')
 
 @if (session('failed'))
     <script>

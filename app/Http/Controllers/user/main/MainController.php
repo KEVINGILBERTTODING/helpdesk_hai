@@ -204,4 +204,18 @@ class MainController extends Controller
             return abort(404);
         }
     }
+
+    function deletePermohonan($id)
+    {
+        try {
+            $deletePermohonan = PuModel::where('permohonan_id', $id)->delete();
+            if ($deletePermohonan) {
+                return redirect()->route('allPermohonan')->with('success', 'Berhasil menghapus data');
+            } else {
+                return redirect()->route('allPermohonan')->with('failed', 'Gagal menghapus data');
+            }
+        } catch (\Throwable $th) {
+            return redirect()->route('allPermohonan')->with('failed', 'Terjadi kesalahan');
+        }
+    }
 }
