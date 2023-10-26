@@ -166,6 +166,38 @@ class MainController extends Controller
         return view('user.permohonan.process_permohonan', $data);
     }
 
+    function successPermohonan()
+    {
+        if (session('login') != true) {
+            return redirect('login');
+        }
+        $dataUser = User::where('user_id', session('user_id'))->first();
+        $dataPermohonan = PuModel::where('user_id', session('user_id'))->where('status', 1)
+            ->orderBy('permohonan_id', 'desc')
+            ->get();
+        $data = [
+            'profile_photo' => $dataUser['profile_photo'],
+            'dataPermohonan' => $dataPermohonan
+        ];
+        return view('user.permohonan.success_permohonan', $data);
+    }
+
+    function failedPermohonan()
+    {
+        if (session('login') != true) {
+            return redirect('login');
+        }
+        $dataUser = User::where('user_id', session('user_id'))->first();
+        $dataPermohonan = PuModel::where('user_id', session('user_id'))->where('status', 0)
+            ->orderBy('permohonan_id', 'desc')
+            ->get();
+        $data = [
+            'profile_photo' => $dataUser['profile_photo'],
+            'dataPermohonan' => $dataPermohonan
+        ];
+        return view('user.permohonan.failed_permohonan', $data);
+    }
+
     function detailPermohonan($id)
     {
 
@@ -256,6 +288,9 @@ class MainController extends Controller
 
     function updateData(Request $request)
     {
+        if (session('login') != true) {
+            return redirect('login');
+        }
         $validator = Validator::make($request->all(), [
             'permohonan_id' => 'integer|required',
             'layanan_id' => 'required|integer',

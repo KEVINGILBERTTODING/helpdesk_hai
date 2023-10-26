@@ -156,9 +156,7 @@
                         <i class="far fa-user"></i> Profile
                     </a>
 
-                    <a href="features-settings.html" class="dropdown-item has-icon">
-                        <i class="fas fa-cog"></i> Settings
-                    </a>
+
                     <div class="dropdown-divider"></div>
                     <a href="{{ route('logout') }}" class="dropdown-item has-icon text-danger">
                         <i class="fas fa-sign-out-alt"></i> Logout
@@ -193,8 +191,8 @@
                         <li><a class="nav-link" href="{{ route('createPermohonan') }}">Permohonan Baru</a></li>
                         <li><a class="nav-link" href="{{ route('allPermohonan') }}">Semua Permohonan</a>
                         <li><a class="nav-link" href="{{ route('processPermohonan') }}">Permohonan Proses</a></li>
-                        <li><a class="nav-link" href="layout-transparent.html">Permohonan Selesai</a></li>
-                        <li><a class="nav-link" href="layout-transparent.html">Permohonan ditolak</a></li>
+                        <li><a class="nav-link" href="{{ route('successPermohonan') }}">Permohonan Selesai</a></li>
+                        <li><a class="nav-link" href="{{ route('failedPermohonan') }}">Permohonan ditolak</a></li>
 
                     </ul>
                 </li>
@@ -215,69 +213,78 @@
             </div>
             <div class="row">
                 <div class="col-lg-3 col-md-6 col-sm-6 col-12">
-                    <div class="card card-statistic-1">
-                        <div class="card-icon bg-primary">
-                            <i class="fa-regular fa-folder fa-2xl" style="color: #ffffff;"></i>
-                        </div>
-                        <div class="card-wrap">
-                            <div class="card-header">
-                                <h4>Total Permohonan</h4>
+                    <a href="{{ route('allPermohonan') }}">
+                        <div class="card card-statistic-1">
+                            <div class="card-icon bg-primary">
+                                <i class="fa-regular fa-folder fa-2xl" style="color: #ffffff;"></i>
                             </div>
-                            <div class="card-body">
-                                {{ $totalPermohonan }}
+                            <div class="card-wrap">
+                                <div class="card-header">
+                                    <h4>Total Permohonan</h4>
+                                </div>
+                                <div class="card-body">
+                                    {{ $totalPermohonan }}
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    </a>
+
                 </div>
                 <div class="col-lg-3 col-md-6 col-sm-6 col-12">
-                    <div class="card card-statistic-1">
-                        <div class="card-icon bg-success">
-                            <i class="fa-solid fa-check fa-2xl" style="color: #ffffff;"></i>
-                        </div>
-                        <div class="card-wrap">
-                            <div class="card-header">
-                                <h4>Permohonan selesai</h4>
+                    <a href="{{ route('successPermohonan') }}">
+                        <div class="card card-statistic-1">
+                            <div class="card-icon bg-success">
+                                <i class="fa-solid fa-check fa-2xl" style="color: #ffffff;"></i>
                             </div>
-                            <div class="card-body">
-                                {{ $permohonanValid }}
+                            <div class="card-wrap">
+                                <div class="card-header">
+                                    <h4>Permohonan selesai</h4>
+                                </div>
+                                <div class="card-body">
+                                    {{ $permohonanValid }}
 
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-3 col-md-6 col-sm-6 col-12">
-                    <div class="card card-statistic-1">
-                        <div class="card-icon bg-warning">
-                            <i class="fa-solid fa-hourglass fa-2xl" style="color: #ffffff;"></i>
-                        </div>
-                        <div class="card-wrap">
-                            <div class="card-header">
-                                <h4>Permohonan Proses</h4>
-                            </div>
-                            <div class="card-body">
-                                {{ $permohonanProses }}
-
-                            </div>
-                        </div>
-                    </div>
+                    </a>
                 </div>
 
                 <div class="col-lg-3 col-md-6 col-sm-6 col-12">
-                    <div class="card card-statistic-1">
-                        <div class="card-icon bg-danger">
-                            <i class="fa-solid fa-xmark fa-2xl" style="color: #ffffff;"></i>
-                        </div>
-                        <div class="card-wrap">
-                            <div class="card-header">
-                                <h4>Permohonan ditolak</h4>
+                    <a href="{{ route('processPermohonan') }}">
+                        <div class="card card-statistic-1">
+                            <div class="card-icon bg-warning">
+                                <i class="fa-solid fa-hourglass fa-2xl" style="color: #ffffff;"></i>
                             </div>
-                            <div class="card-body">
-                                {{ $permohonanTidakValid }}
+                            <div class="card-wrap">
+                                <div class="card-header">
+                                    <h4>Permohonan Proses</h4>
+                                </div>
+                                <div class="card-body">
+                                    {{ $permohonanProses }}
 
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    </a>
+                </div>
+
+                <div class="col-lg-3 col-md-6 col-sm-6 col-12">
+                    <a href="{{ route('failedPermohonan') }}">
+                        <div class="card card-statistic-1">
+                            <div class="card-icon bg-danger">
+                                <i class="fa-solid fa-xmark fa-2xl" style="color: #ffffff;"></i>
+                            </div>
+                            <div class="card-wrap">
+                                <div class="card-header">
+                                    <h4>Permohonan ditolak</h4>
+                                </div>
+                                <div class="card-body">
+                                    {{ $permohonanTidakValid }}
+
+                                </div>
+                            </div>
+                        </div>
+                    </a>
                 </div>
 
             </div>

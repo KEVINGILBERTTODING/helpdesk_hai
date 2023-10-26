@@ -2,7 +2,7 @@
 
 {{-- Title --}}
 @section('title')
-    <title>HAI - Detail Permohonan</title>
+    <title>Permohonan Ditolak</title>
 @endsection
 
 
@@ -151,7 +151,7 @@
                     <div class="d-sm-none d-lg-inline-block">Hi, {{ session('name') }}</div>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right">
-                    <div class="dropdown-title">Logged in 5 min ago</div>
+
                     <a href="features-profile.html" class="dropdown-item has-icon">
                         <i class="far fa-user"></i> Profile
                     </a>
@@ -192,10 +192,13 @@
                     <ul class="dropdown-menu">
                         <li><a class="nav-link" href="{{ route('createPermohonan') }}">Permohonan Baru</a>
                         </li>
-                        <li><a class="nav-link" href="{{ route('allPermohonan') }}">Semua Permohonan</a></li>
-                        <li><a class="nav-link" href="{{ route('processPermohonan') }}">Permohonan Proses</a></li>
+                        <li><a class="nav-link" href="{{ route('allPermohonan') }}">Semua Permohonan</a>
+                        </li>
+                        <li><a class="nav-link" href="{{ route('processPermohonan') }}">
+                                Permohonan Proses</a>
+                        </li>
                         <li><a class="nav-link" href="{{ route('successPermohonan') }}">Permohonan Selesai</a></li>
-                        <li><a class="nav-link" href="{{ route('failedPermohonan') }}">Permohonan
+                        <li class="active"><a class="nav-link" href="{{ route('failedPermohonan') }}">Permohonan
                                 ditolak</a></li>
 
                     </ul>
@@ -211,179 +214,76 @@
 
 @section('content')
     <div class="main-content">
-        <div class="container-fluid">
-
-        </div>
         <section class="section">
             <div class="section-header">
-                <h1>Detail Permohonan</h1>
+                <h1>Daftar Permohonan Ditolak</h1>
                 <div class="section-header-breadcrumb">
                     <div class="breadcrumb-item active"><a href="{{ route('dashboard') }}">Dashboard</a></div>
-                    <div class="breadcrumb-item">Detail Permohonan</div>
-
+                    <div class="breadcrumb-item">Permohonan Ditolak</div>
                 </div>
             </div>
 
             <div class="section-body">
-                <h2 class="section-title">Detail Permohonan</h2>
-                <p class="section-lead"><i class="fa-regular fa-clock"></i> {{ $dataPermohonan['created_at'] }}</p>
+                <h2 class="section-title">Permohonan Ditolak</h2>
+                <p class="section-lead">Daftar semua permohonan yang ditolak.</p>
 
 
                 <div class="row">
-
-                    <div class="col-12 col-md-12 col-lg-7">
-                        <div class="card">
-
-                            <div class="card-header">
-                                <h4>Data Permohonan</h4>
-                                @if ($dataPermohonan['status'] == 1)
-                                    <a href="#" class="badge badge-success">Selesai</a>
-                                @elseif ($dataPermohonan['status'] == 2)
-                                    <a href="#" class="badge badge-warning">Proses</a>
-                                @elseif ($dataPermohonan['status'] == 0)
-                                    <a href="#" class="badge badge-danger">Ditolak</a>
-                                @endif
-
-
-                            </div>
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="form-group col-md-7 col-12">
-                                        <label>Nama</label>
-                                        <p>{{ $dataPermohonan['nama'] }}</p>
+                    @foreach ($dataPermohonan as $dp)
+                        <div class="col-12 col-sm-6 col-md-6 col-lg-3">
+                            <article class="article article-style-b">
+                                <div class="article-header">
+                                    <div class="article-image"
+                                        data-background="{{ asset('template/main/dist/assets/img/news/img09.jpg') }}">
                                     </div>
-                                    <div class="form-group col-md-5 col-12">
-                                        <label>Bidang</label>
-                                        <p>{{ $nama_bidang }}</p>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="form-group col-md-7 col-12">
-                                        <label>Email</label>
-                                        <p>{{ $dataPermohonan['email'] }}</p>
-                                    </div>
-                                    <div class="form-group col-md-5 col-12">
-                                        <label>Tipe</label>
-                                        <p>{{ $dataPermohonan['nama_type'] }}</p>
-
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="form-group col-md-7 col-12">
-                                        <label>Layanan</label>
-                                        <p>{{ $dataPermohonan['nama_layanan'] }}</p>
-                                    </div>
-
-                                </div>
-
-                                <div class="row">
-                                    <div class="form-group col-12">
-                                        <label>Subject</label>
-                                        <p>{{ $dataPermohonan['subject'] }}</p>
-
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="form-group col-12">
-                                        <label>File Pendukung</label>
-                                        @if ($dataPermohonan['file'] != null)
-                                            <a href="{{ route('downloadFilePermohonan', $dataPermohonan['file']) }}"
-                                                class="btn btn-primary form-control">Downlod</a>
-                                        @else
-                                            <p>Tidak ada file pendukung.</p>
+                                    <div class="article-badge">
+                                        @if ($dp->status == 1)
+                                            <div class="article-badge-item bg-success"><i class="fa-solid fa-check"></i>
+                                                Selesai
+                                            </div>
+                                        @elseif ($dp->status == 2)
+                                            <div class="article-badge-item bg-warning"><i
+                                                    class="fa-solid fa-hourglass"></i>
+                                                Proses
+                                            </div>
+                                        @elseif ($dp->status == 0)
+                                            <div class="article-badge-item bg-danger"><i class="fa-solid fa-xmark"></i>
+                                                ditolak
+                                            </div>
                                         @endif
 
                                     </div>
                                 </div>
 
-                                <div class="row">
-                                    <div class="form-group col-12">
-                                        <label>Keterangan</label>
-                                        <p>{{ $dataPermohonan['keterangan'] }}</p>
+
+
+                                <div class="article-details">
+                                    <p class="text-sm" style="font-size: 12px;">{{ $dp->created_at }}</p>
+                                    <div class="article-title">
+                                        <h2><a href="#">{{ $dp->subject }}</a></h2>
+                                    </div>
+
+                                    @if ($dp->keterangan)
+                                        @if (strlen($dp->keterangan) > 94)
+                                            <p>{{ substr($dp->keterangan, 0, 94) }}...</p>
+                                        @else
+                                            <p>{{ $dp->keterangan }}</p>
+                                        @endif
+                                    @endif
+
+                                    <div class="article-cta">
+                                        <a href="{{ route('detailPermohonan', Crypt::encrypt($dp->permohonan_id)) }}">Lihat
+                                            detail
+                                            <i class="fas fa-chevron-right"></i></a>
                                     </div>
                                 </div>
-                                @if ($dataPermohonan['status'] == 0)
-                                    <div class="row">
-                                        <div class="form-group col-12">
-
-                                            <button data-toggle="modal" data-target="#exampleModal"
-                                                class="btn btn-primary">Lihat Alasan
-                                                Penolakan</button>
-
-                                        </div>
-                                    </div>
-                                @endif
-
-
-
-                            </div>
-                            @if ($dataPermohonan['status'] == 2)
-                                <div class="card-footer text-right">
-                                    <button id="btnDelete" class="btn btn-danger">Hapus</button>
-                                    <a
-                                        href="{{ route('updatePermohonan', Crypt::encrypt($dataPermohonan['permohonan_id'])) }}"><button
-                                            class="btn btn-warning">Ubah</button></a>
-                                </div>
-                            @endif
-
-
+                            </article>
                         </div>
-                    </div>
+                    @endforeach
 
                 </div>
-
-
             </div>
-
 
         </section>
-
-
-
     </div>
-
-    {{-- Modal alasan --}}
-    <div class="modal fade" tabindex="-1" role="dialog" id="exampleModal">
-        <div class="modal-dialog " role="document">
-            <div class="modal-content modal-dialog-scrollable">
-                <div class="modal-header">
-                    <h5 class="modal-title">Alasan Penolakan</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <p>{{ $dataPermohonan['alasan'] }}</p>
-
-                </div>
-                <div class="modal-footer bg-whitesmoke br">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-                </div>
-            </div>
-        </div>
-    </div>
-@endsection
-
-@section('sweet_alert')
-    <script>
-        $("#btnDelete").click(function() {
-
-            swal({
-                    title: 'Apakah Anda yakin?',
-                    text: 'Data yang telah dihapus tidak dapat dipulihkan kembali!',
-                    icon: 'warning',
-                    buttons: true,
-                    dangerMode: true,
-                })
-                .then((willDelete) => {
-                    if (willDelete) {
-                        window.location.href = '/deletePermohonan/{{ $dataPermohonan['permohonan_id'] }}';
-                    } else {
-
-                    }
-                });
-        });
-    </script>
 @endsection

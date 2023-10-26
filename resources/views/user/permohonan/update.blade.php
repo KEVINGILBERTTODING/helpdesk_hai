@@ -194,8 +194,9 @@
                         </li>
                         <li><a class="nav-link" href="{{ route('allPermohonan') }}">Semua Permohonan</a></li>
                         <li><a class="nav-link" href="{{ route('processPermohonan') }}">Permohonan Proses</a></li>
-                        <li><a class="nav-link" href="layout-transparent.html">Permohonan Selesai</a></li>
-                        <li><a class="nav-link" href="layout-transparent.html">Permohonan ditolak</a></li>
+                        <li><a class="nav-link" href="{{ route('successPermohonan') }}">Permohonan Selesai</a></li>
+                        <li><a class="nav-link" href="{{ route('failedPermohonan') }}">Permohonan
+                                ditolak</a></li>
 
                     </ul>
                 </li>
@@ -244,11 +245,12 @@
 
                                         <div class="form-group col-md-7 col-12">
                                             <label>Nama</label>
-                                            <input type="text" class="form-control" required readonly
+                                            <input required type="text" class="form-control" required readonly
                                                 value="{{ $dataPermohonan['nama'] }}">
 
-                                            <input hidden name="permohonan_id" type="text" class="form-control"
-                                                required readonly value="{{ $dataPermohonan['permohonan_id'] }}">
+                                            <input required hidden name="permohonan_id" type="text"
+                                                class="form-control" required readonly
+                                                value="{{ $dataPermohonan['permohonan_id'] }}">
                                         </div>
                                         <div class="form-group col-md-5 col-12">
                                             <label>Bidang</label>
@@ -266,7 +268,7 @@
                                         </div>
                                         <div class="form-group col-md-5 col-12">
                                             <label>Tipe</label>
-                                            <select name="type_id" class="form-control">
+                                            <select name="type_id" required class="form-control">
                                                 <option selected value="{{ $dataPermohonan['type_id'] }}">
                                                     {{ $dataPermohonan['nama_type'] }}</option>
 
@@ -287,7 +289,7 @@
                                         <div class="form-group col-12">
                                             <label>Layanan</label>
 
-                                            <select name="layanan_id" class="form-control">
+                                            <select required name="layanan_id" class="form-control">
                                                 <option selected value="{{ $dataPermohonan['layanan_id'] }}">
                                                     {{ $dataPermohonan['nama_layanan'] }}</option>
 

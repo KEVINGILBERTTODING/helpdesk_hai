@@ -43,6 +43,8 @@ Route::get('logout', [AuthController::class, 'logout'])->name('logout');
 Route::get('createPermohonan', [MainController::class, 'createPermohonan'])->name('createPermohonan');
 Route::get('allPermohonan', [MainController::class, 'allPermohonan'])->name('allPermohonan');
 Route::get('processPermohonan', [MainController::class, 'processPermohonan'])->name('processPermohonan');
+Route::get('successPermohonan', [MainController::class, 'successPermohonan'])->name('successPermohonan');
+Route::get('failedPermohonan', [MainController::class, 'failedPermohonan'])->name('failedPermohonan');
 Route::get('detailPermohonan/{id}', [MainController::class, 'detailPermohonan'])->name('detailPermohonan');
 Route::get('updatePermohonan/{id}', [MainController::class, 'updatePermohonan'])->name('updatePermohonan');
 Route::post('updateData', [MainController::class, 'updateData'])->name('updateData');

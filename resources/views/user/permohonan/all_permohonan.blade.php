@@ -195,8 +195,9 @@
                         <li class="active"><a class="nav-link" href="{{ route('allPermohonan') }}">Semua Permohonan</a>
                         </li>
                         <li><a class="nav-link" href="{{ route('processPermohonan') }}">Permohonan Proses</a></li>
-                        <li><a class="nav-link" href="layout-transparent.html">Permohonan Selesai</a></li>
-                        <li><a class="nav-link" href="layout-transparent.html">Permohonan ditolak</a></li>
+                        <li><a class="nav-link" href="{{ route('successPermohonan') }}">Permohonan Selesai</a></li>
+                        <li><a class="nav-link" href="{{ route('failedPermohonan') }}">Permohonan
+                                ditolak</a></li>
 
                     </ul>
                 </li>
@@ -274,7 +275,7 @@
                                         <a href="{{ route('detailPermohonan', Crypt::encrypt($dp->permohonan_id)) }}">Lihat
                                             detail
                                             <i class="fas fa-chevron-right"></i></a>
-                                        </form>
+
                                     </div>
                                 </div>
                             </article>
