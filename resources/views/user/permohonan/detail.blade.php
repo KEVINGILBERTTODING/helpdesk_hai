@@ -2,7 +2,7 @@
 
 {{-- Title --}}
 @section('title')
-    <title>Hai - Detail Permohonan</title>
+    <title>HAI - Detail Permohonan</title>
 @endsection
 
 
@@ -299,7 +299,9 @@
                             </div>
                             <div class="card-footer text-right">
                                 <button id="btnDelete" class="btn btn-danger">Hapus</button>
-                                <button type="submit" class="btn btn-warning">Ubah</button>
+                                <a
+                                    href="{{ route('updatePermohonan', Crypt::encrypt($dataPermohonan['permohonan_id'])) }}"><button
+                                        class="btn btn-warning">Ubah</button></a>
                             </div>
 
                         </div>

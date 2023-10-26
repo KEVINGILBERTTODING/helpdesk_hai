@@ -2,7 +2,7 @@
 
 {{-- Title --}}
 @section('title')
-    <title>Semua Permohonan</title>
+    <title>HAI - Semua Permohonan</title>
 @endsection
 
 

@@ -2,7 +2,7 @@
 
 {{-- Title --}}
 @section('title')
-    <title>Permohonan Baru</title>
+    <title>HAI - Ubah Permohonan</title>
 @endsection
 
 
@@ -190,7 +190,7 @@
                     <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i
                             class="fa-regular fa-folder"></i> <span>Permohonan Saya</span></a>
                     <ul class="dropdown-menu">
-                        <li class="active"><a class="nav-link" href="{{ route('createPermohonan') }}">Permohonan Baru</a>
+                        <li><a class="nav-link" href="{{ route('createPermohonan') }}">Permohonan Baru</a>
                         </li>
                         <li><a class="nav-link" href="{{ route('allPermohonan') }}">Semua Permohonan</a></li>
                         <li><a class="nav-link" href="{{ route('processPermohonan') }}">Permohonan Proses</a></li>
@@ -215,138 +215,152 @@
         </div>
         <section class="section">
             <div class="section-header">
-                <h1>Form Permohonan Baru</h1>
+                <h1>Ubah Permohonan</h1>
                 <div class="section-header-breadcrumb">
                     <div class="breadcrumb-item active"><a href="{{ route('dashboard') }}">Dashboard</a></div>
-                    <div class="breadcrumb-item">Permohonan Baru</div>
+                    <div class="breadcrumb-item">Ubah Permohonan</div>
 
                 </div>
             </div>
 
             <div class="section-body">
-                <h2 class="section-title">Permohonan Baru</h2>
-                <p class="section-lead">Ajukan permohonan baru.</p>
+                <h2 class="section-title">Ubah Permohonan</h2>
+                <p class="section-lead"><i class="fa-regular fa-clock"></i> {{ $dataPermohonan['created_at'] }}</p>
 
 
                 <div class="row">
 
                     <div class="col-12 col-md-12 col-lg-7">
                         <div class="card">
-                            <form method="post" class="needs-validation" action="{{ route('insertPermohonan') }}"
-                                enctype="multipart/form-data">
+
+                            <div class="card-header">
+                                <h4>Data Permohonan</h4>
+                            </div>
+                            <form action="{{ route('updateData') }}" method="POST" enctype="multipart/form-data">
                                 @csrf
-                                <div class="card-header">
-                                    <h4>Data Permohonan</h4>
-                                </div>
                                 <div class="card-body">
+
                                     <div class="row">
-                                        <div class="form-group col-md-6 col-12">
+
+                                        <div class="form-group col-md-7 col-12">
                                             <label>Nama</label>
-                                            <input name="name" type="text" readonly class="form-control"
-                                                value="{{ session('name') }}" required="">
-                                            <div class="invalid-feedback">
-                                                Please fill in the first name
-                                            </div>
+                                            <input type="text" class="form-control" required readonly
+                                                value="{{ $dataPermohonan['nama'] }}">
+
+                                            <input hidden name="permohonan_id" type="text" class="form-control"
+                                                required readonly value="{{ $dataPermohonan['permohonan_id'] }}">
                                         </div>
-                                        <div class="form-group col-md-6 col-12">
-                                            <label>Layanan <a href="#" data-toggle="modal"
-                                                    data-target="#exampleModal"><i
-                                                        class="fa-regular fa-circle-question fa-lg"
-                                                        style="color: #226d31;"></a></i></label>
-                                            <select name="layanan_id" class="form-control">
-                                                @foreach ($layanan as $ly)
-                                                    <option value="{{ $ly->layanan_id }}">{{ $ly->nama_layanan }}
-                                                    </option>
-                                                @endforeach
-                                            </select>
+                                        <div class="form-group col-md-5 col-12">
+                                            <label>Bidang</label>
+                                            <input type="text" class="form-control" required readonly
+                                                value="{{ $nama_bidang }}">
+
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="form-group col-md-7 col-12">
                                             <label>Email</label>
-                                            <input name="email" readonly="email" class="form-control"
-                                                value="{{ session('email') }}" required="">
-                                            <div class="invalid-feedback">
-                                                Please fill in the email
-                                            </div>
+                                            <input type="text" class="form-control" required readonly
+                                                value="{{ $dataPermohonan['email'] }}">
+
                                         </div>
                                         <div class="form-group col-md-5 col-12">
-
                                             <label>Tipe</label>
                                             <select name="type_id" class="form-control">
-                                                @foreach ($type as $tp)
-                                                    <option value="{{ $tp->type_id }}">{{ $tp->nama_type }}</option>
+                                                <option selected value="{{ $dataPermohonan['type_id'] }}">
+                                                    {{ $dataPermohonan['nama_type'] }}</option>
+
+                                                @foreach ($data_type as $dt)
+                                                    @if ($dt->type_id == $dataPermohonan['type_id'])
+                                                        <option hidden value="{{ $dt->type_id }}">{{ $dt->nama_type }}
+                                                        </option>
+                                                    @else
+                                                        <option value="{{ $dt->type_id }}">{{ $dt->nama_type }}</option>
+                                                    @endif
                                                 @endforeach
                                             </select>
 
                                         </div>
                                     </div>
 
+                                    <div class="row">
+                                        <div class="form-group col-12">
+                                            <label>Layanan</label>
+
+                                            <select name="layanan_id" class="form-control">
+                                                <option selected value="{{ $dataPermohonan['layanan_id'] }}">
+                                                    {{ $dataPermohonan['nama_layanan'] }}</option>
+
+                                                @foreach ($data_layanan as $dl)
+                                                    @if ($dl->layanan_id == $dataPermohonan['layanan_id'])
+                                                        <option hidden value="{{ $dl->layanan_id }}">
+                                                            {{ $dl->nama_layanan }}
+                                                        </option>
+                                                    @else
+                                                        <option value="{{ $dl->layanan_id }}">{{ $dl->nama_layanan }}
+                                                        </option>
+                                                    @endif
+                                                @endforeach
+                                            </select>
+                                        </div>
+
+                                    </div>
 
                                     <div class="row">
                                         <div class="form-group col-12">
                                             <label>Subjek</label>
                                             <input required name="subject" type="text" class="form-control"
-                                                value="">
-
+                                                value="{{ $dataPermohonan['subject'] }}">
                                         </div>
                                     </div>
 
                                     <div class="row">
                                         <div class="form-group col-12">
+
                                             <label>File Pendukung (<span class="text-danger">10MB | .pdf, .jpg, .png,
                                                     .jpeg</span>)</label>
                                             <input type="file" name="evidence" class="form-control"
                                                 accept=".pdf, .jpg, .png, .jpeg">
+                                            @if ($dataPermohonan['file'] != null)
+                                                <label><a
+                                                        href="{{ route('downloadFilePermohonan', $dataPermohonan['file']) }}"><span
+                                                            class="text-primary">{{ $dataPermohonan['file'] }}</span></a></label>
+                                            @else
+                                                <p>Tidak ada file pendukung.</p>
+                                            @endif
+
                                         </div>
                                     </div>
 
                                     <div class="row">
                                         <div class="form-group col-12">
                                             <label>Keterangan</label>
-                                            <textarea required name="description" required class="form-control" rows="7"></textarea>
+                                            <textarea required name="description" required class="form-control" rows="7">{{ $dataPermohonan['keterangan'] }}</textarea>
+
                                         </div>
                                     </div>
 
 
                                 </div>
                                 <div class="card-footer text-right">
-                                    <button type="submit" class="btn btn-primary">Kirim</button>
+
+                                    <button type="submit" class="btn btn-primary">Simpan</button>
                                 </div>
+
                             </form>
                         </div>
+
                     </div>
-
                 </div>
-
 
             </div>
 
 
-        </section>
+    </div>
 
-        <div class="modal fade" tabindex="-1" role="dialog" id="exampleModal">
-            <div class="modal-dialog " role="document">
-                <div class="modal-content modal-dialog-scrollable">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Daftar Layanan</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        @foreach ($layanan as $lyn)
-                            <h6 class="text-sm">{{ $lyn->nama_layanan }}</h6>
-                            <p>{{ $lyn->description }}</p>
-                        @endforeach
-                        <h5></h5>
-                    </div>
-                    <div class="modal-footer bg-whitesmoke br">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-                    </div>
-                </div>
-            </div>
-        </div>
+
+    </section>
+
 
 
     </div>

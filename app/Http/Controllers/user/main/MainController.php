@@ -207,6 +207,9 @@ class MainController extends Controller
 
     function deletePermohonan($id)
     {
+        if (session('login') != true) {
+            return redirect('login');
+        }
         try {
             $deletePermohonan = PuModel::where('permohonan_id', $id)->delete();
             if ($deletePermohonan) {
@@ -216,6 +219,105 @@ class MainController extends Controller
             }
         } catch (\Throwable $th) {
             return redirect()->route('allPermohonan')->with('failed', 'Terjadi kesalahan');
+        }
+    }
+
+    function updatePermohonan($id)
+    {
+
+        if (session('login') != true) {
+            return redirect('login');
+        }
+        try {
+
+            $puModel = new PuModel();
+            $dataPermohonan = $puModel->getDetailPermohonan(Crypt::decrypt($id));
+            $dataUser = User::where('user_id', session('user_id'))->first();
+            $namaBidang = BidangModel::where('bidang_id', $dataUser['bidang_id'])->where('status', 1)->first();
+            $dataType = TypeModel::where('status', 1)->get();
+            $dataLayanan = LayananModel::where('status', 1)->get();
+            if ($dataPermohonan == null || $dataPermohonan['user_id'] != session('user_id')) {
+                return redirect()->route('detailPermohonan', $id)->with('failed', 'Terjadi kesalahan dalam memuat detail permohonan');
+            }
+
+            $data = [
+                'dataPermohonan' => $dataPermohonan,
+                'profile_photo' => $dataUser['profile_photo'],
+                'nama_bidang' => $namaBidang['nama_bidang'],
+                'data_type' => $dataType,
+                'data_layanan' => $dataLayanan
+            ];
+
+            return view('user.permohonan.update', $data);
+        } catch (\Throwable $th) {
+            return redirect()->route('detailPermohonan', $id)->with('failed', 'Terjadi kesalahan dalam memuat detail permohonan');
+        }
+    }
+
+    function updateData(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'permohonan_id' => 'integer|required',
+            'layanan_id' => 'required|integer',
+            'type_id' => 'required|integer',
+            'subject' => 'required|string',
+            'description' => 'required|string',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->route('detailPermohonan', Crypt::encrypt($request->input('permohonan_id')))->with('failed', 'Terjadi kesalahan');
+        }
+
+        try {
+
+
+            if ($request->hasFile('evidence')) { // jika ada file
+                $validatorFile = Validator::make($request->all(), [
+                    'evidence' => 'required|mimes:png,jpg,jpeg,pdf|max:10000',
+                ]);
+
+                if ($validatorFile->fails()) {
+                    return redirect()->route('detailPermohonan', Crypt::encrypt($request->input('permohonan_id')))->with('failed', 'File tidak valid');
+                }
+
+                $file = $request->file('evidence');
+                $fileName = time() . "_" . session('user_id')   . "." . $file->getClientOriginalExtension();
+                $file->move('data/file', $fileName);
+                $data = [
+                    'subject' => $request->input('subject'),
+                    'layanan_id' => $request->input('layanan_id'),
+                    'keterangan' => $request->input('description'),
+                    'file' => $fileName,
+                    'type_id' => $request->input('type_id'),
+                    'updated_at' => date('Y-m-d H:i:s')
+                ];
+
+                $update = PuModel::where('permohonan_id', $request->input('permohonan_id'))->update($data);
+
+                if ($update) {
+                    return redirect()->route('detailPermohonan', Crypt::encrypt($request->input('permohonan_id')))->with('success', 'Berhasil mengubah permohonan');
+                } else {
+                    return redirect()->route('detailPermohonan', Crypt::encrypt($request->input('permohonan_id')))->with('failed', 'Gagal mengubah permohonan');
+                }
+            } else {
+                $data = [
+
+                    'subject' => $request->input('subject'),
+                    'layanan_id' => $request->input('layanan_id'),
+                    'keterangan' => $request->input('description'),
+                    'type_id' => $request->input('type_id'),
+                    'updated_at' => date('Y-m-d H:i:s')
+                ];
+
+                $update = PuModel::where('permohonan_id', $request->input('permohonan_id'))->update($data);
+                if ($update) {
+                    return redirect()->route('detailPermohonan', Crypt::encrypt($request->input('permohonan_id')))->with('success', 'Berhasil mengubah permohonan');
+                } else {
+                    return redirect()->route('detailPermohonan', Crypt::encrypt($request->input('permohonan_id')))->with('failed', 'Gagal mengubah permohonan');
+                }
+            }
+        } catch (\Throwable $th) {
+            return redirect()->route('detailPermohonan', Crypt::encrypt($request->input('permohonan_id')))->with('failed', 'Terjadi kesalahan');
         }
     }
 }
