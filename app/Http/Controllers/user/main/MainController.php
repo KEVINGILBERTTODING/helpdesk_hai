@@ -90,6 +90,14 @@ class MainController extends Controller
             UserModel::where('user_id', session('user_id'))->update($dataUser);
 
             if ($request->hasFile('evidence')) { // jika ada file
+                $validatorFile = Validator::make($request->all(), [
+                    'evidence' => 'required|mimes:png,jpg,jpeg,pdf|max:10000',
+                ]);
+
+                if ($validatorFile->fails()) {
+                    return redirect('createPermohonan')->with('failed', 'File tidak valid');
+                }
+
                 $file = $request->file('evidence');
                 $fileName = time() . "_" . session('user_id')   . "." . $file->getClientOriginalExtension();
                 $file->move('data/file', $fileName);
@@ -134,7 +142,7 @@ class MainController extends Controller
                 }
             }
         } catch (\Throwable $th) {
-            return redirect('createPermohonan')->with('failed', $th->getMessage());
+            return redirect('createPermohonan')->with('failed', 'Terjadi kesalahan');
         }
     }
 

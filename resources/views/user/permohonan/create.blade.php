@@ -320,7 +320,8 @@
                                     <div class="row">
                                         <div class="form-group col-12">
                                             <label>File Pendukung</label>
-                                            <input type="file" name="evidence" class="form-control">
+                                            <input type="file" name="evidence" class="form-control"
+                                                accept=".pdf, .jpg, .png, .jpeg">
                                         </div>
                                     </div>
 
@@ -352,7 +353,7 @@
             <div class="modal-dialog " role="document">
                 <div class="modal-content modal-dialog-scrollable">
                     <div class="modal-header">
-                        <h5 class="modal-title">Penjelasan Layanan</h5>
+                        <h5 class="modal-title">Daftar Layanan</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
