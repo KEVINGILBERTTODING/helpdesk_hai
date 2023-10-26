@@ -4,7 +4,6 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\DB;
 
 class PuModel extends Model
 {
@@ -15,17 +14,13 @@ class PuModel extends Model
     {
         $data = PuModel::select(
             'permohonan.*',
-            'department.nama_department',
             'users.name as nama',
             'users.email',
-            'layanan_masyarakat.nama_layanan',
-            'city.nama as nama_kota',
+            'layanan.nama_layanan',
             'type.nama_type',
         )
-            ->join('department', 'permohonan.department_id', '=', 'department.department_id')
             ->join('users', 'permohonan.user_id', '=', 'users.user_id')
-            ->join('layanan_masyarakat', 'permohonan.layanan_id', '=', 'layanan_masyarakat.layanan_id')
-            ->join('city', 'permohonan.city_id', '=', 'city.city_id')
+            ->join('layanan', 'permohonan.layanan_id', '=', 'layanan.layanan_id')
             ->join('type', 'permohonan.type_id', '=', 'type.type_id')
             ->where('permohonan.permohonan_id', $id)
             ->first();

@@ -69,7 +69,6 @@ class MainController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => 'required|string',
             'email' => 'required|email',
-            'department_id' => 'required|integer',
             'layanan_id' => 'required|integer',
             'type_id' => 'required|integer',
             'subject' => 'required|string',
@@ -97,7 +96,6 @@ class MainController extends Controller
                 $file->move('data/file', $fileName);
                 $data = [
                     'user_id' => session('user_id'),
-                    'department_id' => $request->input('department_id'),
                     'subject' => $request->input('subject'),
                     'layanan_id' => $request->input('layanan_id'),
                     'keterangan' => $request->input('description'),
@@ -119,7 +117,6 @@ class MainController extends Controller
                     'layanan_id' => $request->input('layanan_id'),
                     'keterangan' => $request->input('description'),
                     'file' => null,
-                    'address' => $request->input('address'),
                     'type_id' => $request->input('type_id'),
                     'created_at' => date('Y-m-d H:i:s')
                 ];

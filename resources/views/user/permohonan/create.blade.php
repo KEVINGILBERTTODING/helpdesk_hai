@@ -249,13 +249,16 @@
                                             </div>
                                         </div>
                                         <div class="form-group col-md-6 col-12">
-                                            <label>Departemen</label>
-                                            <select name="department_id" class="form-control">
-                                                <option value="1" selected>Umum</option>
+                                            <label>Layanan <a href="#" data-toggle="modal"
+                                                    data-target="#exampleModal"><i
+                                                        class="fa-regular fa-circle-question fa-lg"
+                                                        style="color: #226d31;"></a></i></label>
+                                            <select name="layanan_id" class="form-control">
+                                                @foreach ($layanan as $ly)
+                                                    <option value="{{ $ly->layanan_id }}">{{ $ly->nama_layanan }}
+                                                    </option>
+                                                @endforeach
                                             </select>
-                                            <div class="invalid-feedback">
-                                                Please fill in the last name
-                                            </div>
                                         </div>
                                     </div>
                                     <div class="row">
@@ -279,21 +282,6 @@
                                         </div>
                                     </div>
 
-                                    <div class="row">
-                                        <div class="form-group col-md-7 col-12">
-                                            <label>Layanan <a href="#" data-toggle="modal"
-                                                    data-target="#exampleModal"><i
-                                                        class="fa-regular fa-circle-question fa-lg"
-                                                        style="color: #226d31;"></a></i></label>
-                                            <select name="layanan_id" class="form-control">
-                                                @foreach ($layanan as $ly)
-                                                    <option value="{{ $ly->layanan_id }}">{{ $ly->nama_layanan }}
-                                                    </option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-
-                                    </div>
 
                                     <div class="row">
                                         <div class="form-group col-12">
