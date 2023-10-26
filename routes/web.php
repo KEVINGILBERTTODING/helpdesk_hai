@@ -43,4 +43,6 @@ Route::get('logout', [AuthController::class, 'logout'])->name('logout');
 Route::get('createPermohonan', [MainController::class, 'createPermohonan'])->name('createPermohonan');
 Route::get('allPermohonan', [MainController::class, 'allPermohonan'])->name('allPermohonan');
 Route::get('processPermohonan', [MainController::class, 'processPermohonan'])->name('processPermohonan');
+Route::get('detailPermohonan/{id}', [MainController::class, 'detailPermohonan'])->name('detailPermohonan');
+Route::get('downloadFilePermohonan/{fileName}', [MainController::class, 'downloadFilePermohonan'])->name('downloadFilePermohonan');
 Route::post('insertPermohonan', [MainController::class, 'insertPermohonan'])->name('insertPermohonan');

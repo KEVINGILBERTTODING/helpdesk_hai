@@ -10,7 +10,11 @@ use App\Models\TypeModel;
 use App\Models\User;
 use App\Models\UserModel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Validator;
+use Ramsey\Uuid\Type\Integer;
+
+use function PHPUnit\Framework\fileExists;
 
 class MainController extends Controller
 {
@@ -49,13 +53,10 @@ class MainController extends Controller
             $dataUser = User::where('user_id', session('user_id'))->first();
             $type = TypeModel::where('status', 1)->get();
             $layanan = LayananModel::where('status', 1)->get();
-            $city = CityModel::get();
             $data = [
                 'profile_photo' => $dataUser['profile_photo'],
                 'type' => $type,
-                'layanan' => $layanan,
-                'city' => $city,
-                'address' => $dataUser['address']
+                'layanan' => $layanan
             ];
             return view('user.permohonan.create', $data);
         } else {
@@ -69,10 +70,8 @@ class MainController extends Controller
             'name' => 'required|string',
             'email' => 'required|email',
             'department_id' => 'required|integer',
-            'city_id' => 'required|integer',
             'layanan_id' => 'required|integer',
             'type_id' => 'required|integer',
-            'address' => 'required|string',
             'subject' => 'required|string',
             'description' => 'required|string',
         ]);
@@ -82,12 +81,7 @@ class MainController extends Controller
         }
 
         try {
-            $dataUser = [
-                'address' => $request->input('address')
-            ];
 
-            // update data user
-            UserModel::where('user_id', session('user_id'))->update($dataUser);
 
             if ($request->hasFile('evidence')) { // jika ada file
                 $validatorFile = Validator::make($request->all(), [
@@ -103,12 +97,10 @@ class MainController extends Controller
                 $file->move('data/file', $fileName);
                 $data = [
                     'user_id' => session('user_id'),
-                    'city_id' => $request->input('city_id'),
                     'department_id' => $request->input('department_id'),
                     'subject' => $request->input('subject'),
                     'layanan_id' => $request->input('layanan_id'),
                     'keterangan' => $request->input('description'),
-                    'address' => $request->input('address'),
                     'file' => $fileName,
                     'type_id' => $request->input('type_id'),
                     'created_at' => date('Y-m-d H:i:s')
@@ -123,8 +115,6 @@ class MainController extends Controller
             } else {
                 $data = [
                     'user_id' => session('user_id'),
-                    'city_id' => $request->input('city_id'),
-                    'department_id' => $request->input('department_id'),
                     'subject' => $request->input('subject'),
                     'layanan_id' => $request->input('layanan_id'),
                     'keterangan' => $request->input('description'),
@@ -153,7 +143,7 @@ class MainController extends Controller
         }
         $dataUser = User::where('user_id', session('user_id'))->first();
         $dataPermohonan = PuModel::where('user_id', session('user_id'))
-            ->orderBy('pm_id', 'desc')
+            ->orderBy('permohonan_id', 'desc')
             ->get();
         $data = [
             'profile_photo' => $dataUser['profile_photo'],
@@ -169,12 +159,49 @@ class MainController extends Controller
         }
         $dataUser = User::where('user_id', session('user_id'))->first();
         $dataPermohonan = PuModel::where('user_id', session('user_id'))->where('status', 2)
-            ->orderBy('pm_id', 'desc')
+            ->orderBy('permohonan_id', 'desc')
             ->get();
         $data = [
             'profile_photo' => $dataUser['profile_photo'],
             'dataPermohonan' => $dataPermohonan
         ];
         return view('user.permohonan.process_permohonan', $data);
+    }
+
+    function detailPermohonan($id)
+    {
+
+        if (session('login') != true) {
+            return redirect('login');
+        }
+        try {
+
+            $puModel = new PuModel();
+            $dataPermohonan = $puModel->getDetailPermohonan(Crypt::decrypt($id));
+            $dataUser = User::where('user_id', session('user_id'))->first();
+
+            if ($dataPermohonan == null || $dataPermohonan['user_id'] != session('user_id')) {
+                return redirect('dashboard')->with('failed', 'Terjadi kesalahan dalam memuat detail permohonan');
+            }
+
+            $data = [
+                'dataPermohonan' => $dataPermohonan,
+                'profile_photo' => $dataUser['profile_photo']
+            ];
+
+            return view('user.permohonan.detail', $data);
+        } catch (\Throwable $th) {
+            return redirect('dashboard')->with('failed', 'Terjadi kesalahan dalam memuat detail permohonan');
+        }
+    }
+
+    function downloadFilePermohonan($fileName)
+    {
+        $path = public_path('data/file/' . $fileName);
+        if (fileExists($path)) {
+            return response()->download($path);
+        } else {
+            return abort(404);
+        }
     }
 }
