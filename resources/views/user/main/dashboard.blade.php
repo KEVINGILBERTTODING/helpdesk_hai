@@ -109,7 +109,7 @@
             <div class="dropdown-menu dropdown-list dropdown-menu-right">
                 <div class="dropdown-header">Notifikasi
 
-                    @if ($dataNotification != null)
+                    @if (!$dataNotification->isEmpty())
                         <div class="float-right">
                             <a href="{{ route('deleteNotification') }}">Hapus semua</a>
                         </div>
@@ -160,9 +160,12 @@
 
 
                 </div>
-                <div class="dropdown-footer text-center">
-                    <a href="{{ route('markAllRead') }}">Tandai semua telah dibaca</a>
-                </div>
+                @if (!$dataNotification->isEmpty())
+                    <div class="dropdown-footer text-center">
+                        <a href="{{ route('markAllRead') }}">Tandai semua telah dibaca</a>
+                    </div>
+                @endif
+
 
             </div>
             </li>
