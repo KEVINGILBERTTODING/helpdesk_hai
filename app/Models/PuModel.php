@@ -18,13 +18,13 @@ class PuModel extends Model
             'users.email',
             'layanan.nama_layanan',
             'type.nama_type',
-            'alasan_permohonan.alasan',
-            'alasan_permohonan.created_at as tgl_alasan'
+            'balasan_permohonan.balasan',
+            'balasan_permohonan.created_at as tgl_balasan'
         )
             ->join('users', 'permohonan.user_id', '=', 'users.user_id')
             ->join('layanan', 'permohonan.layanan_id', '=', 'layanan.layanan_id')
             ->join('type', 'permohonan.type_id', '=', 'type.type_id')
-            ->leftJoin('alasan_permohonan', 'permohonan.permohonan_id', '=', 'alasan_permohonan.permohonan_id')
+            ->leftJoin('balasan_permohonan', 'permohonan.permohonan_id', '=', 'balasan_permohonan.permohonan_id')
             ->where('permohonan.permohonan_id', $id)
             ->first();
         return $data;

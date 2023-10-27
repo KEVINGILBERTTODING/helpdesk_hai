@@ -2,7 +2,8 @@
 
 {{-- Title --}}
 @section('title')
-    <title>HAI - Detail Permohonan</title>
+    <title>
+        HAI - Detail Permohonan</title>
 @endsection
 
 
@@ -303,13 +304,19 @@
                                         <p>{{ $dataPermohonan['keterangan'] }}</p>
                                     </div>
                                 </div>
-                                @if ($dataPermohonan['status'] == 0)
+                                @if ($dataPermohonan['balasan'] != null)
                                     <div class="row">
                                         <div class="form-group col-12">
 
                                             <button data-toggle="modal" data-target="#exampleModal"
-                                                class="btn btn-primary">Lihat Alasan
-                                                Penolakan</button>
+                                                class="btn btn-primary">
+                                                @if ($dataPermohonan['status'] == 1)
+                                                    Lihat Balasan
+                                                @elseif ($dataPermohonan['status'] == 0)
+                                                    Lihat Alasan
+                                                    Penolakan
+                                                @endif
+                                            </button>
 
                                         </div>
                                     </div>
@@ -343,18 +350,24 @@
 
     </div>
 
-    {{-- Modal alasan --}}
+    {{-- Modal balasan --}}
     <div class="modal fade" tabindex="-1" role="dialog" id="exampleModal">
         <div class="modal-dialog " role="document">
             <div class="modal-content modal-dialog-scrollable">
                 <div class="modal-header">
-                    <h5 class="modal-title">Alasan Penolakan</h5>
+                    <h5 class="modal-title">
+                        @if ($dataPermohonan['status'] == 1)
+                            Balasan Permohonan
+                        @elseif ($dataPermohonan['status'] == 0)
+                            Alasan Penolakan
+                        @endif
+                    </h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <p>{{ $dataPermohonan['alasan'] }}</p>
+                    <p>{{ $dataPermohonan['balasan'] }}</p>
 
                 </div>
                 <div class="modal-footer bg-whitesmoke br">
