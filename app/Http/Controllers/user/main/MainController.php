@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\BidangModel;
 use App\Models\CityModel;
 use App\Models\LayananModel;
+use App\Models\NotificationModel;
 use App\Models\PuModel;
 use App\Models\TypeModel;
 use App\Models\User;
@@ -38,12 +39,15 @@ class MainController extends Controller
         $permohonanProses = PuModel::where('user_id', session('user_id'))
             ->where('status', 2)->count();
         $totalPermohonan = PuModel::where('user_id', session('user_id'))->count();
+        $notifModel = new NotificationModel();
+        $dataNotification = $notifModel->getNotification(session('user_id'));
         $data = [
             'profile_photo' => $dataUser['profile_photo'],
             'permohonanValid' => $permohonanValid,
             'permohonanTidakValid' => $permohonanTidakValid,
             'permohonanProses' => $permohonanProses,
-            'totalPermohonan' => $totalPermohonan
+            'totalPermohonan' => $totalPermohonan,
+            'dataNotification' => $dataNotification
         ];
         return view('user.main.dashboard', $data);
     }
