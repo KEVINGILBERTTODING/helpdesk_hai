@@ -58,10 +58,14 @@ class MainController extends Controller
             $dataUser = User::where('user_id', session('user_id'))->first();
             $type = TypeModel::where('status', 1)->get();
             $layanan = LayananModel::where('status', 1)->get();
+            $notifModel = new NotificationModel();
+            $dataNotification = $notifModel->getNotification(session('user_id'));
             $data = [
                 'profile_photo' => $dataUser['profile_photo'],
                 'type' => $type,
-                'layanan' => $layanan
+                'layanan' => $layanan,
+                'dataNotification' => $dataNotification
+
             ];
             return view('user.permohonan.create', $data);
         } else {
@@ -147,9 +151,12 @@ class MainController extends Controller
         $dataPermohonan = PuModel::where('user_id', session('user_id'))
             ->orderBy('permohonan_id', 'desc')
             ->get();
+        $notifModel = new NotificationModel();
+        $dataNotification = $notifModel->getNotification(session('user_id'));
         $data = [
+            'dataNotification' => $dataNotification,
             'profile_photo' => $dataUser['profile_photo'],
-            'dataPermohonan' => $dataPermohonan
+            'dataPermohonan' => $dataPermohonan,
         ];
         return view('user.permohonan.all_permohonan', $data);
     }
@@ -163,7 +170,10 @@ class MainController extends Controller
         $dataPermohonan = PuModel::where('user_id', session('user_id'))->where('status', 2)
             ->orderBy('permohonan_id', 'desc')
             ->get();
+        $notifModel = new NotificationModel();
+        $dataNotification = $notifModel->getNotification(session('user_id'));
         $data = [
+            'dataNotification' => $dataNotification,
             'profile_photo' => $dataUser['profile_photo'],
             'dataPermohonan' => $dataPermohonan
         ];
@@ -179,7 +189,10 @@ class MainController extends Controller
         $dataPermohonan = PuModel::where('user_id', session('user_id'))->where('status', 1)
             ->orderBy('permohonan_id', 'desc')
             ->get();
+        $notifModel = new NotificationModel();
+        $dataNotification = $notifModel->getNotification(session('user_id'));
         $data = [
+            'dataNotification' => $dataNotification,
             'profile_photo' => $dataUser['profile_photo'],
             'dataPermohonan' => $dataPermohonan
         ];
@@ -195,7 +208,10 @@ class MainController extends Controller
         $dataPermohonan = PuModel::where('user_id', session('user_id'))->where('status', 0)
             ->orderBy('permohonan_id', 'desc')
             ->get();
+        $notifModel = new NotificationModel();
+        $dataNotification = $notifModel->getNotification(session('user_id'));
         $data = [
+            'dataNotification' => $dataNotification,
             'profile_photo' => $dataUser['profile_photo'],
             'dataPermohonan' => $dataPermohonan
         ];
@@ -219,7 +235,10 @@ class MainController extends Controller
                 return redirect('dashboard')->with('failed', 'Terjadi kesalahan dalam memuat detail permohonan');
             }
 
+            $notifModel = new NotificationModel();
+            $dataNotification = $notifModel->getNotification(session('user_id'));
             $data = [
+                'dataNotification' => $dataNotification,
                 'dataPermohonan' => $dataPermohonan,
                 'profile_photo' => $dataUser['profile_photo'],
                 'nama_bidang' => $namaBidang['nama_bidang']
@@ -275,8 +294,10 @@ class MainController extends Controller
             if ($dataPermohonan == null || $dataPermohonan['user_id'] != session('user_id')) {
                 return redirect()->route('detailPermohonan', $id)->with('failed', 'Terjadi kesalahan dalam memuat detail permohonan');
             }
-
+            $notifModel = new NotificationModel();
+            $dataNotification = $notifModel->getNotification(session('user_id'));
             $data = [
+                'dataNotification' => $dataNotification,
                 'dataPermohonan' => $dataPermohonan,
                 'profile_photo' => $dataUser['profile_photo'],
                 'nama_bidang' => $namaBidang['nama_bidang'],

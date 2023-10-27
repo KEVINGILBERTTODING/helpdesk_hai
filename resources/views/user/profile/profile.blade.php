@@ -83,34 +83,95 @@
         </form>
         <ul class="navbar-nav navbar-right">
 
-            <li class="dropdown dropdown-list-toggle"><a href="#" data-toggle="dropdown"
-                    class="nav-link notification-toggle nav-link-lg beep"><i class="far fa-bell"></i></a>
-                <div class="dropdown-menu dropdown-list dropdown-menu-right">
-                    <div class="dropdown-header">Notifications
-                        <div class="float-right">
-                            <a href="#">Mark All As Read</a>
-                        </div>
-                    </div>
-                    <div class="dropdown-list-content dropdown-list-icons">
+            @php
+                $isExist = false;
+            @endphp
 
-                        <a href="#" class="dropdown-item">
-                            <div class="dropdown-item-icon bg-info text-white">
-                                <i class="fas fa-bell"></i>
-                            </div>
-                            <div class="dropdown-item-desc">
-                                Welcome to Stisla template!
-                                <div class="time">Yesterday</div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="dropdown-footer text-center">
-                        <a href="#">View All <i class="fas fa-chevron-right"></i></a>
-                    </div>
+            {{-- Cek apakah ada notif baru --}}
+            @foreach ($dataNotification as $dtnotif)
+                @if ($dtnotif->is_read == 0)
+                    @php
+                        $isExist = true;
+                    @endphp
+                @endif
+            @endforeach
+
+            {{-- Jika ada notif baru --}}
+            @if ($isExist == true)
+                <li class="dropdown dropdown-list-toggle"><a href="#" data-toggle="dropdown"
+                        class="nav-link notification-toggle nav-link-lg beep "><i class="far fa-bell"></i></a>
+                @else
+                <li class="dropdown dropdown-list-toggle"><a href="#" data-toggle="dropdown"
+                        class="nav-link notification-toggle nav-link-lg"><i class="far fa-bell"></i></a>
+            @endif
+
+
+            <div class="dropdown-menu dropdown-list dropdown-menu-right">
+                <div class="dropdown-header">Notifikasi
+
+                    @if (!$dataNotification->isEmpty())
+                        <div class="float-right">
+                            <a href="{{ route('deleteNotification') }}">Hapus semua</a>
+                        </div>
+                    @endif
+
                 </div>
+                <div class="dropdown-list-content dropdown-list-icons">
+
+
+                    @foreach ($dataNotification as $dn)
+                        @if ($dn->is_read == 1)
+                            <a href="{{ route('detailPermohonan', Crypt::encrypt($dn->permohonan_id)) }}"
+                                class="dropdown-item">
+                            @else
+                                <a href="{{ route('detailPermohonan', Crypt::encrypt($dn->permohonan_id)) }}"
+                                    class="dropdown-item dropdown-item-unread">
+                        @endif
+
+                        {{-- Mengubah warna dan icon --}}
+                        @if ($dn->type == 1)
+                            <div class="dropdown-item-icon bg-primary text-white">
+                                <i class="fas fa-check"></i>
+                            </div>
+                        @else
+                            <div class="dropdown-item-icon bg-danger text-white">
+                                <i class="fas fa-times"></i>
+
+                            </div>
+                        @endif
+
+                        {{-- Mengubah isi notifiation --}}
+                        <div class="dropdown-item-desc">
+                            @if ($dn->type == 1)
+                                Permohonan Anda telah selesai!
+                            @else
+                                Permohonan Anda ditolak!
+                            @endif
+
+                            @if ($dn->is_read == 0)
+                                <div class="time text-primary">{{ $dn->created_at }}</div>
+                            @else
+                                <div class="time text-secondary">{{ $dn->created_at }}</div>
+                            @endif
+                        </div>
+                        </a>
+                    @endforeach
+
+
+
+                </div>
+                @if (!$dataNotification->isEmpty())
+                    <div class="dropdown-footer text-center">
+                        <a href="{{ route('markAllRead') }}">Tandai semua telah dibaca</a>
+                    </div>
+                @endif
+
+
+            </div>
             </li>
             <li class="dropdown"><a href="#" data-toggle="dropdown"
                     class="nav-link dropdown-toggle nav-link-lg nav-link-user">
-                    <img alt="image" src="{{ asset('data/profile_photo/' . $dataUser['profile_photo']) }}"
+                    <img alt="image" src="{{ asset('data/profile_photo/' . $profile_photo) }}"
                         class="rounded-circle mr-1">
 
                     <div class="d-sm-none d-lg-inline-block">Hi, {{ session('name') }}</div>
@@ -118,7 +179,7 @@
                 <div class="dropdown-menu dropdown-menu-right">
 
                     <a href="{{ route('profile') }}" class="dropdown-item has-icon">
-                        <i class="far fa-user"></i> Profil
+                        <i class="far fa-user"></i> Profile
                     </a>
                     <div class="dropdown-divider"></div>
                     <a href="{{ route('logout') }}" class="dropdown-item has-icon text-danger">

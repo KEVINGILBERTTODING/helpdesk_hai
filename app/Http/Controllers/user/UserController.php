@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\user;
 
 use App\Http\Controllers\Controller;
+use App\Models\NotificationModel;
 use App\Models\PuModel;
 use App\Models\User;
 use App\Models\UserModel;
@@ -28,7 +29,10 @@ class UserController extends Controller
         $permohonanTidakValid = PuModel::where('user_id', session('user_id'))
             ->where('status', 0)->count();
         $totalPermohonan = PuModel::where('user_id', session('user_id'))->count();
+        $notifModel = new NotificationModel();
+        $dataNotification = $notifModel->getNotification(session('user_id'));
         $data = [
+            'dataNotification' => $dataNotification,
             'dataUser' => $dataUser,
             'totalPermohonan' => $totalPermohonan,
             'permohonanSelesai' => $permohonanValid,
