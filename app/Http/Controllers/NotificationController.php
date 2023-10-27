@@ -27,4 +27,23 @@ class NotificationController extends Controller
             return redirect()->route('dashboard')->with('failed', $th->getMessage());
         }
     }
+
+    function delete()
+    {
+        if (session('login') != true) {
+            return redirect()->route('login');
+        }
+
+        try {
+
+            $update = NotificationModel::where('user_id', session('user_id'))->delete();
+            if ($update) {
+                return redirect()->route('dashboard')->with('success', 'Berhasil menghapus notifikasi');
+            } else {
+                return redirect()->route('dashboard')->with('failed', 'Gagal menghapus notifikasi');
+            }
+        } catch (\Throwable $th) {
+            return redirect()->route('dashboard')->with('failed', 'Gagal menghapus notifikasi');
+        }
+    }
 }

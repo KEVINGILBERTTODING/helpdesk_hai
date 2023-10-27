@@ -111,7 +111,7 @@
 
                     @if ($dataNotification != null)
                         <div class="float-right">
-                            <a href="#">Hapus semua</a>
+                            <a href="{{ route('deleteNotification') }}">Hapus semua</a>
                         </div>
                     @endif
 

@@ -57,3 +57,4 @@ Route::get('profile', [UserController::class, 'profile'])->name('profile');
 Route::post('updateProfilPhoto', [UserController::class, 'updateProfilPhoto'])->name('updateProfilPhoto');
 Route::post('updateProfile', [UserController::class, 'updateProfile'])->name('updateProfile');
 Route::get('markAllRead', [NotificationController::class, 'markAllRead'])->name('markAllRead');
+Route::get('deleteNotification', [NotificationController::class, 'delete'])->name('deleteNotification');
