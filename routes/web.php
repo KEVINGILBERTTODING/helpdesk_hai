@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\user\auth\AuthController;
 use App\Http\Controllers\user\main\MainController;
 use App\Http\Controllers\user\UserController;
@@ -55,3 +56,4 @@ Route::post('insertPermohonan', [MainController::class, 'insertPermohonan'])->na
 Route::get('profile', [UserController::class, 'profile'])->name('profile');
 Route::post('updateProfilPhoto', [UserController::class, 'updateProfilPhoto'])->name('updateProfilPhoto');
 Route::post('updateProfile', [UserController::class, 'updateProfile'])->name('updateProfile');
+Route::get('markAllRead', [NotificationController::class, 'markAllRead'])->name('markAllRead');

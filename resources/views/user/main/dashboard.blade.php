@@ -160,6 +160,9 @@
 
 
                 </div>
+                <div class="dropdown-footer text-center">
+                    <a href="{{ route('markAllRead') }}">Tandai semua telah dibaca</a>
+                </div>
 
             </div>
             </li>
