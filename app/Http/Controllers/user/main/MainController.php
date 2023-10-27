@@ -89,7 +89,7 @@ class MainController extends Controller
                 ]);
 
                 if ($validatorFile->fails()) {
-                    return redirect('createPermohonan')->with('failed', 'File tidak valid');
+                    return redirect('createPermohonan')->with('failed', 'File tidak valid')->withInput();
                 }
 
                 $file = $request->file('evidence');

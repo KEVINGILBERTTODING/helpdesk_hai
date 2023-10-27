@@ -151,13 +151,8 @@
                     <div class="d-sm-none d-lg-inline-block">Hi, {{ session('name') }}</div>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right">
-                    <div class="dropdown-title">Logged in 5 min ago</div>
                     <a href="features-profile.html" class="dropdown-item has-icon">
-                        <i class="far fa-user"></i> Profile
-                    </a>
-
-                    <a href="features-settings.html" class="dropdown-item has-icon">
-                        <i class="fas fa-cog"></i> Settings
+                        <i class="{{ route('profile') }}"></i> Profile
                     </a>
                     <div class="dropdown-divider"></div>
                     <a href="{{ route('logout') }}" class="dropdown-item has-icon text-danger">
@@ -190,7 +185,8 @@
                     <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i
                             class="fa-regular fa-folder"></i> <span>Permohonan Saya</span></a>
                     <ul class="dropdown-menu">
-                        <li class="active"><a class="nav-link" href="{{ route('createPermohonan') }}">Permohonan Baru</a>
+                        <li class="active"><a class="nav-link" href="{{ route('createPermohonan') }}">Permohonan
+                                Baru</a>
                         </li>
                         <li><a class="nav-link" href="{{ route('allPermohonan') }}">Semua Permohonan</a></li>
                         <li><a class="nav-link" href="{{ route('processPermohonan') }}">Permohonan Proses</a></li>
@@ -199,6 +195,10 @@
                                 ditolak</a></li>
 
                     </ul>
+                </li>
+                <li class="menu-header">Akun</li>
+                <li>
+                    <a href="{{ route('profile') }}"><i class="fa-solid fa-user"></i> <span>Profil</span></a>
                 </li>
 
 

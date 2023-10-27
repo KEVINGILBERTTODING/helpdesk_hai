@@ -2,7 +2,7 @@
 
 {{-- Title --}}
 @section('title')
-    <title>HAI - Ubah Permohonan</title>
+    <title>HAI - Profil</title>
 @endsection
 
 
@@ -145,15 +145,15 @@
             </li>
             <li class="dropdown"><a href="#" data-toggle="dropdown"
                     class="nav-link dropdown-toggle nav-link-lg nav-link-user">
-                    <img alt="image" src="{{ asset('data/profile_photo/' . $profile_photo) }}"
+                    <img alt="image" src="{{ asset('data/profile_photo/' . $dataUser['profile_photo']) }}"
                         class="rounded-circle mr-1">
 
                     <div class="d-sm-none d-lg-inline-block">Hi, {{ session('name') }}</div>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right">
 
-                    <a href="features-profile.html" class="dropdown-item has-icon">
-                        <i class="{{ route('profile') }}"></i> Profile
+                    <a href="{{ route('profile') }}" class="dropdown-item has-icon">
+                        <i class="far fa-user"></i> Profil
                     </a>
                     <div class="dropdown-divider"></div>
                     <a href="{{ route('logout') }}" class="dropdown-item has-icon text-danger">
@@ -182,7 +182,7 @@
                     <a href="{{ route('dashboard') }}"><i class="fa-solid fa-house"></i> <span>Dashboard</span></a>
                 </li>
                 <li class="menu-header">Data</li>
-                <li class="dropdown active">
+                <li class="dropdown">
                     <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i
                             class="fa-regular fa-folder"></i> <span>Permohonan Saya</span></a>
                     <ul class="dropdown-menu">
@@ -196,10 +196,13 @@
 
                     </ul>
                 </li>
+
                 <li class="menu-header">Akun</li>
-                <li>
+                <li class="active">
                     <a href="{{ route('profile') }}"><i class="fa-solid fa-user"></i> <span>Profil</span></a>
                 </li>
+
+
 
 
 
@@ -211,159 +214,130 @@
 
 @section('content')
     <div class="main-content">
-        <div class="container-fluid">
-
-        </div>
         <section class="section">
             <div class="section-header">
-                <h1>Ubah Permohonan</h1>
+                <h1>Profil</h1>
                 <div class="section-header-breadcrumb">
                     <div class="breadcrumb-item active"><a href="{{ route('dashboard') }}">Dashboard</a></div>
-                    <div class="breadcrumb-item">Ubah Permohonan</div>
-
+                    <div class="breadcrumb-item">Profil</div>
                 </div>
             </div>
-
             <div class="section-body">
-                <h2 class="section-title">Ubah Permohonan</h2>
-                <p class="section-lead"><i class="fa-regular fa-clock"></i> {{ $dataPermohonan['created_at'] }}</p>
+                <h2 class="section-title">Hi, {{ $dataUser['name'] }}!</h2>
+                <p class="section-lead">
+                    Ubah data diri Anda pada halaman ini.
+                </p>
 
+                <div class="row mt-sm-4">
+                    <div class="col-12 col-md-12 col-lg-5">
+                        <div class="card profile-widget">
+                            <div class="profile-widget-header">
+                                <a data-toggle="modal" data-target="#exampleModal">
+                                    <img alt="image"
+                                        src="{{ asset('data/profile_photo/' . $dataUser['profile_photo']) }}"
+                                        class="rounded-circle profile-widget-picture">
+                                </a>
+                                <div class="profile-widget-items">
+                                    <div class="profile-widget-item">
+                                        <div class="profile-widget-item-label">Pengaduan</div>
+                                        <div class="profile-widget-item-value">{{ $totalPermohonan }}</div>
+                                    </div>
+                                    <div class="profile-widget-item">
+                                        <div class="profile-widget-item-label">Selesai</div>
+                                        <div class="profile-widget-item-value">{{ $permohonanSelesai }}</div>
+                                    </div>
+                                    <div class="profile-widget-item">
+                                        <div class="profile-widget-item-label">Ditolak</div>
+                                        <div class="profile-widget-item-value">{{ $permohonanDitolak }}</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="profile-widget-description">
+                                <div class="profile-widget-name">{{ $dataUser['name'] }}<div
+                                        class="text-muted d-inline font-weight-normal">
+                                        <div class="slash"></div> {{ $dataUser['nrp'] }}
+                                    </div>
+                                </div>
 
-                <div class="row">
+                            </div>
 
+                        </div>
+                    </div>
                     <div class="col-12 col-md-12 col-lg-7">
                         <div class="card">
-
-                            <div class="card-header">
-                                <h4>Data Permohonan</h4>
-                            </div>
-                            <form action="{{ route('updateData') }}" method="POST" enctype="multipart/form-data">
+                            <form action="{{ route('updateProfile') }}" method="post">
                                 @csrf
+                                <div class="card-header">
+                                    <h4>Ubah Profil</h4>
+                                </div>
                                 <div class="card-body">
 
                                     <div class="row">
+                                        <div class="form-group col-md-6 col-12">
+                                            <label>Nama Lengkap</label>
+                                            <input type="text" name="name" class="form-control"
+                                                value="{{ $dataUser['name'] }}" required="Nama tidak boleh kosong">
 
-                                        <div class="form-group col-md-7 col-12">
-                                            <label>Nama</label>
-                                            <input required type="text" class="form-control" required readonly
-                                                value="{{ $dataPermohonan['nama'] }}">
-
-                                            <input required hidden name="permohonan_id" type="text"
-                                                class="form-control" required readonly
-                                                value="{{ $dataPermohonan['permohonan_id'] }}">
                                         </div>
-                                        <div class="form-group col-md-5 col-12">
-                                            <label>Bidang</label>
-                                            <input type="text" class="form-control" required readonly
-                                                value="{{ $nama_bidang }}">
+                                        <div class="form-group col-md-6 col-12">
+                                            <label>NRP</label>
+                                            <input readonly type="text" class="form-control"
+                                                value="{{ $dataUser['nrp'] }}" required="">
 
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="form-group col-md-7 col-12">
                                             <label>Email</label>
-                                            <input type="text" class="form-control" required readonly
-                                                value="{{ $dataPermohonan['email'] }}">
+                                            <input type="email" name="email" class="form-control"
+                                                value="{{ $dataUser['email'] }}" required="Email tidak boleh kosong">
 
                                         </div>
                                         <div class="form-group col-md-5 col-12">
-                                            <label>Tipe</label>
-                                            <select name="type_id" required class="form-control">
-                                                <option selected value="{{ $dataPermohonan['type_id'] }}">
-                                                    {{ $dataPermohonan['nama_type'] }}</option>
-
-                                                @foreach ($data_type as $dt)
-                                                    @if ($dt->type_id == $dataPermohonan['type_id'])
-                                                        <option hidden value="{{ $dt->type_id }}">{{ $dt->nama_type }}
-                                                        </option>
-                                                    @else
-                                                        <option value="{{ $dt->type_id }}">{{ $dt->nama_type }}</option>
-                                                    @endif
-                                                @endforeach
-                                            </select>
-
+                                            <label>Kata Sandi</label>
+                                            <input name="password" type="password" class="form-control" value="">
                                         </div>
                                     </div>
-
-                                    <div class="row">
-                                        <div class="form-group col-12">
-                                            <label>Layanan</label>
-
-                                            <select required name="layanan_id" class="form-control">
-                                                <option selected value="{{ $dataPermohonan['layanan_id'] }}">
-                                                    {{ $dataPermohonan['nama_layanan'] }}</option>
-
-                                                @foreach ($data_layanan as $dl)
-                                                    @if ($dl->layanan_id == $dataPermohonan['layanan_id'])
-                                                        <option hidden value="{{ $dl->layanan_id }}">
-                                                            {{ $dl->nama_layanan }}
-                                                        </option>
-                                                    @else
-                                                        <option value="{{ $dl->layanan_id }}">{{ $dl->nama_layanan }}
-                                                        </option>
-                                                    @endif
-                                                @endforeach
-                                            </select>
-                                        </div>
-
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="form-group col-12">
-                                            <label>Subjek</label>
-                                            <input required name="subject" type="text" class="form-control"
-                                                value="{{ $dataPermohonan['subject'] }}">
-                                        </div>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="form-group col-12">
-
-                                            <label>File Pendukung (<span class="text-danger">10MB | .pdf, .jpg, .png,
-                                                    .jpeg</span>)</label>
-                                            <input type="file" name="evidence" class="form-control"
-                                                accept=".pdf, .jpg, .png, .jpeg">
-                                            @if ($dataPermohonan['file'] != null)
-                                                <label><a
-                                                        href="{{ route('downloadFilePermohonan', $dataPermohonan['file']) }}"><span
-                                                            class="text-primary">{{ $dataPermohonan['file'] }}</span></a></label>
-                                            @else
-                                                <p>Tidak ada file pendukung.</p>
-                                            @endif
-
-                                        </div>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="form-group col-12">
-                                            <label>Keterangan</label>
-                                            <textarea required name="description" required class="form-control" rows="7">{{ $dataPermohonan['keterangan'] }}</textarea>
-
-                                        </div>
-                                    </div>
-
 
                                 </div>
                                 <div class="card-footer text-right">
-
-                                    <button type="submit" class="btn btn-primary">Simpan</button>
+                                    <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
                                 </div>
-
                             </form>
                         </div>
-
                     </div>
                 </div>
-
             </div>
-
-
+        </section>
     </div>
 
+    {{-- Modal alasan --}}
+    <div class="modal fade" tabindex="-1" role="dialog" id="exampleModal">
+        <div class="modal-dialog " role="document">
+            <div class="modal-content modal-dialog-scrollable">
+                <div class="modal-header">
+                    <h5 class="modal-title">Ubah Foto Profil</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form action="{{ route('updateProfilPhoto') }}" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    <div class="modal-body">
 
-    </section>
+
+                        <div class="form-control">
+                            <input required type="file" accept=".jpg,.png,.jpeg" name="image">
+                        </div>
 
 
-
+                    </div>
+                    <div class="modal-footer bg-whitesmoke br">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                        <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
 @endsection

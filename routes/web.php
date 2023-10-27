@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\user\auth\AuthController;
 use App\Http\Controllers\user\main\MainController;
+use App\Http\Controllers\user\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -51,3 +52,6 @@ Route::post('updateData', [MainController::class, 'updateData'])->name('updateDa
 Route::get('deletePermohonan/{id}', [MainController::class, 'deletePermohonan'])->name('deletePermohonan');
 Route::get('downloadFilePermohonan/{fileName}', [MainController::class, 'downloadFilePermohonan'])->name('downloadFilePermohonan');
 Route::post('insertPermohonan', [MainController::class, 'insertPermohonan'])->name('insertPermohonan');
+Route::get('profile', [UserController::class, 'profile'])->name('profile');
+Route::post('updateProfilPhoto', [UserController::class, 'updateProfilPhoto'])->name('updateProfilPhoto');
+Route::post('updateProfile', [UserController::class, 'updateProfile'])->name('updateProfile');
