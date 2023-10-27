@@ -160,18 +160,20 @@
 
 
                 </div>
-                @if (!$dataNotification->isEmpty())
+                @if ($isExist == true)
                     <div class="dropdown-footer text-center">
                         <a href="{{ route('markAllRead') }}">Tandai semua telah dibaca</a>
                     </div>
                 @endif
 
 
+
+
             </div>
             </li>
             <li class="dropdown"><a href="#" data-toggle="dropdown"
                     class="nav-link dropdown-toggle nav-link-lg nav-link-user">
-                    <img alt="image" src="{{ asset('data/profile_photo/' . $profile_photo) }}"
+                    <img alt="image" src="{{ asset('data/profile_photo/' . $dataUser['profile_photo']) }}"
                         class="rounded-circle mr-1">
 
                     <div class="d-sm-none d-lg-inline-block">Hi, {{ session('name') }}</div>

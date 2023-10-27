@@ -160,11 +160,12 @@
 
 
                 </div>
-                @if (!$dataNotification->isEmpty())
+                @if ($isExist == true)
                     <div class="dropdown-footer text-center">
                         <a href="{{ route('markAllRead') }}">Tandai semua telah dibaca</a>
                     </div>
                 @endif
+
 
 
             </div>
