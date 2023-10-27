@@ -56,6 +56,9 @@ class MainController extends Controller
     {
         if (session('login') == true) {
             $dataUser = User::where('user_id', session('user_id'))->first();
+            if ($dataUser['email'] == null) {
+                return redirect()->route('dashboard')->with('failed', 'Harap mengisi alamat email Anda pada menu profil');
+            }
             $type = TypeModel::where('status', 1)->get();
             $layanan = LayananModel::where('status', 1)->get();
             $notifModel = new NotificationModel();
