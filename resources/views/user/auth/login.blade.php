@@ -33,12 +33,11 @@
                 <input name="password" type="password" required minlength="8" placeholder="Kata sandi">
 
                 @if (session('error'))
-                <span style="color: red">{{ session('error') }}</span>
+                    <span style="color: red">{{ session('error') }}</span>
                 @elseif (session('success'))
-                <span style="color: #00923F">{{ session('success') }}</span>
-
+                    <span style="color: #00923F">{{ session('success') }}</span>
                 @endif
-                <a href="#">Lupa kata sandi Anda?</a>
+                <a href="{{ route('forgetPassword') }}">Lupa kata sandi Anda?</a>
                 <button type="submit">Masuk</button>
             </form>
         </div>

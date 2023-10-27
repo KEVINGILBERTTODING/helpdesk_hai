@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\PuModel;
 use App\Models\User;
 use App\Models\UserModel;
+use App\Notifications\EmailNotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -126,6 +127,43 @@ class UserController extends Controller
             }
         } catch (\Throwable $th) {
             return redirect()->route('profile')->with('failed', 'Terjadi kesalahan');
+        }
+    }
+
+    function forgetPassword()
+    {
+        return view('user.auth.send_token_password');
+    }
+
+    function resetPassword(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|email'
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->route('forgetPassword')->withInput()->with('failed', 'Email tidak valid');
+        }
+
+        try {
+            $user = User::where('email', $request->input('email'))->first();
+            if ($user) {
+
+                if ($user) {
+                    $data = [
+                        'name' => $user['name'],
+                        'user_id' => $user['user_id']
+                    ];
+                    $user->notify(new EmailNotification($data));
+                    return redirect()->route('forgetPassword')->with('success', 'Link berhasil terkirim');
+                } else {
+                    return redirect()->route('forgetPassword')->withInput()->with('failed', 'Gagal mengirim link');
+                }
+            } else {
+                return redirect()->route('forgetPassword')->withInput()->with('failed', 'Email belum terdaftar');
+            }
+        } catch (\Throwable $th) {
+            return redirect()->route('forgetPassword')->withInput()->with('failed', $th->getMessage());
         }
     }
 }

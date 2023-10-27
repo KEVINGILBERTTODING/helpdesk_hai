@@ -58,3 +58,7 @@ Route::post('updateProfilPhoto', [UserController::class, 'updateProfilPhoto'])->
 Route::post('updateProfile', [UserController::class, 'updateProfile'])->name('updateProfile');
 Route::get('markAllRead', [NotificationController::class, 'markAllRead'])->name('markAllRead');
 Route::get('deleteNotification', [NotificationController::class, 'delete'])->name('deleteNotification');
+Route::get('forgetPassword', [UserController::class, 'forgetPassword'])->name('forgetPassword');
+Route::get('reset_password/{userId}', [AuthController::class, 'resetPassword'])->name('reset_password');
+Route::post('resetPassword', [UserController::class, 'resetPassword'])->name('resetPassword');
+Route::post('updatePassword', [AuthController::class, 'updatePassword'])->name('updatePassword');

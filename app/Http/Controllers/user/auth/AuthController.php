@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Models\UserModel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
@@ -85,6 +86,63 @@ class AuthController extends Controller
             return redirect('login')->with('error', 'Email telah terdaftar');
         }
     }
+
+    function resetPassword($userId)
+    {
+
+        if ($userId == null || $userId == "") {
+            return redirect()->route('login');
+        }
+
+        try {
+            $data = [
+                'userId' => Crypt::decrypt($userId)
+            ];
+            return view('user.auth.update_password', $data);
+        } catch (\Throwable $th) {
+            return redirect()->route('login');
+        }
+    }
+
+    function updatePassword(Request $request)
+    {
+
+        $validator = Validator::make($request->all(), [
+            'user_id' => 'required|integer|',
+            'new_password' => 'required|string',
+            'password_verify' => 'required|string',
+
+        ], [
+            'user_id.required' => 'Terjadi kesalahan',
+            'user_id.integer' => 'Terjadi kesalahan',
+            'new_password.required' => 'Kata sandi tidak boleh kosong',
+            'password_verify.required' => 'Kata samdi tidak boleh kosong'
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()->with('failed', $validator->errors()->first())->withInput();
+        }
+
+        try {
+            if ($request->input('new_password') != $request->input('password_verify')) { // update profile with password
+                return redirect()->back()->with('failed', 'Password tidak sesuai')->withInput();
+            } else {
+                $dataUser = [
+                    'password' => Hash::make($request->input('password_verify')),
+                    'updated_at' => date('Y-m-d H:i:s')
+                ];
+                $update = User::where('user_id', $request->input('user_id'))->update($dataUser);
+                if ($update) {
+                    return redirect()->route('login')->with('success', 'Berhasil mengubah kata sandi');
+                } else {
+                    return redirect()->back()->with('failed', 'Gagal mengubah kata sandi')->withInput();
+                }
+            }
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('failed', 'Terjadi kesalahan')->withInput();
+        }
+    }
+
 
     function logout()
     {
