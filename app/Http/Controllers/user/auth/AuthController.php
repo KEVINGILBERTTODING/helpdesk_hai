@@ -19,16 +19,21 @@ class AuthController extends Controller
     function login(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'email' => 'required|email',
-            'password' => 'required|string'
+            'nrp' => 'required|integer',
+            'password' => 'required|string|min:8'
+        ], [
+            'nrp.required' => 'NRP tidak boleh kosong.',
+            'nrp.integer' => 'NRP hanya boleh berupa angka.',
+            'password.required' => 'Kata sandi tidak boleh kosong.',
+            'password.min' => 'Kata sandi tidak boleh kurang dari 8 karakter.'
         ]);
         if ($validator->fails()) {
             return redirect('login')->with('error', $validator->errors()->first());
         }
         try {
-            $email = $request->input('email');
+            $nrp = $request->input('nrp');
             $password = $request->input('password');
-            $authValidate = UserModel::where('email', $email)->first();
+            $authValidate = UserModel::where('nrp', $nrp)->first();
             if ($authValidate) {
                 if ($authValidate['status'] != 1) {
                     return redirect('login')->with('error', 'Akun telah dinonaktifkan oleh Admin');
@@ -37,14 +42,14 @@ class AuthController extends Controller
                         $request->session()->put('login', TRUE);
                         $request->session()->put('user_id', $authValidate['user_id']);
                         $request->session()->put('name', $authValidate['name']);
-                        $request->session()->put('email', $authValidate['email']);
+                        $request->session()->put('nrp', $authValidate['nrp']);
                         return redirect('dashboard');
                     } else {
                         return redirect('login')->with('error', 'Kata sandi salah');
                     }
                 }
             } else {
-                return redirect('login')->with('error', 'Email belum terdaftar');
+                return redirect('login')->with('error', 'NRP belum terdaftar');
             }
         } catch (\Throwable $th) {
             return redirect('login')->with('error', 'Terjadi kesalahan');
