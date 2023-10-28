@@ -2,7 +2,7 @@
 
 {{-- Title --}}
 @section('title')
-    <title>HAI - Cari</title>
+    <title>HAI - Pencarian</title>
 @endsection
 
 
@@ -10,24 +10,23 @@
 @section('navbar')
     <div class="navbar-bg"></div>
     <nav class="navbar navbar-expand-lg main-navbar">
+        <form class="form-inline mr-auto" action="{{ route('search') }}" method="get">
+            @csrf
 
-        <ul class="navbar-nav mr-3">
-            <li><a href="#" data-toggle="sidebar" class="nav-link nav-link-lg"><i class="fas fa-bars"></i></a></li>
-            <li><a href="#" data-toggle="search" class="nav-link nav-link-lg d-sm-none"><i class="fas fa-search"></i></a>
-            </li>
-        </ul>
-        <div class="search-element">
-            <form class="form-inline mr-auto" action="{{ route('search') }}" method="GET">
-                @csrf
+            <ul class="navbar-nav mr-3">
+                <li><a href="#" data-toggle="sidebar" class="nav-link nav-link-lg"><i class="fas fa-bars"></i></a></li>
+                <li><a href="#" data-toggle="search" class="nav-link nav-link-lg d-sm-none"><i
+                            class="fas fa-search"></i></a></li>
+            </ul>
+
+            <div class="search-element">
                 <input class="form-control" type="search" required name="query" placeholder="Search" aria-label="Search"
                     data-width="250">
-                <input class="form-control" name="status" hidden type="search" placeholder="Search" value="3"
-                    aria-label="Search" data-width="250">
+                <input class="form-control" name="status" hidden type="search" value="3" aria-label="Search"
+                    data-width="250">
                 <button class="btn" type="submit"><i class="fas fa-search"></i></button>
-            </form>
-
-
-        </div>
+            </div>
+        </form>
         <ul class="navbar-nav navbar-right">
 
             @php
@@ -188,16 +187,24 @@
     <div class="main-content">
         <section class="section">
             <div class="section-header">
-                <h1>Daftar Semua Permohonan</h1>
+                <h1>Pencarian</h1>
                 <div class="section-header-breadcrumb">
                     <div class="breadcrumb-item active"><a href="{{ route('dashboard') }}">Dashboard</a></div>
-                    <div class="breadcrumb-item">Semua Permohonan</div>
+                    <div class="breadcrumb-item">Pencarian</div>
                 </div>
             </div>
 
             <div class="section-body">
-                <h2 class="section-title">Daftar Semua Permohonan</h2>
-                <p class="section-lead">Daftar semua permohonan yang telah Anda kirimkan.</p>
+                <h2 class="section-title">Hasil Pencarian</h2>
+                <p class="section-lead">Semua hasil pencarian permohonan akan tampil pada halaman ini.</p>
+
+                @if ($dataPermohonan->isEmpty())
+                    <div class="row"
+                        style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 50vh;">
+                        <h6 class="text-secondary">Permohonan tidak ditemukan.</h6>
+                    </div>
+                @endif
+
 
                 <div class="row">
                     @foreach ($dataPermohonan as $dp)

@@ -255,7 +255,7 @@
 
             <div class="section-body">
                 <h2 class="section-title">Permohonan Baru</h2>
-                <p class="section-lead">Ajukan permohonan baru.</p>
+                <p class="section-lead">Buat permohonan baru.</p>
 
 
                 <div class="row">
