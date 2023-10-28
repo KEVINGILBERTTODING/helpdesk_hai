@@ -42,7 +42,7 @@ class MainController extends Controller
         $notifModel = new NotificationModel();
         $dataNotification = $notifModel->getNotification(session('user_id'));
         $data = [
-            'profile_photo' => $dataUser['profile_photo'],
+            'dataUser' => $dataUser,
             'permohonanValid' => $permohonanValid,
             'permohonanTidakValid' => $permohonanTidakValid,
             'permohonanProses' => $permohonanProses,
@@ -64,7 +64,7 @@ class MainController extends Controller
             $notifModel = new NotificationModel();
             $dataNotification = $notifModel->getNotification(session('user_id'));
             $data = [
-                'profile_photo' => $dataUser['profile_photo'],
+                'dataUser' => $dataUser,
                 'type' => $type,
                 'layanan' => $layanan,
                 'dataNotification' => $dataNotification
@@ -158,7 +158,7 @@ class MainController extends Controller
         $dataNotification = $notifModel->getNotification(session('user_id'));
         $data = [
             'dataNotification' => $dataNotification,
-            'profile_photo' => $dataUser['profile_photo'],
+            'dataUser' => $dataUser,
             'dataPermohonan' => $dataPermohonan,
         ];
         return view('user.permohonan.all_permohonan', $data);
@@ -177,7 +177,7 @@ class MainController extends Controller
         $dataNotification = $notifModel->getNotification(session('user_id'));
         $data = [
             'dataNotification' => $dataNotification,
-            'profile_photo' => $dataUser['profile_photo'],
+            'dataUser' => $dataUser,
             'dataPermohonan' => $dataPermohonan
         ];
         return view('user.permohonan.process_permohonan', $data);
@@ -196,7 +196,7 @@ class MainController extends Controller
         $dataNotification = $notifModel->getNotification(session('user_id'));
         $data = [
             'dataNotification' => $dataNotification,
-            'profile_photo' => $dataUser['profile_photo'],
+            'dataUser' => $dataUser,
             'dataPermohonan' => $dataPermohonan
         ];
         return view('user.permohonan.success_permohonan', $data);
@@ -215,7 +215,7 @@ class MainController extends Controller
         $dataNotification = $notifModel->getNotification(session('user_id'));
         $data = [
             'dataNotification' => $dataNotification,
-            'profile_photo' => $dataUser['profile_photo'],
+            'dataUser' => $dataUser,
             'dataPermohonan' => $dataPermohonan
         ];
         return view('user.permohonan.failed_permohonan', $data);
@@ -243,7 +243,7 @@ class MainController extends Controller
             $data = [
                 'dataNotification' => $dataNotification,
                 'dataPermohonan' => $dataPermohonan,
-                'profile_photo' => $dataUser['profile_photo'],
+                'dataUser' => $dataUser,
                 'nama_bidang' => $namaBidang['nama_bidang']
             ];
 
@@ -302,7 +302,7 @@ class MainController extends Controller
             $data = [
                 'dataNotification' => $dataNotification,
                 'dataPermohonan' => $dataPermohonan,
-                'profile_photo' => $dataUser['profile_photo'],
+                'dataUser' => $dataUser,
                 'nama_bidang' => $namaBidang['nama_bidang'],
                 'data_type' => $dataType,
                 'data_layanan' => $dataLayanan
@@ -381,6 +381,43 @@ class MainController extends Controller
             }
         } catch (\Throwable $th) {
             return redirect()->route('detailPermohonan', Crypt::encrypt($request->input('permohonan_id')))->with('failed', 'Terjadi kesalahan');
+        }
+    }
+
+    function search(Request $request)
+    {
+        if (session('login') != true) {
+            return redirect()->route('login');
+        }
+
+
+
+
+        $validator = Validator::make($request->all(), [
+            'query' => 'required|string',
+            'status' => 'required|integer'
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()->with('failed', 'Terjadi kesalahan');
+        }
+
+        try {
+            $puModel = new PuModel();
+            $dataUser = User::where('user_id', session('user_id'))->first();
+            $notifModel = new NotificationModel();
+            $dataNotification = $notifModel->getNotification(session('user_id'));
+            $dataPermohonan = $puModel->search($request->input('query'), $request->input('status'));
+
+            $data = [
+                'dataNotification' => $dataNotification,
+                'dataPermohonan' => $dataPermohonan,
+                'dataUser' => $dataUser
+            ];
+
+            return view('user.permohonan.search_permohonan', $data);
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('failed', 'Terjadi kesalahan');
         }
     }
 }

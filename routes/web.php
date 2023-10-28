@@ -62,3 +62,4 @@ Route::get('forgetPassword', [UserController::class, 'forgetPassword'])->name('f
 Route::get('reset_password/{userId}', [AuthController::class, 'resetPassword'])->name('reset_password');
 Route::post('resetPassword', [UserController::class, 'resetPassword'])->name('resetPassword');
 Route::post('updatePassword', [AuthController::class, 'updatePassword'])->name('updatePassword');
+Route::get('search', [MainController::class, 'search'])->name('search');

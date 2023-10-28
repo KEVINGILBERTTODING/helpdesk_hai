@@ -29,4 +29,28 @@ class PuModel extends Model
             ->first();
         return $data;
     }
+
+    function search(string $query, int $status)
+    {
+        if ($status == 3) { // semua
+            $data = PuModel::select(
+                'permohonan.*'
+            )
+
+                ->where('permohonan.subject', 'LIKE', '%' . $query . '%')
+                ->where('permohonan.user_id', session('user_id'))
+                ->get();
+            return $data;
+        } else {
+            $data = PuModel::select(
+                'permohonan.*'
+            )
+
+                ->where('permohonan.subject', 'LIKE', '%' . $query . '%')
+                ->where('permohonan.user_id', session('user_id'))
+                ->where('permohonan.status', $status)
+                ->get();
+            return $data;
+        }
+    }
 }

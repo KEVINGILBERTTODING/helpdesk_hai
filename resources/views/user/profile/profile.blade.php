@@ -176,7 +176,7 @@
                     <img alt="image" src="{{ asset('data/profile_photo/' . $dataUser['profile_photo']) }}"
                         class="rounded-circle mr-1">
 
-                    <div class="d-sm-none d-lg-inline-block">Hi, {{ session('name') }}</div>
+                    <div class="d-sm-none d-lg-inline-block">Hi, {{ $dataUser['name'] }}</div>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right">
 
