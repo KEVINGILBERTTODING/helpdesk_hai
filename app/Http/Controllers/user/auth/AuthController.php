@@ -40,6 +40,7 @@ class AuthController extends Controller
                 } else {
                     if (Hash::check($password, $authValidate['password'])) {
                         $request->session()->put('login', TRUE);
+                        $request->session()->put('role', 'staff');
                         $request->session()->put('user_id', $authValidate['user_id']);
                         $request->session()->put('name', $authValidate['name']);
                         $request->session()->put('nrp', $authValidate['nrp']);

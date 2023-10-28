@@ -32,7 +32,7 @@
 
                 <div class="toggle-panel toggle-right">
                     <h1>Reset Kata Sandi!</h1>
-                    <p>Kami akan mengirimkan link url ke alamat Email Anda untuk mereset kata sandi Anda.</p>
+                    <p>Kami akan mengirimkan link url ke alamat email Anda untuk mereset kata sandi Anda.</p>
 
                 </div>
             </div>

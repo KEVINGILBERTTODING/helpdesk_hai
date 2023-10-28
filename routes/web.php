@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\daskrimti\main\DaskrimtiController;
+use App\Http\Controllers\daskrimti\auth\AuthController as DaskrimtiAuthController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\user\auth\AuthController;
 use App\Http\Controllers\user\main\MainController;
@@ -18,16 +20,17 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    if (session('login') == true) {
-        return redirect('dashboard');
+    if (session('login') && session('role') == 'daskrimti') {
+        return redirect()->route('daskrimtiDashboard');
+    } else  if (session('login') && session('role') == 'staff') {
+        return redirect()->route('dashboard');
     } else {
-        return view('landing_page/index');
+        return view('landing_page.index');
     }
-});
+})->name('/');
 
 Route::get('login', function () {
-
-    if (session('login') == true) {
+    if (session('login') == true && session('role') == 'staff') {
         return redirect('dashboard');
     } else {
         return view('user.auth.login');
@@ -63,3 +66,8 @@ Route::get('reset_password/{userId}', [AuthController::class, 'resetPassword'])-
 Route::post('resetPassword', [UserController::class, 'resetPassword'])->name('resetPassword');
 Route::post('updatePassword', [AuthController::class, 'updatePassword'])->name('updatePassword');
 Route::get('search', [MainController::class, 'search'])->name('search');
+
+// Daskrimti
+Route::get('daskrimti', [DaskrimtiAuthController::class, 'index'])->name('daskrimti')->middleware('daskrimtiAuth');
+Route::post('daskrimtiLogin', [DaskrimtiAuthController::class, 'login'])->name('daskrimtiLogin');
+Route::get('daskrimtiDashboard', [DaskrimtiController::class, 'index'])->name('daskrimtiDashboard')->middleware('daskrimti');
