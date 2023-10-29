@@ -2,7 +2,7 @@
 
 {{-- Title --}}
 @section('title')
-    <title>Daskrimti - Bidang</title>
+    <title>Daskrimti - Tipe</title>
 @endsection
 
 
@@ -78,8 +78,8 @@
                     <ul class="dropdown-menu">
                         <li><a class="nav-link" href="{{ route('layanan') }}">Data Pengguna</a></li>
                         <li><a class="nav-link" href="{{ route('layanan') }}">Data Layanan</a></li>
-                        <li class="active"><a class="nav-link" href="{{ route('bidang') }}">Data Bidang</a>
-                        <li><a class="nav-link" href="{{ route('processPermohonan') }}">Data Tipe</a></li>
+                        <li><a class="nav-link" href="{{ route('bidang') }}">Data Bidang</a>
+                        <li class="active"><a class="nav-link" href="{{ route('type') }}">Data Tipe</a></li>
 
                     </ul>
 
@@ -101,16 +101,16 @@
     <div class="main-content">
         <section class="section">
             <div class="section-header">
-                <h1>Daftar Semua Bidang</h1>
+                <h1>Daftar Semua Tipe</h1>
                 <div class="section-header-breadcrumb">
                     <div class="breadcrumb-item active"><a href="{{ route('daskrimtiDashboard') }}">Dashboard</a></div>
-                    <div class="breadcrumb-item">Bidang</div>
+                    <div class="breadcrumb-item">Tipe</div>
                 </div>
             </div>
 
             <div class="section-body">
-                <h2 class="section-title">Daftar Semua Bidang</h2>
-                <p class="section-lead">Daftar semua Bidang yang ada.</p>
+                <h2 class="section-title">Daftar Semua Tipe</h2>
+                <p class="section-lead">Daftar semua Tipe yang ada.</p>
 
 
             </div>
@@ -124,14 +124,14 @@
 
                             <button class="btn btn-primary" data-toggle="modal" data-target="#modal_insert"><i
                                     class="fa-regular fa-plus"></i> Tambah
-                                Bidang</button>
+                                Tipe</button>
 
                             <div class="table-responsive mt-3">
-                                <table class="table table-striped" id="table_bidang">
+                                <table class="table table-striped" id="table_type">
                                     <thead>
 
                                         <th>No</th>
-                                        <th>Nama Bidang</th>
+                                        <th>Nama Tipe</th>
                                         <th>Status</th>
                                         <th>Aksi</th>
                                     </thead>
@@ -139,10 +139,10 @@
                                         @php
                                             $no = 1;
                                         @endphp
-                                        @foreach ($dataBidang as $dtlyn)
+                                        @foreach ($dataType as $dtlyn)
                                             <tr>
                                                 <td>{{ $no++ }}</td>
-                                                <td>{{ $dtlyn->nama_bidang }}</td>
+                                                <td>{{ $dtlyn->nama_type }}</td>
                                                 <td>
                                                     @if ($dtlyn->status == 1)
                                                         <div class="badge badge-success">Aktif</div>
@@ -153,9 +153,9 @@
                                                 <td>
                                                     <div class="d-flex">
                                                         <button class="btn btn-warning mr-2" data-toggle="modal"
-                                                            data-target="#modal_update_{{ $dtlyn->bidang_id }}"><i
+                                                            data-target="#modal_update_{{ $dtlyn->type_id }}"><i
                                                                 class="fa-regular fa-pen-to-square"></i></button>
-                                                        <button data-bidang_id="{{ $dtlyn->bidang_id }}"
+                                                        <button data-type_id="{{ $dtlyn->type_id }}"
                                                             class="btn btn-danger btnDelete"><i
                                                                 class="fa-regular fa-trash-can"></i></a>
 
@@ -181,9 +181,9 @@
 
 
         </section>
-        @foreach ($dataBidang as $dtyyn)
+        @foreach ($dataType as $dtyyn)
             {{-- Modal update --}}
-            <div class="modal fade" tabindex="-1" role="dialog" id="modal_update_{{ $dtyyn->bidang_id }}">
+            <div class="modal fade" tabindex="-1" role="dialog" id="modal_update_{{ $dtyyn->type_id }}">
                 <div class="modal-dialog " role="document">
                     <div class="modal-content modal-dialog-scrollable">
                         <form action="{{ route('updateBidang') }}" method="post">
@@ -196,11 +196,11 @@
                             </div>
                             <div class="modal-body">
                                 <div class="form-group col-12">
-                                    <label>Nama Bidang</label>
-                                    <input type="text" readonly hidden required name="bidang_id"
-                                        value="{{ $dtyyn->bidang_id }}" class="form-control">
+                                    <label>Nama Tipe</label>
+                                    <input type="text" readonly hidden required name="type_id"
+                                        value="{{ $dtyyn->type_id }}" class="form-control">
 
-                                    <input type="text" required name="nama_bidang" value="{{ $dtyyn->nama_bidang }}"
+                                    <input type="text" required name="nama_type" value="{{ $dtyyn->nama_type }}"
                                         class="form-control">
 
                                 </div>
@@ -239,18 +239,18 @@
         <div class="modal fade" tabindex="-1" role="dialog" id="modal_insert">
             <div class="modal-dialog " role="document">
                 <div class="modal-content modal-dialog-scrollable">
-                    <form action="{{ route('insertBidang') }}" method="post">
+                    <form action="{{ route('insertType') }}" method="post">
                         @csrf
                         <div class="modal-header">
-                            <h5 class="modal-title">Tambah Bidang Baru</h5>
+                            <h5 class="modal-title">Tambah Tipe Baru</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
                         <div class="modal-body">
                             <div class="form-group col-12">
-                                <label>Nama Bidang</label>
-                                <input type="text" required name="nama_bidang" value="" class="form-control">
+                                <label>Nama Tipe</label>
+                                <input type="text" required name="nama_type" value="" class="form-control">
 
                             </div>
 
@@ -269,12 +269,12 @@
 @section('sweet_alert')
     <script>
         $(document).ready(function() {
-            $('#table_bidang').DataTable();
+            $('#table_type').DataTable();
         });
     </script>
     <script>
         $(document).on('click', '.btnDelete', function() {
-            var bidang_id = $(this).data('bidang_id');
+            var type_id = $(this).data('type_id');
             swal({
                     title: 'Apakah Anda yakin?',
                     text: 'Data yang telah dihapus tidak dapat dipulihkan kembali!',
@@ -284,7 +284,7 @@
                 })
                 .then((willDelete) => {
                     if (willDelete) {
-                        window.location.href = '/deleteBidang/' + bidang_id;
+                        window.location.href = '/deleteType/' + type_id;
                     } else {
                         // Tindakan yang diambil jika pengguna membatalkan penghapusan
                     }

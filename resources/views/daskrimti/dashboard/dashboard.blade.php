@@ -79,7 +79,7 @@
                         <li><a class="nav-link" href="{{ route('layanan') }}">Data Pengguna</a></li>
                         <li><a class="nav-link" href="{{ route('layanan') }}">Data Layanan</a></li>
                         <li><a class="nav-link" href="{{ route('bidang') }}">Data Bidang</a>
-                        <li><a class="nav-link" href="{{ route('processPermohonan') }}">Data Tipe</a></li>
+                        <li><a class="nav-link" href="{{ route('type') }}">Data Tipe</a></li>
 
                     </ul>
 

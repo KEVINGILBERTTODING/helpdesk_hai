@@ -4,6 +4,7 @@ use App\Http\Controllers\daskrimti\main\DaskrimtiController;
 use App\Http\Controllers\daskrimti\auth\AuthController as DaskrimtiAuthController;
 use App\Http\Controllers\daskrimti\main\BidangController;
 use App\Http\Controllers\daskrimti\main\LayananController;
+use App\Http\Controllers\daskrimti\main\TypeController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\user\auth\AuthController;
 use App\Http\Controllers\user\main\MainController;
@@ -81,3 +82,6 @@ Route::get('bidang', [BidangController::class, 'index'])->name('bidang')->middle
 Route::get('profileDaskrimti', [LayananController::class, 'index'])->name('profileDaskrimti')->middleware('daskrimti');
 Route::post('insertBidang', [BidangController::class, 'insertBidang'])->name('insertBidang')->middleware('daskrimti');
 Route::post('updateBidang', [BidangController::class, 'updateBidang'])->name('updateBidang')->middleware('daskrimti');
+Route::get('deleteBidang/{bidangId}', [BidangController::class, 'deleteBidang'])->name('deleteBidang')->middleware('daskrimti');
+Route::get('type', [TypeController::class, 'index'])->name('type')->middleware('daskrimti');
+Route::post('insertType', [TypeController::class, 'insertType'])->name('insertType')->middleware('daskrimti');
