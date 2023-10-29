@@ -186,27 +186,23 @@
             <div class="modal fade" tabindex="-1" role="dialog" id="modal_update_{{ $dtyyn->bidang_id }}">
                 <div class="modal-dialog " role="document">
                     <div class="modal-content modal-dialog-scrollable">
-                        <form action="{{ route('updateLayanan') }}" method="post">
+                        <form action="{{ route('updateBidang') }}" method="post">
                             @csrf
                             <div class="modal-header">
-                                <h5 class="modal-title">Ubah Data Layanan</h5>
+                                <h5 class="modal-title">Ubah Data Bidang</h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
                             <div class="modal-body">
                                 <div class="form-group col-12">
-                                    <label>Nama Layanan</label>
+                                    <label>Nama Bidang</label>
                                     <input type="text" readonly hidden required name="bidang_id"
                                         value="{{ $dtyyn->bidang_id }}" class="form-control">
 
-                                    <input type="text" required name="nama_layanan"
-                                        value="{{ $dtyyn->nama_layanan }}" class="form-control">
+                                    <input type="text" required name="nama_bidang" value="{{ $dtyyn->nama_bidang }}"
+                                        class="form-control">
 
-                                </div>
-                                <div class="form-group col-12">
-                                    <label>Deskripsi</label>
-                                    <textarea required name="description" required class="form-control" rows="7">{{ $dtyyn->description }}</textarea>
                                 </div>
 
                                 <div class="form-group col-12">

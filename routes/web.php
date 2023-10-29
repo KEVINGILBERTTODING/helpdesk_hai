@@ -80,3 +80,4 @@ Route::get('deleteLayanan/{layananId}', [LayananController::class, 'deleteLayana
 Route::get('bidang', [BidangController::class, 'index'])->name('bidang')->middleware('daskrimti');
 Route::get('profileDaskrimti', [LayananController::class, 'index'])->name('profileDaskrimti')->middleware('daskrimti');
 Route::post('insertBidang', [BidangController::class, 'insertBidang'])->name('insertBidang')->middleware('daskrimti');
+Route::post('updateBidang', [BidangController::class, 'updateBidang'])->name('updateBidang')->middleware('daskrimti');
