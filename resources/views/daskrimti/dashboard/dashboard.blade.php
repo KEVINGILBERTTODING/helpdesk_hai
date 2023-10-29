@@ -47,22 +47,36 @@
     <div class="main-sidebar sidebar-style-2">
         <aside id="sidebar-wrapper">
             <div class="sidebar-brand">
-                <a href="{{ route('dashboard') }}">HAI Kejati Jateng</a>
+                <a href="{{ route('daskrimtiDashboard') }}">HAI Kejati Jateng</a>
             </div>
             <div class="sidebar-brand sidebar-brand-sm">
-                <a href="{{ route('dashboard') }}">HAI</a>
+                <a href="{{ route('daskrimtiDashboard') }}">HAI</a>
             </div>
             <ul class="sidebar-menu">
                 <li class="menu-header">Dashboard</li>
                 <li class="active">
-                    <a href="{{ route('dashboard') }}"><i class="fa-solid fa-house"></i> <span>Dashboard</span></a>
+                    <a href="{{ route('daskrimtiDashboard') }}"><i class="fa-solid fa-house"></i> <span>Dashboard</span></a>
                 </li>
-                <li class="menu-header">Data</li>
+                <li class="menu-header">Data Permohonan</li>
                 <li class="dropdown">
                     <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i
                             class="fa-regular fa-folder"></i> <span>Permohonan Saya</span></a>
                     <ul class="dropdown-menu">
                         <li><a class="nav-link" href="{{ route('createPermohonan') }}">Permohonan Baru</a></li>
+                        <li><a class="nav-link" href="{{ route('allPermohonan') }}">Semua Permohonan</a>
+                        <li><a class="nav-link" href="{{ route('processPermohonan') }}">Permohonan Proses</a></li>
+                        <li><a class="nav-link" href="{{ route('successPermohonan') }}">Permohonan Selesai</a></li>
+                        <li><a class="nav-link" href="{{ route('failedPermohonan') }}">Permohonan ditolak</a></li>
+
+                    </ul>
+
+                </li>
+                <li class="menu-header">Data Master</li>
+                <li class="dropdown">
+                    <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i
+                            class="fa-solid fa-wrench"></i> <span>Data Master</span></a>
+                    <ul class="dropdown-menu">
+                        <li><a class="nav-link" href="{{ route('layanan') }}">Data Layanan</a></li>
                         <li><a class="nav-link" href="{{ route('allPermohonan') }}">Semua Permohonan</a>
                         <li><a class="nav-link" href="{{ route('processPermohonan') }}">Permohonan Proses</a></li>
                         <li><a class="nav-link" href="{{ route('successPermohonan') }}">Permohonan Selesai</a></li>
@@ -88,9 +102,9 @@
     <div class="main-content">
         <section class="section">
             <div class="section-header">
-                <h1>Dashboard</h1>
+                <h1>Dashboard Daskrimti</h1>
             </div>
-            {{-- <div class="row">
+            <div class="row">
                 <div class="col-lg-3 col-md-6 col-sm-6 col-12">
                     <a href="{{ route('allPermohonan') }}">
                         <div class="card card-statistic-1">
@@ -166,7 +180,7 @@
                     </a>
                 </div>
 
-            </div> --}}
+            </div>
 
         </section>
     </div>

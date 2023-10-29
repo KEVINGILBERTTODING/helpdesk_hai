@@ -10,6 +10,8 @@
     <link rel="stylesheet" href="{{ asset('template/main/dist/assets/modules/bootstrap/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('template/main/dist/assets/modules/fontawesome/css/all.min.css') }}">
 
+    {{-- data table --}}
+    <link href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css" rel="stylesheet">
     <!-- CSS Libraries -->
     <link rel="stylesheet" href="{{ asset('template/main/dist/assets/modules/jqvmap/dist/jqvmap.min.css') }}">
     <link rel="stylesheet"
@@ -57,7 +59,7 @@
     </div>
 
     <!-- General JS Scripts -->
-    <script src="{{ asset('template/main/dist/assets/modules/jquery.min.js') }}"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="{{ asset('template/main/dist/assets/modules/popper.js') }}"></script>
     <script src="{{ asset('template/main/dist/assets/modules/tooltip.js') }}"></script>
     <script src="{{ asset('template/main/dist/assets/modules/bootstrap/js/bootstrap.min.js') }}"></script>
@@ -85,6 +87,11 @@
     <script src="{{ asset('template/main/dist/assets/js/scripts.js') }}"></script>
     <script src="{{ asset('template/main/dist/assets/js/custom.js') }}"></script>
     <script src="https://kit.fontawesome.com/142d239858.js" crossorigin="anonymous"></script>
+
+    {{-- data table --}}
+    <script src="https://cdn.datatables.net/v/dt/dt-1.13.6/datatables.min.js"></script>
+
+
 </body>
 
 </html>

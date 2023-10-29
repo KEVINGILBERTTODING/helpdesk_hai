@@ -28,7 +28,7 @@ class MainController extends Controller
 
     function index()
     {
-        if (session('login') != true) {
+        if (session('login') != true && session('role') != 'staff') {
             return redirect('login');
         }
         $dataUser = User::where('user_id', session('user_id'))->first();
@@ -147,7 +147,7 @@ class MainController extends Controller
 
     function allPermohonan()
     {
-        if (session('login') != true) {
+        if (session('login') != true && session('role') != 'staff') {
             return redirect('login');
         }
         $dataUser = User::where('user_id', session('user_id'))->first();
@@ -166,7 +166,7 @@ class MainController extends Controller
 
     function processPermohonan()
     {
-        if (session('login') != true) {
+        if (session('login') != true && session('role') != 'staff') {
             return redirect('login');
         }
         $dataUser = User::where('user_id', session('user_id'))->first();
@@ -185,7 +185,7 @@ class MainController extends Controller
 
     function successPermohonan()
     {
-        if (session('login') != true) {
+        if (session('login') != true && session('role') != 'staff') {
             return redirect('login');
         }
         $dataUser = User::where('user_id', session('user_id'))->first();
@@ -204,7 +204,7 @@ class MainController extends Controller
 
     function failedPermohonan()
     {
-        if (session('login') != true) {
+        if (session('login') != true && session('role') != 'staff') {
             return redirect('login');
         }
         $dataUser = User::where('user_id', session('user_id'))->first();
@@ -224,7 +224,7 @@ class MainController extends Controller
     function detailPermohonan($id)
     {
 
-        if (session('login') != true) {
+        if (session('login') != true && session('role') != 'staff') {
             return redirect('login');
         }
         try {
@@ -265,7 +265,7 @@ class MainController extends Controller
 
     function deletePermohonan($id)
     {
-        if (session('login') != true) {
+        if (session('login') != true && session('role') != 'staff') {
             return redirect('login');
         }
         try {
@@ -283,7 +283,7 @@ class MainController extends Controller
     function updatePermohonan($id)
     {
 
-        if (session('login') != true) {
+        if (session('login') != true && session('role') != 'staff') {
             return redirect('login');
         }
         try {
@@ -316,7 +316,7 @@ class MainController extends Controller
 
     function updateData(Request $request)
     {
-        if (session('login') != true) {
+        if (session('login') != true && session('role') != 'staff') {
             return redirect('login');
         }
         $validator = Validator::make($request->all(), [
@@ -386,7 +386,7 @@ class MainController extends Controller
 
     function search(Request $request)
     {
-        if (session('login') != true) {
+        if (session('login') != true && session('role') != 'staff') {
             return redirect()->route('login');
         }
 

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\daskrimti\main\DaskrimtiController;
 use App\Http\Controllers\daskrimti\auth\AuthController as DaskrimtiAuthController;
+use App\Http\Controllers\daskrimti\main\LayananController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\user\auth\AuthController;
 use App\Http\Controllers\user\main\MainController;
@@ -71,3 +72,5 @@ Route::get('search', [MainController::class, 'search'])->name('search');
 Route::get('daskrimti', [DaskrimtiAuthController::class, 'index'])->name('daskrimti')->middleware('daskrimtiAuth');
 Route::post('daskrimtiLogin', [DaskrimtiAuthController::class, 'login'])->name('daskrimtiLogin');
 Route::get('daskrimtiDashboard', [DaskrimtiController::class, 'index'])->name('daskrimtiDashboard')->middleware('daskrimti');
+Route::get('layanan', [LayananController::class, 'index'])->name('layanan')->middleware('daskrimti');
+Route::post('insertLayanan', [LayananController::class, 'insertLayanan'])->name('insertLayanan')->middleware('daskrimti');
