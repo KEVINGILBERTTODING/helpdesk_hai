@@ -86,3 +86,4 @@ Route::get('deleteBidang/{bidangId}', [BidangController::class, 'deleteBidang'])
 Route::get('type', [TypeController::class, 'index'])->name('type')->middleware('daskrimti');
 Route::post('insertType', [TypeController::class, 'insertType'])->name('insertType')->middleware('daskrimti');
 Route::post('updateType', [TypeController::class, 'updateType'])->name('updateType')->middleware('daskrimti');
+Route::get('deleteType/{typeId}', [TypeController::class, 'deleteType'])->name('deleteType')->middleware('daskrimti');

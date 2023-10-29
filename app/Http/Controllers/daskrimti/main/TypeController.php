@@ -96,17 +96,17 @@ class TypeController extends Controller
         }
     }
 
-    function deleteLayanan($typeId)
+    function deleteType($typeId)
     {
         try {
-            $delete = TypeModel::where('bidang_id', $typeId)->delete();
+            $delete = TypeModel::where('type_id', $typeId)->delete();
             if ($delete) {
-                return redirect()->route('bidang')->with('success', 'Berhasil menghapus data bidang');
+                return redirect()->route('type')->with('success', 'Berhasil menghapus data tipe');
             } else {
-                return redirect()->route('bidang')->with('failed', 'Gagal menghapus data bidang');
+                return redirect()->route('type')->with('failed', 'Gagal menghapus data tipe');
             }
         } catch (\Throwable $th) {
-            return redirect()->route('bidang')->with('failed', 'Terjadi kesalahan');
+            return redirect()->route('type')->with('failed', 'Terjadi kesalahan');
         }
     }
 }
