@@ -90,3 +90,4 @@ Route::post('updateType', [TypeController::class, 'updateType'])->name('updateTy
 Route::get('deleteType/{typeId}', [TypeController::class, 'deleteType'])->name('deleteType')->middleware('daskrimti');
 Route::get('users', [UsersController::class, 'index'])->name('users')->middleware('daskrimti');
 Route::post('insertUser', [UsersController::class, 'insertUser'])->name('insertUser')->middleware('daskrimti');
+Route::post('updateUsers', [UsersController::class, 'updateUsers'])->name('updateUsers')->middleware('daskrimti');

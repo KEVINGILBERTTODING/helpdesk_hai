@@ -193,47 +193,69 @@
             <div class="modal fade" tabindex="-1" role="dialog" id="modal_update_{{ $dtyyn->user_id }}">
                 <div class="modal-dialog " role="document">
                     <div class="modal-content modal-dialog-scrollable">
-                        <form action="{{ route('updateType') }}" method="post">
+                        <form action="{{ route('updateUsers') }}" method="post">
                             @csrf
                             <div class="modal-header">
-                                <h5 class="modal-title">Ubah Data Tipe</h5>
+                                <h5 class="modal-title">Ubah Data Staff</h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
                             <div class="modal-body">
                                 <div class="form-group col-12">
-                                    <label>Nama Tipe</label>
-                                    <input type="text" readonly hidden required name="user_id"
-                                        value="{{ $dtyyn->user_id }}" class="form-control">
-
-                                    <input type="text" required name="nama_type" value="{{ $dtyyn->nama_type }}"
+                                    <label>NRP</label>
+                                    <input type="number" hidden required name="user_id" value="{{ $dtyyn->user_id }}"
                                         class="form-control">
+                                    <input type="number" required name="nrp" value="{{ $dtyyn->nrp }}"
+                                        class="form-control">
+                                </div>
+
+                                <div class="form-group col-12">
+                                    <label>Nama Lengkap</label>
+                                    <input required name="name" value="{{ $dtyyn->name }}" class="form-control">
+                                </div>
+
+                                <div class="form-group col-12">
+                                    <label>Email</label>
+                                    <input type="email" required name="email" value="{{ $dtyyn->email }}"
+                                        class="form-control">
+                                </div>
+                                <div class="form-group col-12">
+                                    <label>Bidang</label>
+                                    <select required name="bidang_id" class="form-control">
+                                        <option value="{{ $dtyyn->bidang_id }}" selected>{{ $dtyyn->nama_bidang }}
+                                        </option>
+                                        @foreach ($dataBidang as $dtb)
+                                            @if ($dtb->bidang_id == $dtyyn->bidang_id)
+                                                <option hidden value="{{ $dtb->bidang_id }}">{{ $dtb->nama_bidang }}
+                                                </option>
+                                            @else
+                                                <option value="{{ $dtb->bidang_id }}">{{ $dtb->nama_bidang }}</option>
+                                            @endif
+                                        @endforeach
+
+                                    </select>
 
                                 </div>
 
                                 <div class="form-group col-12">
                                     <label>Status</label>
-                                    <select name="status" required class="form-control">
-                                        @if ($dtyyn->status == 1)
+                                    <select required name="status" class="form-control">
+                                        @if ($dtb->status == 1)
                                             <option value="1" selected>Aktif</option>
                                             <option value="0">Tidak Aktif</option>
-                                        @elseif ($dtyyn->status == 0)
+                                        @elseif ($dtb->status == 0)
                                             <option value="0" selected>Tidak Aktif</option>
                                             <option value="1">Aktif</option>
                                         @endif
                                     </select>
                                 </div>
 
-
-
                             </div>
-
                             <div class="modal-footer bg-whitesmoke br">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
                                 <button type="submit" class="btn btn-primary">Simpan</button>
                             </div>
-
 
                         </form>
                     </div>

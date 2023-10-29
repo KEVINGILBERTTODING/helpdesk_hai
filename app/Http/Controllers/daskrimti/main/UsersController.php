@@ -81,41 +81,60 @@ class UsersController extends Controller
         }
     }
 
-    // function updateType(Request $request)
-    // {
-    //     $validator = Validator::make($request->all(), [
-    //         'type_id' => 'required|integer',
-    //         'nama_type' => 'required|string|max:80',
-    //         'status' => 'required|integer',
-    //     ], [
-    //         'nama_type.required' => 'Nama tipe tidak boleh kosong',
-    //         'nama_type.string' => 'Nama tipe harus berupa karakter huruf dan angka',
-    //         'status.required' => 'Status tidak boleh kosong',
-    //         'status.integer' => 'Terjadi kesalahan',
-    //         'type_id.required' => 'Terjadi kesalahan',
-    //         'type_id.integer' => 'Terjadi kesalahan',
-    //     ]);
 
-    //     if ($validator->fails()) {
-    //         return redirect()->route('type')->with('failed', $validator->errors()->first());
-    //     }
 
-    //     try {
-    //         $data = [
-    //             'nama_type' => $request->input('nama_type'),
-    //             'status' => $request->input('status'),
-    //             'updated_at' => date('Y-m-d H:i:s')
-    //         ];
-    //         $update = TypeModel::where('type_id', $request->input('type_id'))->update($data);
-    //         if ($update) {
-    //             return redirect()->route('type')->with('success', 'Berhasil mengubah data tipe');
-    //         } else {
-    //             return redirect()->route('type')->with('failed', 'Gagal mengubah data tipe');
-    //         }
-    //     } catch (\Throwable $th) {
-    //         return redirect()->route('type')->with('failed', 'Terjadi kesalahan');
-    //     }
-    // }
+    function updateUsers(Request $request)
+    {
+        $userId = $request->input('user_id');
+        $validator = Validator::make($request->all(), [
+            'user_id' => 'required|integer',
+            'nrp' => 'required|integer|unique:users,nrp,' .  $userId . ',user_id',
+            'name' => 'required|string',
+            'bidang_id' => 'required|integer',
+            'email' => 'required|email|unique:users,email,' . $userId . ',user_id',
+            'status' => 'required|integer',
+        ], [
+            'user_id.required' => 'Terjadi kesalahan',
+            'user_id.integer' => 'Terjadi kesalahan',
+            'nrp.required' => 'NRP tidak boleh kosong',
+            'nrp.integer' => 'NRP hanya boleh berupa angka',
+            'nrp.unique' => 'NRP telah terdaftar',
+            'name.required' => 'Nama lengkap tidak boleh kosong',
+            'name.string' => 'Nama lengkap hanya boleh berupa huruf dan angka',
+            'bidang_id.required' => 'Bidang tidak boleh kosong',
+            'bidang_id.integer' => 'Bidang tidak boleh kosong',
+            'email.required' => 'Email tidak boleh kosong',
+            'email.email' => 'Email tidak valid',
+            'email.unique' => 'Email telah terdaftar',
+            'status.required' => 'Anda belum memilih status',
+            'status.integer' => 'Terjadi kesalahan',
+
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->route('users')->with('failed', $validator->errors()->first())->withInput();
+        }
+
+        try {
+            $data = [
+                'nrp' => $request->input('nrp'),
+                'email' => $request->input('email'),
+                'name' => $request->input('name'),
+                'bidang_id' => $request->input('bidang_id'),
+                'status' => $request->input('status'),
+                'updated_at' => date('Y-m-d H:i:s')
+            ];
+            $insert = UserModel::where('user_id', $request->input('user_id'))->update($data);
+            if ($insert) {
+                return redirect()->route('users')->with('success', 'Berhasil mengubah data staff');
+            } else {
+                return redirect()->route('users')->with('failed', 'Gagal mengubah ata staff');
+            }
+        } catch (\Throwable $th) {
+            return redirect()->route('users')->with('failed', $th->getMessage());
+        }
+    }
+
 
     // function deleteType($typeId)
     // {
