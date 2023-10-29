@@ -9,4 +9,16 @@ class UserModel extends Model
 {
     use HasFactory;
     protected $table = 'users';
+
+    function getAllUsers()
+    {
+        $data = UserModel::select(
+            'users.*',
+            'bidang.nama_bidang'
+        )
+            ->leftJoin('bidang', 'users.bidang_id', '=', 'bidang.bidang_id')
+            ->get();
+
+        return $data;
+    }
 }

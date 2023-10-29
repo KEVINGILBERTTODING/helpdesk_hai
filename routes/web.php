@@ -5,6 +5,7 @@ use App\Http\Controllers\daskrimti\auth\AuthController as DaskrimtiAuthControlle
 use App\Http\Controllers\daskrimti\main\BidangController;
 use App\Http\Controllers\daskrimti\main\LayananController;
 use App\Http\Controllers\daskrimti\main\TypeController;
+use App\Http\Controllers\daskrimti\main\UsersController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\user\auth\AuthController;
 use App\Http\Controllers\user\main\MainController;
@@ -87,3 +88,5 @@ Route::get('type', [TypeController::class, 'index'])->name('type')->middleware('
 Route::post('insertType', [TypeController::class, 'insertType'])->name('insertType')->middleware('daskrimti');
 Route::post('updateType', [TypeController::class, 'updateType'])->name('updateType')->middleware('daskrimti');
 Route::get('deleteType/{typeId}', [TypeController::class, 'deleteType'])->name('deleteType')->middleware('daskrimti');
+Route::get('users', [UsersController::class, 'index'])->name('users')->middleware('daskrimti');
+Route::post('insertUser', [UsersController::class, 'insertUser'])->name('insertUser')->middleware('daskrimti');

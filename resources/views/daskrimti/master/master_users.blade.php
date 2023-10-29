@@ -2,7 +2,7 @@
 
 {{-- Title --}}
 @section('title')
-    <title>Daskrimti - Bidang</title>
+    <title>Daskrimti - Pengguna</title>
 @endsection
 
 
@@ -76,11 +76,10 @@
                     <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i
                             class="fa-solid fa-wrench"></i> <span>Data Master</span></a>
                     <ul class="dropdown-menu">
-                        <li><a class="nav-link" href="{{ route('layanan') }}">Data Pengguna</a></li>
+                        <li class="active"><a class="nav-link" href="{{ route('layanan') }}">Data Pengguna</a></li>
                         <li><a class="nav-link" href="{{ route('layanan') }}">Data Layanan</a></li>
-                        <li class="active"><a class="nav-link" href="{{ route('bidang') }}">Data Bidang</a>
-                        <li><a class="nav-link" href="{{ route('type') }}">Data Tipe</a></li>
-
+                        <li><a class="nav-link" href="{{ route('bidang') }}">Data Bidang</a>
+                        <li class="active"><a class="nav-link" href="{{ route('type') }}">Data Tipe</a></li>
 
                     </ul>
 
@@ -102,16 +101,16 @@
     <div class="main-content">
         <section class="section">
             <div class="section-header">
-                <h1>Daftar Semua Bidang</h1>
+                <h1>Daftar Semua Staff</h1>
                 <div class="section-header-breadcrumb">
                     <div class="breadcrumb-item active"><a href="{{ route('daskrimtiDashboard') }}">Dashboard</a></div>
-                    <div class="breadcrumb-item">Bidang</div>
+                    <div class="breadcrumb-item">Staff</div>
                 </div>
             </div>
 
             <div class="section-body">
-                <h2 class="section-title">Daftar Semua Bidang</h2>
-                <p class="section-lead">Daftar semua Bidang yang ada.</p>
+                <h2 class="section-title">Daftar Semua Staff</h2>
+                <p class="section-lead">Daftar semua staff yang ada.</p>
 
 
             </div>
@@ -125,14 +124,17 @@
 
                             <button class="btn btn-primary" data-toggle="modal" data-target="#modal_insert"><i
                                     class="fa-regular fa-plus"></i> Tambah
-                                Bidang</button>
+                                Staff</button>
 
                             <div class="table-responsive mt-3">
-                                <table class="table table-striped" id="table_bidang">
+                                <table class="table table-striped" id="table_type">
                                     <thead>
 
                                         <th>No</th>
-                                        <th>Nama Bidang</th>
+                                        <th>NRP</th>
+                                        <th>Nama Lengkap</th>
+                                        <th>Email</th>
+                                        <th>Bidang</th>
                                         <th>Status</th>
                                         <th>Aksi</th>
                                     </thead>
@@ -140,9 +142,12 @@
                                         @php
                                             $no = 1;
                                         @endphp
-                                        @foreach ($dataBidang as $dtlyn)
+                                        @foreach ($dataUsers as $dtlyn)
                                             <tr>
                                                 <td>{{ $no++ }}</td>
+                                                <td>{{ $dtlyn->nrp }}</td>
+                                                <td>{{ $dtlyn->name }}</td>
+                                                <td>{{ $dtlyn->email }}</td>
                                                 <td>{{ $dtlyn->nama_bidang }}</td>
                                                 <td>
                                                     @if ($dtlyn->status == 1)
@@ -151,12 +156,13 @@
                                                         <div class="badge badge-danger">Tidak Aktif</div>
                                                     @endif
                                                 </td>
+
                                                 <td>
                                                     <div class="d-flex">
                                                         <button class="btn btn-warning mr-2" data-toggle="modal"
-                                                            data-target="#modal_update_{{ $dtlyn->bidang_id }}"><i
+                                                            data-target="#modal_update_{{ $dtlyn->user_id }}"><i
                                                                 class="fa-regular fa-pen-to-square"></i></button>
-                                                        <button data-bidang_id="{{ $dtlyn->bidang_id }}"
+                                                        <button data-user_id="{{ $dtlyn->user_id }}"
                                                             class="btn btn-danger btnDelete"><i
                                                                 class="fa-regular fa-trash-can"></i></a>
 
@@ -182,26 +188,26 @@
 
 
         </section>
-        @foreach ($dataBidang as $dtyyn)
+        @foreach ($dataUsers as $dtyyn)
             {{-- Modal update --}}
-            <div class="modal fade" tabindex="-1" role="dialog" id="modal_update_{{ $dtyyn->bidang_id }}">
+            <div class="modal fade" tabindex="-1" role="dialog" id="modal_update_{{ $dtyyn->user_id }}">
                 <div class="modal-dialog " role="document">
                     <div class="modal-content modal-dialog-scrollable">
-                        <form action="{{ route('updateBidang') }}" method="post">
+                        <form action="{{ route('updateType') }}" method="post">
                             @csrf
                             <div class="modal-header">
-                                <h5 class="modal-title">Ubah Data Bidang</h5>
+                                <h5 class="modal-title">Ubah Data Tipe</h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
                             <div class="modal-body">
                                 <div class="form-group col-12">
-                                    <label>Nama Bidang</label>
-                                    <input type="text" readonly hidden required name="bidang_id"
-                                        value="{{ $dtyyn->bidang_id }}" class="form-control">
+                                    <label>Nama Tipe</label>
+                                    <input type="text" readonly hidden required name="user_id"
+                                        value="{{ $dtyyn->user_id }}" class="form-control">
 
-                                    <input type="text" required name="nama_bidang" value="{{ $dtyyn->nama_bidang }}"
+                                    <input type="text" required name="nama_type" value="{{ $dtyyn->nama_type }}"
                                         class="form-control">
 
                                 </div>
@@ -240,18 +246,37 @@
         <div class="modal fade" tabindex="-1" role="dialog" id="modal_insert">
             <div class="modal-dialog " role="document">
                 <div class="modal-content modal-dialog-scrollable">
-                    <form action="{{ route('insertBidang') }}" method="post">
+                    <form action="{{ route('insertUser') }}" method="post">
                         @csrf
                         <div class="modal-header">
-                            <h5 class="modal-title">Tambah Bidang Baru</h5>
+                            <h5 class="modal-title">Tambah Staff Baru</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
                         <div class="modal-body">
                             <div class="form-group col-12">
-                                <label>Nama Bidang</label>
-                                <input type="text" required name="nama_bidang" value="" class="form-control">
+                                <label>NRP</label>
+                                <input type="number" required name="nrp" value="" class="form-control">
+                            </div>
+
+                            <div class="form-group col-12">
+                                <label>Nama Lengkap</label>
+                                <input required name="name" value="" class="form-control">
+                            </div>
+
+                            <div class="form-group col-12">
+                                <label>Email</label>
+                                <input type="email" required name="email" value="" class="form-control">
+                            </div>
+                            <div class="form-group col-12">
+                                <label>Bidang</label>
+                                <select required name="bidang_id" class="form-control">
+                                    @foreach ($dataBidang as $dtb)
+                                        <option value="{{ $dtb->bidang_id }}">{{ $dtb->nama_bidang }}</option>
+                                    @endforeach
+
+                                </select>
 
                             </div>
 
@@ -270,12 +295,12 @@
 @section('sweet_alert')
     <script>
         $(document).ready(function() {
-            $('#table_bidang').DataTable();
+            $('#table_type').DataTable();
         });
     </script>
     <script>
         $(document).on('click', '.btnDelete', function() {
-            var bidang_id = $(this).data('bidang_id');
+            var user_id = $(this).data('user_id');
             swal({
                     title: 'Apakah Anda yakin?',
                     text: 'Data yang telah dihapus tidak dapat dipulihkan kembali!',
@@ -285,7 +310,7 @@
                 })
                 .then((willDelete) => {
                     if (willDelete) {
-                        window.location.href = '/deleteBidang/' + bidang_id;
+                        window.location.href = '/deleteType/' + user_id;
                     } else {
                         // Tindakan yang diambil jika pengguna membatalkan penghapusan
                     }
