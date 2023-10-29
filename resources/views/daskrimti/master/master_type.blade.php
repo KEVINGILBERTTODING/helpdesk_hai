@@ -186,10 +186,10 @@
             <div class="modal fade" tabindex="-1" role="dialog" id="modal_update_{{ $dtyyn->type_id }}">
                 <div class="modal-dialog " role="document">
                     <div class="modal-content modal-dialog-scrollable">
-                        <form action="{{ route('updateBidang') }}" method="post">
+                        <form action="{{ route('updateType') }}" method="post">
                             @csrf
                             <div class="modal-header">
-                                <h5 class="modal-title">Ubah Data Bidang</h5>
+                                <h5 class="modal-title">Ubah Data Tipe</h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>

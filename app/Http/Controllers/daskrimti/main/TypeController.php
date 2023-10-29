@@ -60,46 +60,46 @@ class TypeController extends Controller
         }
     }
 
-    function updateBidang(Request $request)
+    function updateType(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'bidang_id' => 'required|integer',
-            'nama_bidang' => 'required|string|max:80',
+            'type_id' => 'required|integer',
+            'nama_type' => 'required|string|max:80',
             'status' => 'required|integer',
         ], [
-            'nama_bidang.required' => 'Nama bidang tidak boleh kosong',
-            'nama_bidang.string' => 'Nama bidang harus berupa karakter huruf dan angka',
+            'nama_type.required' => 'Nama tipe tidak boleh kosong',
+            'nama_type.string' => 'Nama tipe harus berupa karakter huruf dan angka',
             'status.required' => 'Status tidak boleh kosong',
             'status.integer' => 'Terjadi kesalahan',
-            'bidang_id.required' => 'Terjadi kesalahan',
-            'bidang_id.integer' => 'Terjadi kesalahan',
+            'type_id.required' => 'Terjadi kesalahan',
+            'type_id.integer' => 'Terjadi kesalahan',
         ]);
 
         if ($validator->fails()) {
-            return redirect()->route('bidang')->with('failed', $validator->errors()->first());
+            return redirect()->route('type')->with('failed', $validator->errors()->first());
         }
 
         try {
             $data = [
-                'nama_bidang' => $request->input('nama_bidang'),
+                'nama_type' => $request->input('nama_type'),
                 'status' => $request->input('status'),
                 'updated_at' => date('Y-m-d H:i:s')
             ];
-            $update = TypeModel::where('bidang_id', $request->input('bidang_id'))->update($data);
+            $update = TypeModel::where('type_id', $request->input('type_id'))->update($data);
             if ($update) {
-                return redirect()->route('bidang')->with('success', 'Berhasil mengubah data bidang');
+                return redirect()->route('type')->with('success', 'Berhasil mengubah data tipe');
             } else {
-                return redirect()->route('bidang')->with('failed', 'Gagal mengubah data bidang');
+                return redirect()->route('type')->with('failed', 'Gagal mengubah data tipe');
             }
         } catch (\Throwable $th) {
-            return redirect()->route('bidang')->with('failed', 'Terjadi kesalahan');
+            return redirect()->route('type')->with('failed', 'Terjadi kesalahan');
         }
     }
 
-    function deleteLayanan($bidangId)
+    function deleteLayanan($typeId)
     {
         try {
-            $delete = TypeModel::where('bidang_id', $bidangId)->delete();
+            $delete = TypeModel::where('bidang_id', $typeId)->delete();
             if ($delete) {
                 return redirect()->route('bidang')->with('success', 'Berhasil menghapus data bidang');
             } else {
