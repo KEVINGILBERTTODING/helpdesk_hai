@@ -155,9 +155,9 @@
                                                 </td>
                                                 <td>
                                                     <div class="d-flex">
-                                                        <a href="#" class="btn btn-warning mr-2" data-toggle="modal"
-                                                            data-target="modal_update_{{ $dtlyn->layanan_id }}"><i
-                                                                class="fa-regular fa-pen-to-square"></i></a>
+                                                        <button class="btn btn-warning mr-2" data-toggle="modal"
+                                                            data-target="#modal_update_{{ $dtlyn->layanan_id }}"><i
+                                                                class="fa-regular fa-pen-to-square"></i></button>
                                                         <a href="" class="btn btn-danger"><i
                                                                 class="fa-regular fa-trash-can"></i></a>
 
@@ -183,6 +183,62 @@
 
 
         </section>
+        @foreach ($dataLayanan as $dtyyn)
+            {{-- Modal update --}}
+            <div class="modal fade" tabindex="-1" role="dialog" id="modal_update_{{ $dtyyn->layanan_id }}">
+                <div class="modal-dialog " role="document">
+                    <div class="modal-content modal-dialog-scrollable">
+                        <form action="{{ route('updateLayanan') }}" method="post">
+                            @csrf
+                            <div class="modal-header">
+                                <h5 class="modal-title">Ubah Data Layanan</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="form-group col-12">
+                                    <label>Nama Layanan</label>
+                                    <input type="text" readonly hidden required name="layanan_id"
+                                        value="{{ $dtyyn->layanan_id }}" class="form-control">
+
+                                    <input type="text" required name="nama_layanan"
+                                        value="{{ $dtyyn->nama_layanan }}" class="form-control">
+
+                                </div>
+                                <div class="form-group col-12">
+                                    <label>Deskripsi</label>
+                                    <textarea required name="description" required class="form-control" rows="7">{{ $dtyyn->description }}</textarea>
+                                </div>
+
+                                <div class="form-group col-12">
+                                    <label>Status</label>
+                                    <select name="status" required class="form-control">
+                                        @if ($dtyyn->status == 1)
+                                            <option value="1" selected>Aktif</option>
+                                            <option value="0">Tidak Aktif</option>
+                                        @elseif ($dtyyn->status == 0)
+                                            <option value="0" selected>Tidak Aktif</option>
+                                            <option value="1">Aktif</option>
+                                        @endif
+                                    </select>
+                                </div>
+
+
+
+                            </div>
+
+                            <div class="modal-footer bg-whitesmoke br">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                                <button type="submit" class="btn btn-primary">Simpan</button>
+                            </div>
+
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        @endforeach
         <div class="modal fade" tabindex="-1" role="dialog" id="modal_insert">
             <div class="modal-dialog " role="document">
                 <div class="modal-content modal-dialog-scrollable">

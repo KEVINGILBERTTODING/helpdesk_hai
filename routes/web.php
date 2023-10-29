@@ -74,3 +74,4 @@ Route::post('daskrimtiLogin', [DaskrimtiAuthController::class, 'login'])->name('
 Route::get('daskrimtiDashboard', [DaskrimtiController::class, 'index'])->name('daskrimtiDashboard')->middleware('daskrimti');
 Route::get('layanan', [LayananController::class, 'index'])->name('layanan')->middleware('daskrimti');
 Route::post('insertLayanan', [LayananController::class, 'insertLayanan'])->name('insertLayanan')->middleware('daskrimti');
+Route::post('updateLayanan', [LayananController::class, 'updateLayanan'])->name('updateLayanan')->middleware('daskrimti');
