@@ -77,7 +77,7 @@
                             class="fa-solid fa-wrench"></i> <span>Data Master</span></a>
                     <ul class="dropdown-menu">
                         <li><a class="nav-link" href="{{ route('layanan') }}">Data Pengguna</a></li>
-                        <li class="active"><a class="nav-link" href="{{ route('layanan') }}">Data Layanan</a></li>
+                        <li><a class="nav-link" href="{{ route('layanan') }}">Data Layanan</a></li>
                         <li><a class="nav-link" href="{{ route('bidang') }}">Data Bidang</a>
                         <li><a class="nav-link" href="{{ route('processPermohonan') }}">Data Tipe</a></li>
 

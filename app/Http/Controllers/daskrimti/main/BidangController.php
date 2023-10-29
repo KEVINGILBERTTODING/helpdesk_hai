@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\BidangModel;
 use App\Models\DaskrmtiModel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class BidangController extends Controller
 {
@@ -30,38 +31,34 @@ class BidangController extends Controller
         }
     }
 
-    // function insertLayanan(Request $request)
-    // {
-    //     $validator = Validator::make($request->all(), [
-    //         'nama_layanan' => 'required|string|max:80',
-    //         'description' => 'required|string'
-    //     ], [
-    //         'nama_layanan.required' => 'Nama layanan tidak boleh kosong',
-    //         'nama_layanan.string' => 'Nama layanan harus berupa karakter huruf dan angka',
-    //         'description.required' => 'Deskripsi tidak boleh kosong',
-    //         'description.string' => 'Deskripsi harus berupa karakter huruf dan angka',
-    //     ]);
+    function insertBidang(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'nama_bidang' => 'required|string|max:80',
+        ], [
+            'nama_bidang.required' => 'Nama bidang tidak boleh kosong',
+            'nama_bidang.string' => 'Nama bidang harus berupa karakter huruf dan angka',
+        ]);
 
-    //     if ($validator->fails()) {
-    //         return redirect()->route('layanan')->with('failed', $validator->errors()->first())->withInput();
-    //     }
+        if ($validator->fails()) {
+            return redirect()->route('bidang')->with('failed', $validator->errors()->first())->withInput();
+        }
 
-    //     try {
-    //         $data = [
-    //             'nama_layanan' => $request->input('nama_layanan'),
-    //             'description' => $request->input('description'),
-    //             'created_at' => date('Y-m-d H:i:s')
-    //         ];
-    //         $insert = LayananModel::insert($data);
-    //         if ($insert) {
-    //             return redirect()->route('layanan')->with('success', 'Berhasil menambahkan layanan baru');
-    //         } else {
-    //             return redirect()->route('layanan')->with('failed', 'Gagal menambahkan layanan baru')->withInput();
-    //         }
-    //     } catch (\Throwable $th) {
-    //         return redirect()->route('layanan')->with('failed', 'Terjadi kesalahan')->withInput();
-    //     }
-    // }
+        try {
+            $data = [
+                'nama_bidang' => $request->input('nama_bidang'),
+                'created_at' => date('Y-m-d H:i:s')
+            ];
+            $insert = BidangModel::insert($data);
+            if ($insert) {
+                return redirect()->route('bidang')->with('success', 'Berhasil menambahkan bidang baru');
+            } else {
+                return redirect()->route('bidang')->with('failed', 'Gagal menambahkan bidang baru');
+            }
+        } catch (\Throwable $th) {
+            return redirect()->route('bidang')->with('failed', 'Terjadi kesalahan');
+        }
+    }
 
     // function updateLayanan(Request $request)
     // {
