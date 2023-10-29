@@ -2,7 +2,7 @@
 
 {{-- Title --}}
 @section('title')
-    <title>Daskrimti - Layanan</title>
+    <title>Daskrimti - Bidang</title>
 @endsection
 
 
@@ -77,8 +77,8 @@
                             class="fa-solid fa-wrench"></i> <span>Data Master</span></a>
                     <ul class="dropdown-menu">
                         <li><a class="nav-link" href="{{ route('layanan') }}">Data Pengguna</a></li>
-                        <li class="active"><a class="nav-link" href="{{ route('layanan') }}">Data Layanan</a></li>
-                        <li><a class="nav-link" href="{{ route('bidang') }}">Data Bidang</a>
+                        <li><a class="nav-link" href="{{ route('layanan') }}">Data Layanan</a></li>
+                        <li class="active"><a class="nav-link" href="{{ route('bidang') }}">Data Bidang</a>
                         <li><a class="nav-link" href="{{ route('processPermohonan') }}">Data Tipe</a></li>
 
                     </ul>
@@ -101,16 +101,16 @@
     <div class="main-content">
         <section class="section">
             <div class="section-header">
-                <h1>Daftar Semua Layanan</h1>
+                <h1>Daftar Semua Bidang</h1>
                 <div class="section-header-breadcrumb">
                     <div class="breadcrumb-item active"><a href="{{ route('daskrimtiDashboard') }}">Dashboard</a></div>
-                    <div class="breadcrumb-item">Layanan</div>
+                    <div class="breadcrumb-item">Bidang</div>
                 </div>
             </div>
 
             <div class="section-body">
-                <h2 class="section-title">Daftar Semua Layanan</h2>
-                <p class="section-lead">Daftar semua Layanan yang ada.</p>
+                <h2 class="section-title">Daftar Semua Bidang</h2>
+                <p class="section-lead">Daftar semua Bidang yang ada.</p>
 
 
             </div>
@@ -124,15 +124,14 @@
 
                             <button class="btn btn-primary" data-toggle="modal" data-target="#modal_insert"><i
                                     class="fa-regular fa-plus"></i> Tambah
-                                Layanan</button>
+                                Bidang</button>
 
                             <div class="table-responsive mt-3">
-                                <table class="table table-striped" id="table-layanan">
+                                <table class="table table-striped" id="table_bidang">
                                     <thead>
 
                                         <th>No</th>
-                                        <th>Nama Layanan</th>
-                                        <th>Deskripsi</th>
+                                        <th>Nama Bidang</th>
                                         <th>Status</th>
                                         <th>Aksi</th>
                                     </thead>
@@ -140,11 +139,10 @@
                                         @php
                                             $no = 1;
                                         @endphp
-                                        @foreach ($dataLayanan as $dtlyn)
+                                        @foreach ($dataBidang as $dtlyn)
                                             <tr>
                                                 <td>{{ $no++ }}</td>
-                                                <td>{{ $dtlyn->nama_layanan }}</td>
-                                                <td>{{ $dtlyn->description }}</td>
+                                                <td>{{ $dtlyn->nama_bidang }}</td>
                                                 <td>
                                                     @if ($dtlyn->status == 1)
                                                         <div class="badge badge-success">Aktif</div>
@@ -155,9 +153,9 @@
                                                 <td>
                                                     <div class="d-flex">
                                                         <button class="btn btn-warning mr-2" data-toggle="modal"
-                                                            data-target="#modal_update_{{ $dtlyn->layanan_id }}"><i
+                                                            data-target="#modal_update_{{ $dtlyn->bidang_id }}"><i
                                                                 class="fa-regular fa-pen-to-square"></i></button>
-                                                        <button data-layanan_id="{{ $dtlyn->layanan_id }}"
+                                                        <button data-bidang_id="{{ $dtlyn->bidang_id }}"
                                                             class="btn btn-danger btnDelete"><i
                                                                 class="fa-regular fa-trash-can"></i></a>
 
@@ -183,9 +181,9 @@
 
 
         </section>
-        @foreach ($dataLayanan as $dtyyn)
+        @foreach ($dataBidang as $dtyyn)
             {{-- Modal update --}}
-            <div class="modal fade" tabindex="-1" role="dialog" id="modal_update_{{ $dtyyn->layanan_id }}">
+            <div class="modal fade" tabindex="-1" role="dialog" id="modal_update_{{ $dtyyn->bidang_id }}">
                 <div class="modal-dialog " role="document">
                     <div class="modal-content modal-dialog-scrollable">
                         <form action="{{ route('updateLayanan') }}" method="post">
@@ -199,8 +197,8 @@
                             <div class="modal-body">
                                 <div class="form-group col-12">
                                     <label>Nama Layanan</label>
-                                    <input type="text" readonly hidden required name="layanan_id"
-                                        value="{{ $dtyyn->layanan_id }}" class="form-control">
+                                    <input type="text" readonly hidden required name="bidang_id"
+                                        value="{{ $dtyyn->bidang_id }}" class="form-control">
 
                                     <input type="text" required name="nama_layanan"
                                         value="{{ $dtyyn->nama_layanan }}" class="form-control">
@@ -276,12 +274,12 @@
 @section('sweet_alert')
     <script>
         $(document).ready(function() {
-            $('#table-layanan').DataTable();
+            $('#table_bidang').DataTable();
         });
     </script>
     <script>
         $(document).on('click', '.btnDelete', function() {
-            var layanan_id = $(this).data('layanan_id');
+            var bidang_id = $(this).data('bidang_id');
             swal({
                     title: 'Apakah Anda yakin?',
                     text: 'Data yang telah dihapus tidak dapat dipulihkan kembali!',
@@ -291,7 +289,7 @@
                 })
                 .then((willDelete) => {
                     if (willDelete) {
-                        window.location.href = '/deleteLayanan/' + layanan_id;
+                        window.location.href = '/deleteLayanan/' + bidang_id;
                     } else {
                         // Tindakan yang diambil jika pengguna membatalkan penghapusan
                     }

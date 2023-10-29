@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\daskrimti\main\DaskrimtiController;
 use App\Http\Controllers\daskrimti\auth\AuthController as DaskrimtiAuthController;
+use App\Http\Controllers\daskrimti\main\BidangController;
 use App\Http\Controllers\daskrimti\main\LayananController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\user\auth\AuthController;
@@ -76,3 +77,5 @@ Route::get('layanan', [LayananController::class, 'index'])->name('layanan')->mid
 Route::post('insertLayanan', [LayananController::class, 'insertLayanan'])->name('insertLayanan')->middleware('daskrimti');
 Route::post('updateLayanan', [LayananController::class, 'updateLayanan'])->name('updateLayanan')->middleware('daskrimti');
 Route::get('deleteLayanan/{layananId}', [LayananController::class, 'deleteLayanan'])->name('deleteLayanan')->middleware('daskrimti');
+Route::get('bidang', [BidangController::class, 'index'])->name('bidang')->middleware('daskrimti');
+Route::get('profileDaskrimti', [LayananController::class, 'index'])->name('profileDaskrimti')->middleware('daskrimti');
