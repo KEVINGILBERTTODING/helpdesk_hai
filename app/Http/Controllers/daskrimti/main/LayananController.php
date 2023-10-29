@@ -104,4 +104,20 @@ class LayananController extends Controller
             return redirect()->route('layanan')->with('failed', 'Terjadi kesalahan');
         }
     }
+
+    function deleteLayanan($layananId)
+    {
+
+
+        try {
+            $delete = LayananModel::where('layanan_id', $layananId)->delete();
+            if ($delete) {
+                return redirect()->route('layanan')->with('success', 'Berhasil menghapus data layanan');
+            } else {
+                return redirect()->route('layanan')->with('failed', 'Gagal menghapus data layanan');
+            }
+        } catch (\Throwable $th) {
+            return redirect()->route('layanan')->with('failed', 'Terjadi kesalahan');
+        }
+    }
 }

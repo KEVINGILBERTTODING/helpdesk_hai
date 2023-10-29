@@ -75,3 +75,4 @@ Route::get('daskrimtiDashboard', [DaskrimtiController::class, 'index'])->name('d
 Route::get('layanan', [LayananController::class, 'index'])->name('layanan')->middleware('daskrimti');
 Route::post('insertLayanan', [LayananController::class, 'insertLayanan'])->name('insertLayanan')->middleware('daskrimti');
 Route::post('updateLayanan', [LayananController::class, 'updateLayanan'])->name('updateLayanan')->middleware('daskrimti');
+Route::get('deleteLayanan/{layananId}', [LayananController::class, 'deleteLayanan'])->name('deleteLayanan')->middleware('daskrimti');

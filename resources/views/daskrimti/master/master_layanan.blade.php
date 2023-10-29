@@ -158,7 +158,8 @@
                                                         <button class="btn btn-warning mr-2" data-toggle="modal"
                                                             data-target="#modal_update_{{ $dtlyn->layanan_id }}"><i
                                                                 class="fa-regular fa-pen-to-square"></i></button>
-                                                        <a href="" class="btn btn-danger"><i
+                                                        <button data-layanan_id="{{ $dtlyn->layanan_id }}"
+                                                            class="btn btn-danger btnDelete"><i
                                                                 class="fa-regular fa-trash-can"></i></a>
 
                                                     </div>
@@ -277,6 +278,25 @@
     <script>
         $(document).ready(function() {
             $('#table-layanan').DataTable();
+        });
+    </script>
+    <script>
+        $(document).on('click', '.btnDelete', function() {
+            var layanan_id = $(this).data('layanan_id');
+            swal({
+                    title: 'Apakah Anda yakin?',
+                    text: 'Data yang telah dihapus tidak dapat dipulihkan kembali!',
+                    icon: 'warning',
+                    buttons: true,
+                    dangerMode: true,
+                })
+                .then((willDelete) => {
+                    if (willDelete) {
+                        window.location.href = '/deleteLayanan/' + layanan_id;
+                    } else {
+                        // Tindakan yang diambil jika pengguna membatalkan penghapusan
+                    }
+                });
         });
     </script>
 @endsection
