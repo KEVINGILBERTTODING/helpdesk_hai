@@ -91,3 +91,4 @@ Route::get('deleteType/{typeId}', [TypeController::class, 'deleteType'])->name('
 Route::get('users', [UsersController::class, 'index'])->name('users')->middleware('daskrimti');
 Route::post('insertUser', [UsersController::class, 'insertUser'])->name('insertUser')->middleware('daskrimti');
 Route::post('updateUsers', [UsersController::class, 'updateUsers'])->name('updateUsers')->middleware('daskrimti');
+Route::get('deleteUser/{userId}', [UsersController::class, 'deleteUser'])->name('deleteUser')->middleware('daskrimti');

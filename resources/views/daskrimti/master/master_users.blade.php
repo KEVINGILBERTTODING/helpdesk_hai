@@ -332,7 +332,7 @@
                 })
                 .then((willDelete) => {
                     if (willDelete) {
-                        window.location.href = '/deleteType/' + user_id;
+                        window.location.href = '/deleteUser/' + user_id;
                     } else {
                         // Tindakan yang diambil jika pengguna membatalkan penghapusan
                     }

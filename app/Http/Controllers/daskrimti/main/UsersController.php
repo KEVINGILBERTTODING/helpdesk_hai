@@ -136,17 +136,17 @@ class UsersController extends Controller
     }
 
 
-    // function deleteType($typeId)
-    // {
-    //     try {
-    //         $delete = TypeModel::where('type_id', $typeId)->delete();
-    //         if ($delete) {
-    //             return redirect()->route('type')->with('success', 'Berhasil menghapus data tipe');
-    //         } else {
-    //             return redirect()->route('type')->with('failed', 'Gagal menghapus data tipe');
-    //         }
-    //     } catch (\Throwable $th) {
-    //         return redirect()->route('type')->with('failed', 'Terjadi kesalahan');
-    //     }
-    // }
+    function deleteUser($userId)
+    {
+        try {
+            $delete = UserModel::where('user_id', $userId)->delete();
+            if ($delete) {
+                return redirect()->route('users')->with('success', 'Berhasil menghapus data staff');
+            } else {
+                return redirect()->route('users')->with('failed', 'Gagal menghapus data staff');
+            }
+        } catch (\Throwable $th) {
+            return redirect()->route('users')->with('failed', 'Terjadi kesalahan');
+        }
+    }
 }
