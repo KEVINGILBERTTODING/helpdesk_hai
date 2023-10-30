@@ -159,9 +159,10 @@
                                                 <td>{{ $dtlyn->keterangan }}</td>
                                                 <td>
                                                     @if ($dtlyn->file != null)
-                                                        <button class="btn btn-primary">Unduh berkas</button>
-                                                    @else
-                                                        Tidak ada berkas.
+                                                        <a href="{{ route('downloadFilePermohonan', $dtlyn->file) }}"
+                                                            class="btn btn-primary btn-md">Unduh berkas</button>
+                                                        @else
+                                                            Tidak ada berkas.
                                                     @endif
                                                 </td>
                                                 <td>

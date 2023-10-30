@@ -295,7 +295,7 @@
                                         <div class="form-group col-md-7 col-12">
                                             <label>Email</label>
                                             <input name="email" readonly="email" class="form-control"
-                                                value="{{ session('email') }}" required="">
+                                                value="{{ $dataUser['email'] }}" required="">
                                             <div class="invalid-feedback">
                                                 Please fill in the email
                                             </div>

@@ -131,6 +131,7 @@
                                     <thead>
 
                                         <th>No</th>
+                                        <th>Foto</th>
                                         <th>NRP</th>
                                         <th>Nama Lengkap</th>
                                         <th>Email</th>
@@ -145,6 +146,12 @@
                                         @foreach ($dataUsers as $dtlyn)
                                             <tr>
                                                 <td>{{ $no++ }}</td>
+                                                <td>
+                                                    <figure class="avatar avatar-md">
+                                                        <img src="{{ asset('data/profile_photo/' . $dtlyn->profile_photo) }}"
+                                                            alt="...">
+                                                    </figure>
+                                                </td>
                                                 <td>{{ $dtlyn->nrp }}</td>
                                                 <td>{{ $dtlyn->name }}</td>
                                                 <td>{{ $dtlyn->email }}</td>
