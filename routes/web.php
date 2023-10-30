@@ -98,3 +98,4 @@ Route::get('permohonanSelesai', [PermohonanController::class, 'allPermohonan'])-
 Route::get('permohonanProses', [PermohonanController::class, 'allPermohonan'])->name('permohonanProses')->middleware('daskrimti');
 Route::get('permohonanDitolak', [PermohonanController::class, 'allPermohonan'])->name('permohonanDitolak')->middleware('daskrimti');
 Route::post('acceptPermohonan', [PermohonanController::class, 'acceptPermohonan'])->name('acceptPermohonan')->middleware('daskrimti');
+Route::post('rejectPermohonan', [PermohonanController::class, 'rejectPermohonan'])->name('rejectPermohonan')->middleware('daskrimti');

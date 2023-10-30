@@ -185,10 +185,10 @@
                                                         <button class="btn btn-success mr-2" data-toggle="modal"
                                                             data-target="#modal_accept_{{ $dtlyn->permohonan_id }}"><i
                                                                 class="fa-solid fa-check"></i></button>
-                                                        <button data-layanan_id="{{ $dtlyn->permohonan_id }}"
-                                                            class="btn btn-danger btnDelete"><i
-                                                                class="fa-solid fa-times"></i></a>
 
+                                                        <button class="btn btn-danger" data-toggle="modal"
+                                                            data-target="#modal_reject_{{ $dtlyn->permohonan_id }}"><i
+                                                                class="fa-solid fa-times"></i></button>
                                                     </div>
 
 
@@ -222,6 +222,60 @@
                             @csrf
                             <div class="modal-header">
                                 <h5 class="modal-title">Konfirmasi Permohonan</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="form-group col-12" hidden>
+                                    <input type="number" readonly hidden required name="permohonan_id"
+                                        value="{{ $dtyyn->permohonan_id }}" class="form-control">
+
+                                </div>
+                                <div class="form-group col-12" hidden>
+                                    <input type="email-" readonly hidden required name="email"
+                                        value="{{ $dtyyn->email }}" class="form-control">
+                                </div>
+
+                                <div class="form-group col-12" hidden>
+                                    <input type="number" required name="user_id" hidden value="{{ $dtyyn->user_id }}"
+                                        class="form-control">
+                                </div>
+
+
+
+
+                                <div class="form-group col-12">
+                                    <label>Balasan Permohonan</label>
+
+                                    <textarea required name="balasan" required class="form-control" rows="7">{{ $dtyyn->balasan }}</textarea>
+                                </div>
+
+
+
+
+                            </div>
+
+                            <div class="modal-footer bg-whitesmoke br">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                                <button type="submit" class="btn btn-primary">Konfirmasi</button>
+                            </div>
+
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+
+            {{-- Modal reject --}}
+            <div class="modal fade" tabindex="-1" role="dialog" id="modal_reject_{{ $dtyyn->permohonan_id }}">
+                <div class="modal-dialog " role="document">
+                    <div class="modal-content modal-dialog-scrollable">
+                        <form action="{{ route('rejectPermohonan') }}" method="post">
+                            @csrf
+                            <div class="modal-header">
+                                <h5 class="modal-title">Tolak Permohonan</h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>

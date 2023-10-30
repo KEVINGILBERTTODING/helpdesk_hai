@@ -106,8 +106,9 @@ class PuModel extends Model
         DB::beginTransaction();
 
         try {
-            PuModel::where('permohonan_id', $dataNotification['user_id'])->update($dataPermohonan);
+            PuModel::where('permohonan_id', $dataNotification['permohonan_id'])->update($dataPermohonan);
             $checkBalasan = BalasanModel::where('permohonan_id', $dataNotification['permohonan_id'])->first();
+            $checkNotification = NotificationModel::where('permohonan_id', $dataNotification['permohonan_id'])->first();
 
             if ($checkBalasan) {
                 BalasanModel::where('permohonan_id', $dataNotification['permohonan_id'])->update($dataBalasan);
@@ -115,7 +116,42 @@ class PuModel extends Model
                 BalasanModel::insert($dataBalasan);
             }
 
-            NotificationModel::insert($dataNotification);
+            if ($checkNotification) {
+                NotificationModel::where('permohonan_id', $dataNotification['permohonan_id'])->update($dataNotification);
+            } else {
+                NotificationModel::insert($dataNotification);
+            }
+
+
+            DB::commit(); // Konfirmasi transaksi jika tidak ada kesalahan
+            return true; // Transaksi berhasil
+        } catch (\Throwable $th) {
+            DB::rollBack(); // Batalkan transaksi jika terjadi kesalahan
+            // Handle kesalahan atau buat pesan kesalahan jika diperlukan
+            return false; // Terjadi kesalahan
+        }
+    }
+
+    function rejectPermohonan($dataBalasan, $dataNotification, $dataPermohonan)
+    {
+        DB::beginTransaction();
+
+        try {
+            PuModel::where('permohonan_id', $dataNotification['permohonan_id'])->update($dataPermohonan);
+            $checkBalasan = BalasanModel::where('permohonan_id', $dataNotification['permohonan_id'])->first();
+            $checkNotification = NotificationModel::where('permohonan_id', $dataNotification['permohonan_id'])->first();
+
+
+            if ($checkBalasan) {
+                BalasanModel::where('permohonan_id', $dataNotification['permohonan_id'])->update($dataBalasan);
+            } else {
+                BalasanModel::insert($dataBalasan);
+            }
+            if ($checkNotification) {
+                NotificationModel::where('permohonan_id', $dataNotification['permohonan_id'])->update($dataNotification);
+            } else {
+                NotificationModel::insert($dataNotification);
+            }
 
             DB::commit(); // Konfirmasi transaksi jika tidak ada kesalahan
             return true; // Transaksi berhasil
