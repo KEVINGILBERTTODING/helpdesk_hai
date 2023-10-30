@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\daskrimti\permohonan;
 
 use App\Http\Controllers\Controller;
+use App\Models\BidangModel;
 use App\Models\DaskrmtiModel;
 use App\Models\PuModel;
 use App\Models\User;
@@ -24,9 +25,10 @@ class PermohonanController extends Controller
     {
         $permohonanModel = new PuModel();
         $dataPermohonan = $permohonanModel->getPermohonan(3);
-
         $dataDaskrimti = DaskrmtiModel::where('daskrimti_id', session('daskrimti_id'))->first();
+        $dataBidang = BidangModel::get();
         $data = [
+            'dataBidang' => $dataBidang,
             'dataPermohonan' => $dataPermohonan,
             'dataDaskrimti' => $dataDaskrimti
         ];
@@ -166,12 +168,53 @@ class PermohonanController extends Controller
         }
     }
 
+    function filterPermohonan(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'status' => 'required|integer',
+            'date_from' => 'required|date',
+            'date_end' => 'required|date',
+            'status' => 'required|integer',
+            'bidang_id' => 'required|integer',
+
+
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()->with('failed', 'Terjadi kesalahan');
+        }
+
+        try {
+            $puModel = new PuModel();
+            $dataDaskrimti = DaskrmtiModel::where('daskrimti_id', session('daskrimti_id'))->first();
+            $dataBidang = BidangModel::get();
+            $namaBidang = BidangModel::where('bidang_id', $request->input('bidang_id'))->first();
+            $dataPermohonan = $puModel->filterPermohonan($request->input('date_from'), $request->input('date_end'), $request->input('bidang_id'), $request->input('status'));
+            if ($dataPermohonan && !$dataPermohonan->isEmpty()) {
+                $data = [
+                    'dataPermohonan' => $dataPermohonan,
+                    'dataDaskrimti' => $dataDaskrimti,
+                    'dataBidang' => $dataBidang,
+                    'dateFrom' => $request->input('date_from'),
+                    'dateEnd' => $request->input('date_end'),
+                    'status' => $request->input('status'),
+                    'nama_bidang' => $namaBidang['nama_bidang']
+                ];
+                return view('daskrimti.permohonan.filter_permohonan', $data);
+            } else {
+                return redirect()->back()->with('failed', 'Tidak ada data permohonan');
+            }
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('failed', 'Terjadi kesalahan');
+        }
+    }
+
     function createdPdf()
     {
         $data = [
             'title' => 'Kejati jateng'
         ];
-        $pdf = FacadePdF::loadView('daskrimti/permohonan/test', $data);
+        $pdf = FacadePdF::loadView('daskrimti/permohonan/report_pdf', $data);
         return $pdf->download('test.pdf');
     }
 }

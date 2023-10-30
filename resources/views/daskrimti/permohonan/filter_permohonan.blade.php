@@ -2,7 +2,7 @@
 
 {{-- Title --}}
 @section('title')
-    <title>Daskrimti - Semua Permohonan</title>
+    <title>Daskrimti - Filter Permohonan</title>
 @endsection
 
 
@@ -101,16 +101,33 @@
     <div class="main-content">
         <section class="section">
             <div class="section-header">
-                <h1>Daftar Semua Permohonan</h1>
+                @if ($status == 3)
+                    <h1>Filter Semua Permohonan</h1>
+                @elseif ($status == 1)
+                    <h1>Filter Permohonan Selesai</h1>
+                @elseif ($status == 2)
+                    <h1>Filter Permohonan Proses</h1>
+                @elseif ($status == 0)
+                    <h1>Filter Permohonan Ditolak</h1>
+                @endif
                 <div class="section-header-breadcrumb">
                     <div class="breadcrumb-item active"><a href="{{ route('daskrimtiDashboard') }}">Dashboard</a></div>
-                    <div class="breadcrumb-item">Semua Permohonan</div>
+                    <div class="breadcrumb-item">Filter Permohonan</div>
                 </div>
             </div>
 
             <div class="section-body">
-                <h2 class="section-title">Daftar Semua Permohonan</h2>
-                <p class="section-lead">Daftar semua Permohonan yang masuk.</p>
+                @if ($status == 3)
+                    <h2 class="section-title">Daftar Semua Permohonan</h2>
+                @elseif ($status == 1)
+                    <h2 class="section-title">Daftar Permohonan Selesai</h2>
+                @elseif ($status == 2)
+                    <h2 class="section-title">Daftar Permohonan Proses</h2>
+                @elseif ($status == 0)
+                    <h2 class="section-title">Daftar Permohonan Ditolak</h2>
+                @endif
+
+                <p class="section-lead">Periode: {{ $dateFrom }} s/d {{ $dateEnd }}</p>
 
 
             </div>
@@ -120,13 +137,18 @@
                     <div class="card">
 
                         <div class="card-body">
-                            <button class="btn btn-primary" data-target="#modal_filter" data-toggle="modal">Filter</button>
-                            <a href="{{ route('createdPdf') }}" class="btn btn-primary">Download PDF</a>
+                            <div class="justify-content-end d-flex">
+                                <button class="btn btn-info mr-2" data-target="#modal_filter" data-toggle="modal"><i
+                                        class="fa-solid fa-filter"></i> Filter</button>
+                                <a href="{{ route('createdPdf') }}" class="btn btn-primary"><i
+                                        class="fa-solid fa-download"></i> Unduh PDF</a>
+                            </div>
 
 
 
 
-                            <div class="table-responsive mt-3">
+
+                            <div class="table-responsive mt-4">
                                 <table class="table table-striped" id="table-layanan">
                                     <thead>
 

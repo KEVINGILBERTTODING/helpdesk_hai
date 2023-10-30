@@ -100,3 +100,4 @@ Route::get('permohonanDitolak', [PermohonanController::class, 'allPermohonan'])-
 Route::post('acceptPermohonan', [PermohonanController::class, 'acceptPermohonan'])->name('acceptPermohonan')->middleware('daskrimti');
 Route::post('rejectPermohonan', [PermohonanController::class, 'rejectPermohonan'])->name('rejectPermohonan')->middleware('daskrimti');
 Route::get('createPdf', [PermohonanController::class, 'createdPdf'])->name('createdPdf')->middleware('daskrimti');
+Route::get('filterPermohonan', [PermohonanController::class, 'filterPermohonan'])->name('filterPermohonan')->middleware('daskrimti');
