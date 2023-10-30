@@ -18,7 +18,7 @@
                 @csrf
                 <h1>Masuk</h1>
 
-                <input name="nrp" required placeholder="NRP">
+                <input name="nrp" type="number" required placeholder="NRP">
                 <input name="password" type="password" required minlength="8" placeholder="Kata sandi">
 
                 @if (session('error'))

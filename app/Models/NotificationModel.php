@@ -16,7 +16,7 @@ class NotificationModel extends Model
             'notification.*'
         )
             ->where('notification.user_id', $userId)
-            ->orderBy('notif_id', 'desc')
+            ->orderBy('created_at', 'desc')
             ->get();
 
         return $notification;
