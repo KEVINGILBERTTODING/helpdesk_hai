@@ -60,10 +60,10 @@
                 <li class="menu-header">Data Permohonan</li>
                 <li class="dropdown">
                     <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i
-                            class="fa-regular fa-folder"></i> <span>Permohonan Saya</span></a>
+                            class="fa-regular fa-folder"></i> <span>Permohonan</span></a>
                     <ul class="dropdown-menu">
-                        <li><a class="nav-link" href="{{ route('createPermohonan') }}">Permohonan Baru</a></li>
-                        <li><a class="nav-link" href="{{ route('allPermohonan') }}">Semua Permohonan</a>
+
+                        <li><a class="nav-link" href="{{ route('semuaPermohonan') }}">Semua Permohonan</a>
                         <li><a class="nav-link" href="{{ route('processPermohonan') }}">Permohonan Proses</a></li>
                         <li><a class="nav-link" href="{{ route('successPermohonan') }}">Permohonan Selesai</a></li>
                         <li><a class="nav-link" href="{{ route('failedPermohonan') }}">Permohonan ditolak</a></li>
@@ -76,7 +76,7 @@
                     <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i
                             class="fa-solid fa-wrench"></i> <span>Data Master</span></a>
                     <ul class="dropdown-menu">
-                        <li><a class="nav-link" href="{{ route('users') }}">Data Pengguna</a></li>
+                        <li><a class="nav-link" href="{{ route('users') }}">Data Staff</a></li>
                         <li><a class="nav-link" href="{{ route('layanan') }}">Data Layanan</a></li>
                         <li><a class="nav-link" href="{{ route('bidang') }}">Data Bidang</a>
                         <li><a class="nav-link" href="{{ route('type') }}">Data Tipe</a></li>

@@ -2,7 +2,7 @@
 
 {{-- Title --}}
 @section('title')
-    <title>Daskrimti - Tipe</title>
+    <title>Daskrimti - Permohonan</title>
 @endsection
 
 
@@ -59,11 +59,10 @@
                 </li>
                 <li class="menu-header">Data Permohonan</li>
                 <li class="dropdown">
-                    <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i
-                            class="fa-regular fa-folder"></i> <span>Permohonan Saya</span></a>
+                    <a href="#" class="nav-link has-dropdown active" data-toggle="dropdown"><i
+                            class="fa-regular fa-folder"></i> <span>Permohonan</span></a>
                     <ul class="dropdown-menu">
-                        <li><a class="nav-link" href="{{ route('createPermohonan') }}">Permohonan Baru</a></li>
-                        <li><a class="nav-link" href="{{ route('allPermohonan') }}">Semua Permohonan</a>
+                        <li class="active"><a class="nav-link" href="{{ route('semuaPermohonan') }}">Semua Permohonan</a>
                         <li><a class="nav-link" href="{{ route('processPermohonan') }}">Permohonan Proses</a></li>
                         <li><a class="nav-link" href="{{ route('successPermohonan') }}">Permohonan Selesai</a></li>
                         <li><a class="nav-link" href="{{ route('failedPermohonan') }}">Permohonan ditolak</a></li>
@@ -72,14 +71,15 @@
 
                 </li>
                 <li class="menu-header">Data Master</li>
-                <li class="active" class="dropdown">
+                <li class="dropdown">
                     <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i
                             class="fa-solid fa-wrench"></i> <span>Data Master</span></a>
                     <ul class="dropdown-menu">
                         <li><a class="nav-link" href="{{ route('users') }}">Data Staff</a></li>
+
                         <li><a class="nav-link" href="{{ route('layanan') }}">Data Layanan</a></li>
                         <li><a class="nav-link" href="{{ route('bidang') }}">Data Bidang</a>
-                        <li class="active"><a class="nav-link" href="{{ route('type') }}">Data Tipe</a></li>
+                        <li><a class="nav-link" href="{{ route('type') }}">Data Tipe</a></li>
 
                     </ul>
 
@@ -101,16 +101,16 @@
     <div class="main-content">
         <section class="section">
             <div class="section-header">
-                <h1>Daftar Semua Tipe</h1>
+                <h1>Daftar Semua Permohonan</h1>
                 <div class="section-header-breadcrumb">
                     <div class="breadcrumb-item active"><a href="{{ route('daskrimtiDashboard') }}">Dashboard</a></div>
-                    <div class="breadcrumb-item">Tipe</div>
+                    <div class="breadcrumb-item">Semua Permohonan</div>
                 </div>
             </div>
 
             <div class="section-body">
-                <h2 class="section-title">Daftar Semua Tipe</h2>
-                <p class="section-lead">Daftar semua Tipe yang ada.</p>
+                <h2 class="section-title">Daftar Semua Permohonan</h2>
+                <p class="section-lead">Daftar semua Permohonan yang masuk.</p>
 
 
             </div>
@@ -122,42 +122,72 @@
                         <div class="card-body">
 
 
-                            <button class="btn btn-primary" data-toggle="modal" data-target="#modal_insert"><i
-                                    class="fa-regular fa-plus"></i> Tambah
-                                Tipe</button>
+
 
                             <div class="table-responsive mt-3">
-                                <table class="table table-striped" id="table_type">
+                                <table class="table table-striped" id="table-layanan">
                                     <thead>
 
                                         <th>No</th>
-                                        <th>Nama Tipe</th>
+                                        <th>Tanggal Permohonan</th>
+                                        <th>NRP</th>
+                                        <th>Nama Lengkap</th>
+                                        <th>Subjek</th>
+                                        <th>Layanan</th>
+                                        <th>Bidang</th>
+                                        <th>Tipe</th>
+                                        <th>Keterangan</th>
+                                        <th>Berkas Pendukung</th>
                                         <th>Status</th>
+                                        <th>Balasan</th>
                                         <th>Aksi</th>
                                     </thead>
                                     <tbody>
                                         @php
                                             $no = 1;
                                         @endphp
-                                        @foreach ($dataType as $dtlyn)
+                                        @foreach ($dataPermohonan as $dtlyn)
                                             <tr>
                                                 <td>{{ $no++ }}</td>
+                                                <td>{{ $dtlyn->created_at }}</td>
+                                                <td>{{ $dtlyn->nrp }}</td>
+                                                <td>{{ $dtlyn->nama_lengkap }}</td>
+                                                <td>{{ $dtlyn->subject }}</td>
+                                                <td>{{ $dtlyn->nama_layanan }}</td>
+                                                <td>{{ $dtlyn->nama_bidang }}</td>
                                                 <td>{{ $dtlyn->nama_type }}</td>
+                                                <td>{{ $dtlyn->keterangan }}</td>
+                                                <td>
+                                                    @if ($dtlyn->file != null)
+                                                        <button class="btn btn-primary">Unduh berkas</button>
+                                                    @else
+                                                        Tidak ada berkas.
+                                                    @endif
+                                                </td>
                                                 <td>
                                                     @if ($dtlyn->status == 1)
-                                                        <div class="badge badge-success">Aktif</div>
+                                                        <div class="badge badge-success">Selesai</div>
+                                                    @elseif ($dtlyn->status == 2)
+                                                        <div class="badge badge-warning">Proses</div>
                                                     @else
-                                                        <div class="badge badge-danger">Tidak Aktif</div>
+                                                        <div class="badge badge-danger">Ditolak</div>
+                                                    @endif
+                                                </td>
+                                                <td>
+                                                    @if ($dtlyn->balasan != null)
+                                                        {{ $dtlyn->balasan }}
+                                                    @else
+                                                        Belum ada balasan.
                                                     @endif
                                                 </td>
                                                 <td>
                                                     <div class="d-flex">
-                                                        <button class="btn btn-warning mr-2" data-toggle="modal"
-                                                            data-target="#modal_update_{{ $dtlyn->type_id }}"><i
-                                                                class="fa-regular fa-pen-to-square"></i></button>
-                                                        <button data-type_id="{{ $dtlyn->type_id }}"
+                                                        <button class="btn btn-success mr-2" data-toggle="modal"
+                                                            data-target="#modal_accept_{{ $dtlyn->permohonan_id }}"><i
+                                                                class="fa-solid fa-check"></i></button>
+                                                        <button data-layanan_id="{{ $dtlyn->permohonan_id }}"
                                                             class="btn btn-danger btnDelete"><i
-                                                                class="fa-regular fa-trash-can"></i></a>
+                                                                class="fa-solid fa-times"></i></a>
 
                                                     </div>
 
@@ -181,42 +211,46 @@
 
 
         </section>
-        @foreach ($dataType as $dtyyn)
-            {{-- Modal update --}}
-            <div class="modal fade" tabindex="-1" role="dialog" id="modal_update_{{ $dtyyn->type_id }}">
+
+        @foreach ($dataPermohonan as $dtyyn)
+            {{-- Modal accept --}}
+
+            <div class="modal fade" tabindex="-1" role="dialog" id="modal_accept_{{ $dtyyn->permohonan_id }}">
                 <div class="modal-dialog " role="document">
                     <div class="modal-content modal-dialog-scrollable">
-                        <form action="{{ route('updateType') }}" method="post">
+                        <form action="{{ route('acceptPermohonan') }}" method="post">
                             @csrf
                             <div class="modal-header">
-                                <h5 class="modal-title">Ubah Data Tipe</h5>
+                                <h5 class="modal-title">Konfirmasi Permohonan</h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
                             <div class="modal-body">
-                                <div class="form-group col-12">
-                                    <label>Nama Tipe</label>
-                                    <input type="text" readonly hidden required name="type_id"
-                                        value="{{ $dtyyn->type_id }}" class="form-control">
+                                <div class="form-group col-12" hidden>
+                                    <input type="number" readonly hidden required name="permohonan_id"
+                                        value="{{ $dtyyn->permohonan_id }}" class="form-control">
 
-                                    <input type="text" required name="nama_type" value="{{ $dtyyn->nama_type }}"
+                                </div>
+                                <div class="form-group col-12" hidden>
+                                    <input type="email-" readonly hidden required name="email"
+                                        value="{{ $dtyyn->email }}" class="form-control">
+                                </div>
+
+                                <div class="form-group col-12" hidden>
+                                    <input type="number" required name="user_id" hidden value="{{ $dtyyn->user_id }}"
                                         class="form-control">
-
                                 </div>
+
+
+
 
                                 <div class="form-group col-12">
-                                    <label>Status</label>
-                                    <select name="status" required class="form-control">
-                                        @if ($dtyyn->status == 1)
-                                            <option value="1" selected>Aktif</option>
-                                            <option value="0">Tidak Aktif</option>
-                                        @elseif ($dtyyn->status == 0)
-                                            <option value="0" selected>Tidak Aktif</option>
-                                            <option value="1">Aktif</option>
-                                        @endif
-                                    </select>
+                                    <label>Balasan Permohonan</label>
+
+                                    <textarea required name="balasan" required class="form-control" rows="7">{{ $dtyyn->balasan }}</textarea>
                                 </div>
+
 
 
 
@@ -224,7 +258,7 @@
 
                             <div class="modal-footer bg-whitesmoke br">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                                <button type="submit" class="btn btn-primary">Simpan</button>
+                                <button type="submit" class="btn btn-primary">Konfirmasi</button>
                             </div>
 
 
@@ -235,46 +269,17 @@
         @endforeach
 
 
-        {{-- Modal insert --}}
-        <div class="modal fade" tabindex="-1" role="dialog" id="modal_insert">
-            <div class="modal-dialog " role="document">
-                <div class="modal-content modal-dialog-scrollable">
-                    <form action="{{ route('insertType') }}" method="post">
-                        @csrf
-                        <div class="modal-header">
-                            <h5 class="modal-title">Tambah Tipe Baru</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <div class="form-group col-12">
-                                <label>Nama Tipe</label>
-                                <input type="text" required name="nama_type" value="" class="form-control">
-
-                            </div>
-
-                        </div>
-                        <div class="modal-footer bg-whitesmoke br">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                            <button type="submit" class="btn btn-primary">Simpan</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-
     </div>
 @endsection
 @section('sweet_alert')
     <script>
         $(document).ready(function() {
-            $('#table_type').DataTable();
+            $('#table-layanan').DataTable();
         });
     </script>
     <script>
         $(document).on('click', '.btnDelete', function() {
-            var type_id = $(this).data('type_id');
+            var layanan_id = $(this).data('layanan_id');
             swal({
                     title: 'Apakah Anda yakin?',
                     text: 'Data yang telah dihapus tidak dapat dipulihkan kembali!',
@@ -284,7 +289,7 @@
                 })
                 .then((willDelete) => {
                     if (willDelete) {
-                        window.location.href = '/deleteType/' + type_id;
+                        window.location.href = '/deleteLayanan/' + layanan_id;
                     } else {
                         // Tindakan yang diambil jika pengguna membatalkan penghapusan
                     }

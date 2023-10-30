@@ -2,7 +2,7 @@
 
 {{-- Title --}}
 @section('title')
-    <title>Daskrimti - Pengguna</title>
+    <title>Daskrimti - Staff</title>
 @endsection
 
 
@@ -76,10 +76,10 @@
                     <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i
                             class="fa-solid fa-wrench"></i> <span>Data Master</span></a>
                     <ul class="dropdown-menu">
-                        <li class="active"><a class="nav-link" href="{{ route('layanan') }}">Data Pengguna</a></li>
+                        <li class="active"><a class="nav-link" href="{{ route('users') }}">Data Staff</a></li>
                         <li><a class="nav-link" href="{{ route('layanan') }}">Data Layanan</a></li>
                         <li><a class="nav-link" href="{{ route('bidang') }}">Data Bidang</a>
-                        <li class="active"><a class="nav-link" href="{{ route('type') }}">Data Tipe</a></li>
+                        <li><a class="nav-link" href="{{ route('type') }}">Data Tipe</a></li>
 
                     </ul>
 
@@ -241,10 +241,10 @@
                                 <div class="form-group col-12">
                                     <label>Status</label>
                                     <select required name="status" class="form-control">
-                                        @if ($dtb->status == 1)
+                                        @if ($dtyyn->status == 1)
                                             <option value="1" selected>Aktif</option>
                                             <option value="0">Tidak Aktif</option>
-                                        @elseif ($dtb->status == 0)
+                                        @elseif ($dtyyn->status == 0)
                                             <option value="0" selected>Tidak Aktif</option>
                                             <option value="1">Aktif</option>
                                         @endif

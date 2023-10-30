@@ -6,6 +6,7 @@ use App\Http\Controllers\daskrimti\main\BidangController;
 use App\Http\Controllers\daskrimti\main\LayananController;
 use App\Http\Controllers\daskrimti\main\TypeController;
 use App\Http\Controllers\daskrimti\main\UsersController;
+use App\Http\Controllers\daskrimti\permohonan\PermohonanController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\user\auth\AuthController;
 use App\Http\Controllers\user\main\MainController;
@@ -92,3 +93,8 @@ Route::get('users', [UsersController::class, 'index'])->name('users')->middlewar
 Route::post('insertUser', [UsersController::class, 'insertUser'])->name('insertUser')->middleware('daskrimti');
 Route::post('updateUsers', [UsersController::class, 'updateUsers'])->name('updateUsers')->middleware('daskrimti');
 Route::get('deleteUser/{userId}', [UsersController::class, 'deleteUser'])->name('deleteUser')->middleware('daskrimti');
+Route::get('semuaPermohonan', [PermohonanController::class, 'semuaPermohonan'])->name('semuaPermohonan')->middleware('daskrimti');
+Route::get('permohonanSelesai', [PermohonanController::class, 'allPermohonan'])->name('permohonanSelesai')->middleware('daskrimti');
+Route::get('permohonanProses', [PermohonanController::class, 'allPermohonan'])->name('permohonanProses')->middleware('daskrimti');
+Route::get('permohonanDitolak', [PermohonanController::class, 'allPermohonan'])->name('permohonanDitolak')->middleware('daskrimti');
+Route::post('acceptPermohonan', [PermohonanController::class, 'acceptPermohonan'])->name('acceptPermohonan')->middleware('daskrimti');
