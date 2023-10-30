@@ -8,8 +8,11 @@ use App\Models\PuModel;
 use App\Models\User;
 use App\Models\UserModel;
 use App\Notifications\replyEmailNotification;
+use Barryvdh\DomPDF\Facade\Pdf as FacadePdf;
+use PDF;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+
 
 class PermohonanController extends Controller
 {
@@ -161,5 +164,14 @@ class PermohonanController extends Controller
         } catch (\Throwable $th) {
             return redirect()->route('semuaPermohonan')->with('failed', $th->getMessage());
         }
+    }
+
+    function createdPdf()
+    {
+        $data = [
+            'title' => 'Kejati jateng'
+        ];
+        $pdf = FacadePdF::loadView('daskrimti/permohonan/test', $data);
+        return $pdf->download('test.pdf');
     }
 }

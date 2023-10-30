@@ -120,6 +120,7 @@
                     <div class="card">
 
                         <div class="card-body">
+                            <a href="{{ route('createdPdf') }}" class="btn btn-primary">Download PDF</a>
 
 
 
