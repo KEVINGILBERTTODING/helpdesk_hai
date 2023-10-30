@@ -8,17 +8,17 @@ use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 use Illuminate\Support\Facades\Crypt;
 
-class EmailNotification extends Notification
+class replyEmailNotification extends Notification
 {
     use Queueable;
-    private $dataUser;
+    private $dataNotifEmail;
 
     /**
      * Create a new notification instance.
      */
-    public function __construct($dataUser)
+    public function __construct($dataNotifEmail)
     {
-        $this->dataUser = $dataUser;
+        $this->dataNotifEmail = $dataNotifEmail;
     }
 
     /**
@@ -36,12 +36,16 @@ class EmailNotification extends Notification
      */
     public function toMail($notifiable): MailMessage
     {
+
         return (new MailMessage)
-            ->greeting('Halo, ' . $this->dataUser['name'])
-            ->subject('Reset Kata Sandi')
-            ->line('Jika Anda menerima email ini, berarti Anda sedang berusaha untuk mengganti kata sandi akun Anda. Klik tombol dibawah ini untuk mereset kata sandi akun Anda.')
-            ->action('klik tautan berikut', route('reset_password', Crypt::encrypt($this->dataUser['user_id'])))
-            ->line('Jika Anda tidak merasa melakukan tindakan ini, hiraukan saja pesan ini.');
+
+            ->subject($this->dataNotifEmail['subject'])
+            ->greeting('Halo, ' . $this->dataNotifEmail['nama_lengkap'])
+            ->line($this->dataNotifEmail['content'])
+            ->action('Lihat permohonan', route('detailPermohonan', Crypt::encrypt($this->dataNotifEmail['permohonan_id'])))
+            ->line('Balasan permohonan: ' . $this->dataNotifEmail['balasan'])
+            ->line('Terima kasih atas permohonan Anda,')
+            ->salutation($this->dataNotifEmail['daskrimti_name']);
     }
 
     /**

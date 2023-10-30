@@ -2,7 +2,7 @@
 
 {{-- Title --}}
 @section('title')
-    <title>Daskrimti - Permohonan</title>
+    <title>Daskrimti - Semua Permohonan</title>
 @endsection
 
 
@@ -58,8 +58,8 @@
                     <a href="{{ route('daskrimtiDashboard') }}"><i class="fa-solid fa-house"></i> <span>Dashboard</span></a>
                 </li>
                 <li class="menu-header">Data Permohonan</li>
-                <li class="dropdown">
-                    <a href="#" class="nav-link has-dropdown active" data-toggle="dropdown"><i
+                <li class="dropdown active">
+                    <a href="#" class="nav-link has-dropdown " data-toggle="dropdown"><i
                             class="fa-regular fa-folder"></i> <span>Permohonan</span></a>
                     <ul class="dropdown-menu">
                         <li class="active"><a class="nav-link" href="{{ route('semuaPermohonan') }}">Semua Permohonan</a>
@@ -160,7 +160,7 @@
                                                 <td>
                                                     @if ($dtlyn->file != null)
                                                         <a href="{{ route('downloadFilePermohonan', $dtlyn->file) }}"
-                                                            class="btn btn-primary btn-md">Unduh berkas</button>
+                                                            class="btn btn-primary btn-sm">Unduh berkas</button>
                                                         @else
                                                             Tidak ada berkas.
                                                     @endif

@@ -154,11 +154,11 @@ class UserController extends Controller
             if ($user) {
 
                 if ($user) {
-                    $data = [
+                    $dataUser = [
                         'name' => $user['name'],
                         'user_id' => $user['user_id']
                     ];
-                    $user->notify(new EmailNotification($data));
+                    $user->notify(new EmailNotification($dataUser));
                     return redirect()->route('forgetPassword')->with('success', 'Link berhasil terkirim');
                 } else {
                     return redirect()->route('forgetPassword')->withInput()->with('failed', 'Gagal mengirim link');

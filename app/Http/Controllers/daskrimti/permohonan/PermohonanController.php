@@ -5,11 +5,18 @@ namespace App\Http\Controllers\daskrimti\permohonan;
 use App\Http\Controllers\Controller;
 use App\Models\DaskrmtiModel;
 use App\Models\PuModel;
+use App\Models\User;
+use App\Models\UserModel;
+use App\Notifications\replyEmailNotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
 class PermohonanController extends Controller
 {
+    public function __construct()
+    {
+        date_default_timezone_set('Asia/Jakarta');
+    }
     function semuaPermohonan()
     {
         $permohonanModel = new PuModel();
@@ -40,6 +47,9 @@ class PermohonanController extends Controller
         try {
             $email = $request->input('email');
             $permohonanId = $request->input('permohonan_id');
+            $user = User::where('email', $email)->first();
+            $dataUser = UserModel::where('user_id', $request->input('user_id'))->first();
+            $dataDaskrimti = DaskrmtiModel::where('daskrimti_id', session('daskrimti_id'))->first();
             $dataBalasan = [
                 'permohonan_id' => $permohonanId,
                 'daskrimti_id' => session('daskrimti_id'),
@@ -58,8 +68,24 @@ class PermohonanController extends Controller
                 'created_at' => date('Y-m-d H:i:s')
             ];
 
+            $dataNotifEmail = [
+                'subject' => 'Permohonan Terkonfirmasi',
+                'nama_lengkap' => $dataUser['name'],
+                'content' => 'Permohonan yang telah Anda ajukan telah berhasil dikonfirmasi oleh Daskrimti. Klik tombol dibawah ini untuk melihat detail permohonan.',
+                'permohonan_id' => $permohonanId,
+                'balasan' => $request->input('balasan'),
+                'daskrimti_name' => $dataDaskrimti['name']
+
+            ];
+
             $puModel = new PuModel();
             $transaction = $puModel->acceptPermohonan($dataBalasan, $dataNotification, $dataPermohonan);
+            if ($dataNotifEmail != null) {
+                $user->notify(new replyEmailNotification($dataNotifEmail));
+            } else {
+                return redirect()->route('semuaPermohonan')->with('failed', 'Terjadi Kesalahan');
+            }
+
             if ($transaction) {
                 return redirect()->route('semuaPermohonan')->with('success', 'Permohonan selesai');
             } else {
@@ -86,6 +112,9 @@ class PermohonanController extends Controller
         try {
             $email = $request->input('email');
             $permohonanId = $request->input('permohonan_id');
+            $user = User::where('email', $email)->first();
+            $dataUser = UserModel::where('user_id', $request->input('user_id'))->first();
+            $dataDaskrimti = DaskrmtiModel::where('daskrimti_id', session('daskrimti_id'))->first();
             $dataBalasan = [
                 'permohonan_id' => $permohonanId,
                 'daskrimti_id' => session('daskrimti_id'),
@@ -104,8 +133,26 @@ class PermohonanController extends Controller
                 'created_at' => date('Y-m-d H:i:s')
             ];
 
+            $dataNotifEmail = [
+                'subject' => 'Permohonan Ditolak',
+                'nama_lengkap' => $dataUser['name'],
+                'content' => 'Permohonan yang telah Anda ajukan telah ditolak oleh Daskrimti. Klik tombol dibawah ini untuk melihat detail permohonan.',
+                'permohonan_id' => $permohonanId,
+                'balasan' => $request->input('balasan'),
+                'daskrimti_name' => $dataDaskrimti['name']
+
+            ];
+
+
+
+
             $puModel = new PuModel();
             $transaction = $puModel->rejectPermohonan($dataBalasan, $dataNotification, $dataPermohonan);
+            if ($dataNotifEmail != null) {
+                $user->notify(new replyEmailNotification($dataNotifEmail));
+            } else {
+                return redirect()->route('semuaPermohonan')->with('failed', 'Terjadi Kesalahan');
+            }
             if ($transaction) {
                 return redirect()->route('semuaPermohonan')->with('success', 'Permohonan ditolak');
             } else {
