@@ -2,7 +2,7 @@
 
 {{-- Title --}}
 @section('title')
-    <title>HAI - Profil</title>
+    <title>Daskrimti - Profil</title>
 @endsection
 
 
@@ -93,11 +93,11 @@
                 </a>
                 <div class="dropdown-menu dropdown-menu-right">
 
-                    <a href="{{ route('profile') }}" class="dropdown-item has-icon">
+                    <a href="{{ route('profileDaskrimti') }}" class="dropdown-item has-icon">
                         <i class="far fa-user"></i> Profile
                     </a>
                     <div class="dropdown-divider"></div>
-                    <a href="{{ route('logout') }}" class="dropdown-item has-icon text-danger">
+                    <a href="{{ route('daskrimtiLogOut') }}" class="dropdown-item has-icon text-danger">
                         <i class="fas fa-sign-out-alt"></i> Logout
                     </a>
                 </div>
@@ -189,20 +189,7 @@
                                         src="{{ asset('data/profile_photo/' . $dataDaskrimti['profile_photo']) }}"
                                         class="rounded-circle profile-widget-picture">
                                 </a>
-                                {{-- <div class="profile-widget-items">
-                                    <div class="profile-widget-item">
-                                        <div class="profile-widget-item-label">Pengaduan</div>
-                                        <div class="profile-widget-item-value">{{ $totalPermohonan }}</div>
-                                    </div>
-                                    <div class="profile-widget-item">
-                                        <div class="profile-widget-item-label">Selesai</div>
-                                        <div class="profile-widget-item-value">{{ $permohonanSelesai }}</div>
-                                    </div>
-                                    <div class="profile-widget-item">
-                                        <div class="profile-widget-item-label">Ditolak</div>
-                                        <div class="profile-widget-item-value">{{ $permohonanDitolak }}</div>
-                                    </div>
-                                </div> --}}
+
                             </div>
                             <div class="profile-widget-description">
                                 <div class="profile-widget-name">{{ $dataDaskrimti['name'] }}<div
@@ -231,16 +218,18 @@
                                                 value="{{ $dataDaskrimti['name'] }}" required="Nama tidak boleh kosong">
 
                                         </div>
-
-                                    </div>
-                                    <div class="row">
-                                        <div class="form-group col-md-7 col-12">
+                                        <div class="form-group col-md-6 col-12">
                                             <label>Email</label>
                                             <input type="email" name="email" class="form-control"
                                                 value="{{ $dataDaskrimti['email'] }}"
                                                 required="Email tidak boleh kosong">
 
+
                                         </div>
+
+                                    </div>
+                                    <div class="row">
+
                                         <div class="form-group col-md-5 col-12">
                                             <label>Kata Sandi</label>
                                             <input name="password" type="password" class="form-control" value="">

@@ -52,4 +52,10 @@ class AuthController extends Controller
             return redirect()->route('daskrimti')->with('failed', $th->getMessage());
         }
     }
+
+    function logOut()
+    {
+        session()->flush();
+        return redirect()->route('daskrimti');
+    }
 }

@@ -108,3 +108,4 @@ Route::get('filterPermohonan', [PermohonanController::class, 'filterPermohonan']
 Route::get('profileDaskrimti', [DaskrimtiController::class, 'profile'])->name('profileDaskrimti')->middleware('daskrimti');
 Route::post('updatePhotoDaskrimti', [DaskrimtiController::class, 'updateProfilPhoto'])->name('updatePhotoDaskrimti')->middleware('daskrimti');
 Route::post('updateProfileDaskrimti', [DaskrimtiController::class, 'updateProfile'])->name('updateProfileDaskrimti')->middleware('daskrimti');
+Route::get('daskrimtiLogout', [DaskrimtiAuthController::class, 'logOut'])->name('daskrimtiLogOut')->middleware('daskrimti');
