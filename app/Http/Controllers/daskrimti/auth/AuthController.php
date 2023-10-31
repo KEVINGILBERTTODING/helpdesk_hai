@@ -4,8 +4,10 @@ namespace App\Http\Controllers\daskrimti\auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\DaskrmtiModel;
+use App\Notifications\resetPasswordDaskrimti;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
@@ -57,5 +59,40 @@ class AuthController extends Controller
     {
         session()->flush();
         return redirect()->route('daskrimti');
+    }
+
+    function forgetPassword()
+    {
+        return view('daskrimti.auth.forget_password');
+    }
+
+    function sendResetPasswordToken(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|email'
+        ], [
+            'email.required' => 'Email tidak boleh kosong',
+            'email.email' => 'Email tidak valid'
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()->with('failed', $validator->errors()->first());
+        }
+
+        try {
+            $validateEmail = DaskrmtiModel::where('email', $request->input('email'))->first();
+            if ($validateEmail && !$validateEmail->isEmpty()) {
+                $dataDaskrimti = [
+                    'daskrimti_id' => $validateEmail['daskrimti_id'],
+                    'name' => $validateEmail['name'],
+                ];
+                Notification::send($validateEmail, new resetPasswordDaskrimti($dataDaskrimti));
+                // $validateEmail->notify(new resetPasswordDaskrimti($dataDaskrimti));
+            } else {
+                return redirect()->back()->with('failed', 'Email belum terdaftar');
+            }
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('failed', $th->getMessage());
+        }
     }
 }

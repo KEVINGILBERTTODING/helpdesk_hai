@@ -120,19 +120,18 @@
             <ul class="sidebar-menu">
                 <li class="menu-header">Dashboard</li>
                 <li>
-                    <a href="{{ route('daskrimtiDashboard') }}"><i class="fa-solid fa-house"></i> <span>Dashboard</span></a>
+                    <a href="{{ route('daskrimtiDashboard') }}"><i class="fa-regular fa-house"></i>
+                        <span>Dashboard</span></a>
                 </li>
                 <li class="menu-header">Data Permohonan</li>
                 <li class="dropdown">
                     <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i
                             class="fa-regular fa-folder"></i> <span>Permohonan</span></a>
                     <ul class="dropdown-menu">
-
                         <li><a class="nav-link" href="{{ route('semuaPermohonan') }}">Semua Permohonan</a>
                         <li><a class="nav-link" href="{{ route('prosesPermohonan') }}">Permohonan Proses</a></li>
                         <li><a class="nav-link" href="{{ route('selesaiPermohonan') }}">Permohonan Selesai</a></li>
                         <li><a class="nav-link" href="{{ route('ditolakPermohonan') }}">Permohonan ditolak</a></li>
-
                     </ul>
 
                 </li>
@@ -153,11 +152,6 @@
                 <li class="active">
                     <a href="{{ route('profileDaskrimti') }}"><i class="fa-solid fa-user"></i> <span>Profil</span></a>
                 </li>
-
-
-
-
-
             </ul>
 
         </aside>
