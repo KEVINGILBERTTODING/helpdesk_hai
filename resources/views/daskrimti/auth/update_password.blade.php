@@ -20,8 +20,8 @@
                                 novalidate="">
                                 @csrf
                                 <div class="form-group">
-                                    <input required type="number" class="form-control" name="daskrimti_id" tabindex="1"
-                                        required value="{{ $daskrimti_id }}">
+                                    <input required readonly hidden type="number" class="form-control" name="daskrimti_id"
+                                        tabindex="1" required value="{{ $daskrimti_id }}">
                                     <label>Kata Sandi Baru</label>
                                     <input required type="password" minlength="8" class="form-control" name="new_password"
                                         tabindex="1" required autofocus>

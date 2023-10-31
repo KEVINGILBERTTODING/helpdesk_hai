@@ -3,6 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
+
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
     @yield('title')
 
@@ -16,6 +17,8 @@
     <!-- Template CSS -->
     <link rel="stylesheet" href="{{ asset('template/main/dist/assets/css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('template/main/dist/assets/css/components.css') }}">
+    <link rel="icon" href="{{ asset('template/landing_page/img/img_login.png') }}" type="image/x-icon">
+
     <!-- Start GA -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-94034622-3"></script>
     <script>

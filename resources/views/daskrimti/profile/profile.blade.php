@@ -120,7 +120,7 @@
             <ul class="sidebar-menu">
                 <li class="menu-header">Dashboard</li>
                 <li>
-                    <a href="{{ route('daskrimtiDashboard') }}"><i class="fa-regular fa-house"></i>
+                    <a href="{{ route('daskrimtiDashboard') }}"><i class="fa-solid fa-house"></i>
                         <span>Dashboard</span></a>
                 </li>
                 <li class="menu-header">Data Permohonan</li>

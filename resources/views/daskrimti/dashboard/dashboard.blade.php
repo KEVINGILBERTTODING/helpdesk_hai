@@ -105,7 +105,7 @@
             </div>
             <div class="row">
                 <div class="col-lg-3 col-md-6 col-sm-6 col-12">
-                    <a href="{{ route('allPermohonan') }}">
+                    <a href="{{ route('semuaPermohonan') }}">
                         <div class="card card-statistic-1">
                             <div class="card-icon bg-primary">
                                 <i class="fa-regular fa-folder fa-2xl" style="color: #ffffff;"></i>
@@ -123,7 +123,7 @@
 
                 </div>
                 <div class="col-lg-3 col-md-6 col-sm-6 col-12">
-                    <a href="{{ route('successPermohonan') }}">
+                    <a href="{{ route('selesaiPermohonan') }}">
                         <div class="card card-statistic-1">
                             <div class="card-icon bg-success">
                                 <i class="fa-solid fa-check fa-2xl" style="color: #ffffff;"></i>
@@ -142,7 +142,7 @@
                 </div>
 
                 <div class="col-lg-3 col-md-6 col-sm-6 col-12">
-                    <a href="{{ route('processPermohonan') }}">
+                    <a href="{{ route('prosesPermohonan') }}">
                         <div class="card card-statistic-1">
                             <div class="card-icon bg-warning">
                                 <i class="fa-solid fa-hourglass fa-2xl" style="color: #ffffff;"></i>
@@ -161,7 +161,7 @@
                 </div>
 
                 <div class="col-lg-3 col-md-6 col-sm-6 col-12">
-                    <a href="{{ route('failedPermohonan') }}">
+                    <a href="{{ route('ditolakPermohonan') }}">
                         <div class="card card-statistic-1">
                             <div class="card-icon bg-danger">
                                 <i class="fa-solid fa-xmark fa-2xl" style="color: #ffffff;"></i>
