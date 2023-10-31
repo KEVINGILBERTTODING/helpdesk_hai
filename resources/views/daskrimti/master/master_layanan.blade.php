@@ -62,11 +62,10 @@
                     <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i
                             class="fa-regular fa-folder"></i> <span>Permohonan Saya</span></a>
                     <ul class="dropdown-menu">
-                        <li><a class="nav-link" href="{{ route('createPermohonan') }}">Permohonan Baru</a></li>
-                        <li><a class="nav-link" href="{{ route('allPermohonan') }}">Semua Permohonan</a>
-                        <li><a class="nav-link" href="{{ route('processPermohonan') }}">Permohonan Proses</a></li>
-                        <li><a class="nav-link" href="{{ route('successPermohonan') }}">Permohonan Selesai</a></li>
-                        <li><a class="nav-link" href="{{ route('failedPermohonan') }}">Permohonan ditolak</a></li>
+                        <li><a class="nav-link" href="{{ route('semuaPermohonan') }}">Semua Permohonan</a>
+                        <li><a class="nav-link" href="{{ route('prosesPermohonan') }}">Permohonan Proses</a></li>
+                        <li><a class="nav-link" href="{{ route('selesaiPermohonan') }}">Permohonan Selesai</a></li>
+                        <li><a class="nav-link" href="{{ route('ditolakPermohonan') }}">Permohonan ditolak</a></li>
 
                     </ul>
 

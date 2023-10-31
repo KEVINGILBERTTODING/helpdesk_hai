@@ -76,10 +76,10 @@
                     <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i
                             class="fa-solid fa-wrench"></i> <span>Data Master</span></a>
                     <ul class="dropdown-menu">
-                        <li><a class="nav-link" href="{{ route('users') }}">Data Staff</a></li>
-                        <li><a class="nav-link" href="{{ route('layanan') }}">Data Layanan</a></li>
-                        <li><a class="nav-link" href="{{ route('bidang') }}">Data Bidang</a>
-                        <li class="active"><a class="nav-link" href="{{ route('type') }}">Data Tipe</a></li>
+                        <li><a class="nav-link" href="{{ route('semuaPermohonan') }}">Semua Permohonan</a>
+                        <li><a class="nav-link" href="{{ route('prosesPermohonan') }}">Permohonan Proses</a></li>
+                        <li><a class="nav-link" href="{{ route('selesaiPermohonan') }}">Permohonan Selesai</a></li>
+                        <li><a class="nav-link" href="{{ route('ditolakPermohonan') }}">Permohonan ditolak</a></li>
 
                     </ul>
 
