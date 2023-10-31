@@ -81,13 +81,14 @@ class AuthController extends Controller
 
         try {
             $validateEmail = DaskrmtiModel::where('email', $request->input('email'))->first();
-            if ($validateEmail && !$validateEmail->isEmpty()) {
+            if ($validateEmail) {
+
                 $dataDaskrimti = [
                     'daskrimti_id' => $validateEmail['daskrimti_id'],
                     'name' => $validateEmail['name'],
                 ];
-                Notification::send($validateEmail, new resetPasswordDaskrimti($dataDaskrimti));
-                // $validateEmail->notify(new resetPasswordDaskrimti($dataDaskrimti));
+
+                $validateEmail->notify(new resetPasswordDaskrimti($dataDaskrimti));
             } else {
                 return redirect()->back()->with('failed', 'Email belum terdaftar');
             }
