@@ -20,7 +20,7 @@ class UserController extends Controller
     }
     function profile()
     {
-        if (session('login') != true) {
+        if (session('login') != true && session('role') != 'staff') {
             return redirect()->route('login');
         }
         $dataUser = User::where('user_id', session('user_id'))->first();
@@ -44,7 +44,7 @@ class UserController extends Controller
 
     function updateProfilPhoto(Request $request)
     {
-        if (session('login') != true) {
+        if (session('login') != true && session('role') != 'staff') {
             return redirect()->route('login');
         }
 

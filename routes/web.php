@@ -105,3 +105,6 @@ Route::post('acceptPermohonan', [PermohonanController::class, 'acceptPermohonan'
 Route::post('rejectPermohonan', [PermohonanController::class, 'rejectPermohonan'])->name('rejectPermohonan')->middleware('daskrimti');
 Route::get('createPdf', [PermohonanController::class, 'createPdf'])->name('createPdf')->middleware('daskrimti');
 Route::get('filterPermohonan', [PermohonanController::class, 'filterPermohonan'])->name('filterPermohonan')->middleware('daskrimti');
+Route::get('profileDaskrimti', [DaskrimtiController::class, 'profile'])->name('profileDaskrimti')->middleware('daskrimti');
+Route::post('updatePhotoDaskrimti', [DaskrimtiController::class, 'updateProfilPhoto'])->name('updatePhotoDaskrimti')->middleware('daskrimti');
+Route::post('updateProfileDaskrimti', [DaskrimtiController::class, 'updateProfile'])->name('updateProfileDaskrimti')->middleware('daskrimti');

@@ -86,7 +86,7 @@
                 </li>
                 <li class="menu-header">Akun</li>
                 <li>
-                    <a href="{{ route('profile') }}"><i class="fa-solid fa-user"></i> <span>Profil</span></a>
+                    <a href="{{ route('profileDaskrimti') }}"><i class="fa-solid fa-user"></i> <span>Profil</span></a>
                 </li>
 
 
