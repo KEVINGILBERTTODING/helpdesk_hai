@@ -95,6 +95,7 @@ Route::post('insertUser', [UsersController::class, 'insertUser'])->name('insertU
 Route::post('updateUsers', [UsersController::class, 'updateUsers'])->name('updateUsers')->middleware('daskrimti');
 Route::get('deleteUser/{userId}', [UsersController::class, 'deleteUser'])->name('deleteUser')->middleware('daskrimti');
 Route::get('semuaPermohonan', [PermohonanController::class, 'semuaPermohonan'])->name('semuaPermohonan')->middleware('daskrimti');
+Route::get('prosesPermohonan', [PermohonanController::class, 'prosesPermohonan'])->name('prosesPermohonan')->middleware('daskrimti');
 Route::get('permohonanSelesai', [PermohonanController::class, 'allPermohonan'])->name('permohonanSelesai')->middleware('daskrimti');
 Route::get('permohonanProses', [PermohonanController::class, 'allPermohonan'])->name('permohonanProses')->middleware('daskrimti');
 Route::get('permohonanDitolak', [PermohonanController::class, 'allPermohonan'])->name('permohonanDitolak')->middleware('daskrimti');

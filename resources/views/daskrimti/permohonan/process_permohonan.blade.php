@@ -2,7 +2,7 @@
 
 {{-- Title --}}
 @section('title')
-    <title>Daskrimti - Semua Permohonan</title>
+    <title>Daskrimti - Permohonan Proses</title>
 @endsection
 
 
@@ -62,8 +62,9 @@
                     <a href="#" class="nav-link has-dropdown " data-toggle="dropdown"><i
                             class="fa-regular fa-folder"></i> <span>Permohonan</span></a>
                     <ul class="dropdown-menu">
-                        <li class="active"><a class="nav-link" href="{{ route('semuaPermohonan') }}">Semua Permohonan</a>
-                        <li><a class="nav-link" href="{{ route('prosesPermohonan') }}">Permohonan Proses</a></li>
+                        <li><a class="nav-link" href="{{ route('semuaPermohonan') }}">Semua Permohonan</a>
+                        <li class="active"><a class="nav-link" href="{{ route('prosesPermohonan') }}">Permohonan Proses</a>
+                        </li>
                         <li><a class="nav-link" href="{{ route('successPermohonan') }}">Permohonan Selesai</a></li>
                         <li><a class="nav-link" href="{{ route('failedPermohonan') }}">Permohonan ditolak</a></li>
 
@@ -101,16 +102,16 @@
     <div class="main-content">
         <section class="section">
             <div class="section-header">
-                <h1>Daftar Semua Permohonan</h1>
+                <h1>Daftar Permohonan Proses</h1>
                 <div class="section-header-breadcrumb">
                     <div class="breadcrumb-item active"><a href="{{ route('daskrimtiDashboard') }}">Dashboard</a></div>
-                    <div class="breadcrumb-item">Semua Permohonan</div>
+                    <div class="breadcrumb-item">Permohonan Proses</div>
                 </div>
             </div>
 
             <div class="section-body">
-                <h2 class="section-title">Daftar Semua Permohonan</h2>
-                <p class="section-lead">Daftar semua Permohonan yang masuk.</p>
+                <h2 class="section-title">Daftar Permohonan Proses</h2>
+                <p class="section-lead">Daftar Permohonan sedang di Proses.</p>
 
 
             </div>
@@ -341,7 +342,7 @@
                         </div>
                         <div class="modal-body">
                             <div class="form-group col-12" hidden>
-                                <input type="number" hidden required name="status" value="3"
+                                <input type="number" hidden required name="status" value="2"
                                     class="form-control">
 
                             </div>

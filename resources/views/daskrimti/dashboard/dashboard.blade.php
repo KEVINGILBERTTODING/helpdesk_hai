@@ -64,7 +64,7 @@
                     <ul class="dropdown-menu">
 
                         <li><a class="nav-link" href="{{ route('semuaPermohonan') }}">Semua Permohonan</a>
-                        <li><a class="nav-link" href="{{ route('processPermohonan') }}">Permohonan Proses</a></li>
+                        <li><a class="nav-link" href="{{ route('prosesPermohonan') }}">Permohonan Proses</a></li>
                         <li><a class="nav-link" href="{{ route('successPermohonan') }}">Permohonan Selesai</a></li>
                         <li><a class="nav-link" href="{{ route('failedPermohonan') }}">Permohonan ditolak</a></li>
 

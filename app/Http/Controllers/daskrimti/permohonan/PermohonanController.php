@@ -37,6 +37,21 @@ class PermohonanController extends Controller
         return view('daskrimti.permohonan.all_permohonan', $data);
     }
 
+    function prosesPermohonan()
+    {
+        $permohonanModel = new PuModel();
+        $dataPermohonan = $permohonanModel->getPermohonan(2);
+        $dataDaskrimti = DaskrmtiModel::where('daskrimti_id', session('daskrimti_id'))->first();
+        $dataBidang = BidangModel::get();
+        $data = [
+            'dataBidang' => $dataBidang,
+            'dataPermohonan' => $dataPermohonan,
+            'dataDaskrimti' => $dataDaskrimti
+        ];
+
+        return view('daskrimti.permohonan.process_permohonan', $data);
+    }
+
     function acceptPermohonan(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -47,7 +62,7 @@ class PermohonanController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return redirect()->route('semuaPermohonan')->with('failed', $validator->errors()->first());
+            return redirect()->back()->with('failed', $validator->errors()->first());
         }
 
         try {
@@ -89,16 +104,16 @@ class PermohonanController extends Controller
             if ($dataNotifEmail != null) {
                 $user->notify(new replyEmailNotification($dataNotifEmail));
             } else {
-                return redirect()->route('semuaPermohonan')->with('failed', 'Terjadi Kesalahan');
+                return redirect()->back()->with('failed', 'Terjadi Kesalahan');
             }
 
             if ($transaction) {
-                return redirect()->route('semuaPermohonan')->with('success', 'Permohonan selesai');
+                return redirect()->back()->with('success', 'Permohonan selesai');
             } else {
-                return redirect()->route('semuaPermohonan')->with('failed', 'Terjadi Kesalahan');
+                return redirect()->back()->with('failed', 'Terjadi Kesalahan');
             }
         } catch (\Throwable $th) {
-            return redirect()->route('semuaPermohonan')->with('failed', $th->getMessage());
+            return redirect()->back()->with('failed', $th->getMessage());
         }
     }
 
@@ -112,7 +127,7 @@ class PermohonanController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return redirect()->route('semuaPermohonan')->with('failed', $validator->errors()->first());
+            return redirect()->back()->with('failed', $validator->errors()->first());
         }
 
         try {
@@ -157,15 +172,15 @@ class PermohonanController extends Controller
             if ($dataNotifEmail != null) {
                 $user->notify(new replyEmailNotification($dataNotifEmail));
             } else {
-                return redirect()->route('semuaPermohonan')->with('failed', 'Terjadi Kesalahan');
+                return redirect()->back()->with('failed', 'Terjadi Kesalahan');
             }
             if ($transaction) {
-                return redirect()->route('semuaPermohonan')->with('success', 'Permohonan ditolak');
+                return redirect()->back()->with('success', 'Permohonan ditolak');
             } else {
-                return redirect()->route('semuaPermohonan')->with('failed', 'Terjadi Kesalahan');
+                return redirect()->back()->with('failed', 'Terjadi Kesalahan');
             }
         } catch (\Throwable $th) {
-            return redirect()->route('semuaPermohonan')->with('failed', $th->getMessage());
+            return redirect()->back()->with('failed', $th->getMessage());
         }
     }
 

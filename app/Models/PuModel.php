@@ -92,10 +92,12 @@ class PuModel extends Model
                 'layanan.nama_layanan',
                 'type.nama_type'
             )
-                ->leftJoin('bidang', 'permohonan.bidang_id', '=', 'bidang.bidang_id')
+
                 ->leftJoin('layanan', 'permohonan.layanan_id', '=', 'layanan.layanan_id')
                 ->leftJoin('type', 'permohonan.type_id', '=', 'type.type_id')
                 ->join('users', 'permohonan.user_id', '=', 'users.user_id')
+                ->leftJoin('balasan_permohonan', 'permohonan.permohonan_id', '=', 'balasan_permohonan.permohonan_id')
+                ->leftJoin('bidang', 'users.bidang_id', '=', 'bidang.bidang_id')
                 ->where('permohonan.status', $status)
                 ->get();
             return $data;
