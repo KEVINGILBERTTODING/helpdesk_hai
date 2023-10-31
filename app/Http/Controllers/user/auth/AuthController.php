@@ -122,7 +122,7 @@ class AuthController extends Controller
             'user_id.required' => 'Terjadi kesalahan',
             'user_id.integer' => 'Terjadi kesalahan',
             'new_password.required' => 'Kata sandi tidak boleh kosong',
-            'password_verify.required' => 'Kata samdi tidak boleh kosong'
+            'password_verify.required' => 'Kata sandi tidak boleh kosong'
         ]);
 
         if ($validator->fails()) {

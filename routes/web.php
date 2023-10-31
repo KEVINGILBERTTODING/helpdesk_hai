@@ -111,3 +111,5 @@ Route::post('updateProfileDaskrimti', [DaskrimtiController::class, 'updateProfil
 Route::get('daskrimtiLogout', [DaskrimtiAuthController::class, 'logOut'])->name('daskrimtiLogOut')->middleware('daskrimti');
 Route::get('daskrimtiForgetPassword', [DaskrimtiAuthController::class, 'forgetPassword'])->name('daskrimtiForgetPassword');
 Route::get('sendResetPasswordToken', [DaskrimtiAuthController::class, 'sendResetPasswordToken'])->name('sendResetPasswordToken');
+Route::get('newPasswordDaskrimti/{daskrimtiId}', [DaskrimtiAuthController::class, 'newPassword'])->name('newPasswordDaskrimti');
+Route::post('updatePasswordDaskrimti', [DaskrimtiAuthController::class, 'updatePassword'])->name('updatePasswordDaskrimti');

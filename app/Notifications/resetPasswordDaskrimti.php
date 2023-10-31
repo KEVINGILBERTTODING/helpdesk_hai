@@ -40,8 +40,9 @@ class resetPasswordDaskrimti extends Notification
             ->greeting('Halo, ' . $this->dataDaskrimti['name'])
             ->subject('Reset Kata Sandi')
             ->line('Jika Anda menerima email ini, berarti Anda sedang berusaha untuk mengganti kata sandi akun Anda. Klik tombol dibawah ini untuk mereset kata sandi akun Anda.')
-            ->action('klik tautan berikut', route('reset_password', Crypt::encrypt($this->dataDaskrimti['daskrimti_id'])))
-            ->line('Jika Anda tidak merasa melakukan tindakan ini, hiraukan saja pesan ini.');
+            ->action('klik tautan berikut', route('newPasswordDaskrimti', Crypt::encrypt($this->dataDaskrimti['daskrimti_id'])))
+            ->line('Abaikan jika Anda merasa tidak melakukan aksi ini.')
+            ->salutation('Terima kasih');
     }
 
     /**

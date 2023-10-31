@@ -41,7 +41,8 @@ class EmailNotification extends Notification
             ->subject('Reset Kata Sandi')
             ->line('Jika Anda menerima email ini, berarti Anda sedang berusaha untuk mengganti kata sandi akun Anda. Klik tombol dibawah ini untuk mereset kata sandi akun Anda.')
             ->action('klik tautan berikut', route('reset_password', Crypt::encrypt($this->dataUser['user_id'])))
-            ->line('Jika Anda tidak merasa melakukan tindakan ini, hiraukan saja pesan ini.');
+            ->line('Abaikan jika Anda merasa tidak melakukan aksi ini.')
+            ->salutation('Terima kasih');
     }
 
     /**
