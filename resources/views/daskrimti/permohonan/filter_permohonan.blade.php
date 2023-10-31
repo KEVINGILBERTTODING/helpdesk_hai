@@ -140,12 +140,40 @@
                             <div class="justify-content-end d-flex">
                                 <button class="btn btn-info mr-2" data-target="#modal_filter" data-toggle="modal"><i
                                         class="fa-solid fa-filter"></i> Filter</button>
-                                <a href="{{ route('createdPdf') }}" class="btn btn-primary"><i
-                                        class="fa-solid fa-download"></i> Unduh PDF</a>
+                                <form action="{{ route('createPdf') }}" method="get">
+                                    @csrf
+                                    <div class="form-group col-12" hidden>
+                                        <input type="number" required name="bidang_id" value="{{ $bidang_id }}"
+                                            class="form-control">
+
+                                    </div>
+
+                                    <div class="form-group col-12" hidden>
+                                        <input type="number" required name="status" value="{{ $status }}"
+                                            class="form-control">
+
+                                    </div>
+                                    <div class="form-group col-12" hidden>
+                                        <label>Tanggal Awal</label>
+
+                                        <input type="date" value="{{ $dateFrom }}" required name="date_from"
+                                            class="form-control">
+                                    </div>
+
+                                    <div class="form-group col-12" hidden>
+                                        <label>Tanggal Akhir</label>
+                                        <input type="date" value="{{ $dateEnd }}" required name="date_end"
+                                            class="form-control">
+                                    </div>
+
+
+
+                                    <button type="submit" class="btn btn-primary"><i class="fa-solid fa-download"></i>
+                                        Unduh PDF</a>
+
+                                </form>
+
                             </div>
-
-
-
 
 
                             <div class="table-responsive mt-4">

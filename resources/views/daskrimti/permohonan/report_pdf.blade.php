@@ -3,13 +3,26 @@
 
 <head>
     <title>Laporan</title>
-    <link rel="icon" type="image/png" href="<?php echo base_url('assets/img/' . $surat_penolakan['logo_kop_surat']); ?>">
     <style type="text/css">
+        .container {
+            display: flex;
+            align-items: center;
+        }
+
+        .container img {
+            max-width: 10%;
+            height: auto;
+        }
+
+        .header {
+            flex-grow: 1;
+            text-align: center;
+        }
+
         .table {
             border-collapse: collapse;
             width: 100%;
             font-size: 12px;
-
         }
 
         .table td,
@@ -21,46 +34,55 @@
 </head>
 
 <body>
-    <img src="assets/img/<?= $surat_penolakan['logo_kop_surat'] ?>" width="250" height="130">
-    <center>
-        <h3>Laporan Proposal Bantuan Program TJSL</h3>
-        <h3>PT. Jasa Raharja Cabang Utama Jawa tengah</h3>
-
-    </center>
-
-    <p>Tanggal <?= date('d-m-Y', strtotime($date_start)) ?> s/d <?= date('d-m-Y', strtotime($date_end)) ?></p>
-    <br><br>
+    <div class="container">
+        <div class="header">
+            <img src="{{ $main_logo }}" alt="Main Logo">
+            <h3>Laporan Permohonan Bidang {{ $nama_bidang }}</h3>
+            <h3>Kejaksaan Tinggi Jawa Tengah</h3>
+            <p style="font-style: italic">{{ $address }}</p>
+            <hr>
+        </div>
+    </div>
+    <p>Periode <?= date('d-m-Y', strtotime($date_start)) ?> s/d <?= date('d-m-Y', strtotime($date_end)) ?></p>
+    <br>
 
     <table class="table">
 
         <tr>
             <th>No</th>
-            <th>No Proposal</th>
-            <th>Tanggal Proposal</th>
-            <th>Instansi</th>
-            <th>Email</th>
-            <th>Bantuan</th>
-            <th>Loket</th>
+            <th>Tanggal Permohonan</th>
+            <th>NRP</th>
+            <th>Nama Lengkap</th>
+            <th>Subjek</th>
+            <th>Layanan</th>
+            <th>Bidang</th>
+            <th>Tipe</th>
+            <th>Keterangan</th>
             <th>Status</th>
         </tr>
 
         <?php
 		$no = 1;
-		foreach ($proposal as $p) : ?>
+		foreach ($dataPermohonan as $p) : ?>
         <tr>
             <td><?= $no++ ?></td>
-            <td><?= $p->no_proposal ?></td>
-            <td><?= $p->tgl_proposal ?></td>
-            <td><?= $p->asal_proposal ?></td>
-            <td><?= $p->email_pengaju ?></td>
-            <td><?= $p->bantuan_diajukan ?></td>
-            <td><?= $p->nm_loket ?></td>
+            <td><?= $p->created_at ?></td>
+            <td><?= $p->nrp ?></td>
+            <td><?= $p->nama_lengkap ?></td>
+            <td><?= $p->subject ?></td>
+            <td><?= $p->nama_layanan ?></td>
+            <td><?= $p->nama_bidang ?></td>
+            <td><?= $p->nama_type ?></td>
+            <td><?= $p->keterangan ?></td>
             <td>
-                <?php if ($p->status == '') {
-                    echo 'Diproses';
+                <?php if ($p->status == 1) {
+                    echo 'Selesai';
+                } elseif ($p->status == 2) {
+                    echo 'Proses';
                 } else {
-                    echo $p->status;
+                    echo 'Ditolak';
                 }
+                
                 ?>
             </td>
         </tr>
@@ -77,14 +99,14 @@
             <tr>
                 <td width="0"><br><br></td>
                 <td>
-                    PT. Jasa Raharja
+
+                    Daskrimti,<br>
+                    Kejaksaan Tinggi Jawa Tengah
                     <br>
-                    Cabang Utama Jawa Tengah
-                    <br><br>
-                    <img src="uploads/qrcode/<?= $kacab['file_qrcode'] ?>" width="100" height="100">
-                    <br><br><?= $kacab['nama_lengkap'] ?>
-                    <br>
-                    Kepala Cabang
+
+                    <br><br><br><br><br>
+                    {{ $nama_daskrimti }}
+
                 </td>
 
             </tr>

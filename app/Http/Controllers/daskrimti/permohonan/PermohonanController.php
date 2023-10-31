@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\daskrimti\permohonan;
 
 use App\Http\Controllers\Controller;
+use App\Models\AppModel;
 use App\Models\BidangModel;
 use App\Models\DaskrmtiModel;
 use App\Models\PuModel;
@@ -198,7 +199,8 @@ class PermohonanController extends Controller
                     'dateFrom' => $request->input('date_from'),
                     'dateEnd' => $request->input('date_end'),
                     'status' => $request->input('status'),
-                    'nama_bidang' => $namaBidang['nama_bidang']
+                    'nama_bidang' => $namaBidang['nama_bidang'],
+                    'bidang_id' => $request->input('bidang_id')
                 ];
                 return view('daskrimti.permohonan.filter_permohonan', $data);
             } else {
@@ -209,12 +211,49 @@ class PermohonanController extends Controller
         }
     }
 
-    function createdPdf()
+    function createPdf(Request $request)
     {
-        $data = [
-            'title' => 'Kejati jateng'
-        ];
-        $pdf = FacadePdF::loadView('daskrimti/permohonan/report_pdf', $data);
-        return $pdf->download('test.pdf');
+
+        $validator = Validator::make($request->all(), [
+            'status' => 'required|integer',
+            'date_from' => 'required|date',
+            'date_end' => 'required|date',
+            'status' => 'required|integer',
+            'bidang_id' => 'required|integer',
+
+
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()->with('failed', 'Terjadi kesalahan');
+        }
+
+        try {
+
+            $puModel = new PuModel();
+            $namaBidang = BidangModel::where('bidang_id', $request->input('bidang_id'))->first();
+            $dataPermohonan = $puModel->filterPermohonan($request->input('date_from'), $request->input('date_end'), $request->input('bidang_id'), $request->input('status'));
+            $main_logo = public_path('template/landing_page/img/img_login.png');
+            if ($dataPermohonan && !$dataPermohonan->isEmpty()) {
+                $data = [
+                    'title' => 'Kejati jateng',
+                    'dataPermohonan' => $dataPermohonan,
+                    'date_start' => $request->input('date_from'),
+                    'date_end' => $request->input('date_end'),
+                    'status' => $request->input('status'),
+                    'nama_bidang' => $namaBidang['nama_bidang'],
+                    'main_logo' => $main_logo,
+                    'nama_daskrimti' => DaskrmtiModel::where('daskrimti_id', session('daskrimti_id'))->first()['name'],
+                    'address' => AppModel::where('app_id', 1)->first()['address']
+                ];
+                $pdf = FacadePdF::loadView('daskrimti/permohonan/report_pdf', $data);
+                $pdf->setPaper('A4', 'landscape');
+                return $pdf->download('Laporan_' . $namaBidang['nama_bidang'] . '_' . $request->input('date_from') . '-' . $request->input('date_end') . '.pdf');
+            } else {
+                return redirect()->back()->with('failed', 'Terjadi kesalahan');
+            }
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('failed', $th->getMessage());
+        }
     }
 }
