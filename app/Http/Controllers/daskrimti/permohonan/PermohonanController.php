@@ -52,6 +52,36 @@ class PermohonanController extends Controller
         return view('daskrimti.permohonan.process_permohonan', $data);
     }
 
+    function selesaiPermohonan()
+    {
+        $permohonanModel = new PuModel();
+        $dataPermohonan = $permohonanModel->getPermohonan(1);
+        $dataDaskrimti = DaskrmtiModel::where('daskrimti_id', session('daskrimti_id'))->first();
+        $dataBidang = BidangModel::get();
+        $data = [
+            'dataBidang' => $dataBidang,
+            'dataPermohonan' => $dataPermohonan,
+            'dataDaskrimti' => $dataDaskrimti
+        ];
+
+        return view('daskrimti.permohonan.success_permohonan', $data);
+    }
+
+    function ditolakPermohonan()
+    {
+        $permohonanModel = new PuModel();
+        $dataPermohonan = $permohonanModel->getPermohonan(0);
+        $dataDaskrimti = DaskrmtiModel::where('daskrimti_id', session('daskrimti_id'))->first();
+        $dataBidang = BidangModel::get();
+        $data = [
+            'dataBidang' => $dataBidang,
+            'dataPermohonan' => $dataPermohonan,
+            'dataDaskrimti' => $dataDaskrimti
+        ];
+
+        return view('daskrimti.permohonan.failed_permohonan', $data);
+    }
+
     function acceptPermohonan(Request $request)
     {
         $validator = Validator::make($request->all(), [

@@ -2,7 +2,7 @@
 
 {{-- Title --}}
 @section('title')
-    <title>Daskrimti - Filter Permohonan</title>
+    <title>Daskrimti - Permohonan Ditolak</title>
 @endsection
 
 
@@ -62,11 +62,12 @@
                     <a href="#" class="nav-link has-dropdown " data-toggle="dropdown"><i
                             class="fa-regular fa-folder"></i> <span>Permohonan</span></a>
                     <ul class="dropdown-menu">
-                        <li class="active"><a class="nav-link" href="{{ route('semuaPermohonan') }}">Semua Permohonan</a>
-                        <li><a class="nav-link" href="{{ route('processPermohonan') }}">Permohonan Proses</a></li>
+                        <li><a class="nav-link" href="{{ route('semuaPermohonan') }}">Semua Permohonan</a>
+                        <li><a class="nav-link" href="{{ route('prosesPermohonan') }}">Permohonan Proses</a>
+                        </li>
                         <li><a class="nav-link" href="{{ route('selesaiPermohonan') }}">Permohonan Selesai</a></li>
-                        <li><a class="nav-link" href="{{ route('ditolakPermohonan') }}">Permohonan ditolak</a></li>
-
+                        <li class="active"><a class="nav-link" href="{{ route('ditolakPermohonan') }}">Permohonan
+                                ditolak</a></li>
 
                     </ul>
 
@@ -102,33 +103,16 @@
     <div class="main-content">
         <section class="section">
             <div class="section-header">
-                @if ($status == 3)
-                    <h1>Filter Semua Permohonan</h1>
-                @elseif ($status == 1)
-                    <h1>Filter Permohonan Selesai</h1>
-                @elseif ($status == 2)
-                    <h1>Filter Permohonan Proses</h1>
-                @elseif ($status == 0)
-                    <h1>Filter Permohonan Ditolak</h1>
-                @endif
+                <h1>Daftar Permohonan Ditolak</h1>
                 <div class="section-header-breadcrumb">
                     <div class="breadcrumb-item active"><a href="{{ route('daskrimtiDashboard') }}">Dashboard</a></div>
-                    <div class="breadcrumb-item">Filter Permohonan</div>
+                    <div class="breadcrumb-item">Permohonan Ditolak</div>
                 </div>
             </div>
 
             <div class="section-body">
-                @if ($status == 3)
-                    <h2 class="section-title">Daftar Semua Permohonan</h2>
-                @elseif ($status == 1)
-                    <h2 class="section-title">Daftar Permohonan Selesai</h2>
-                @elseif ($status == 2)
-                    <h2 class="section-title">Daftar Permohonan Proses</h2>
-                @elseif ($status == 0)
-                    <h2 class="section-title">Daftar Permohonan Ditolak</h2>
-                @endif
-
-                <p class="section-lead">Periode: {{ $dateFrom }} s/d {{ $dateEnd }}</p>
+                <h2 class="section-title">Daftar Permohonan Ditolak</h2>
+                <p class="section-lead">Daftar permohonan yang ditolak .</p>
 
 
             </div>
@@ -138,46 +122,14 @@
                     <div class="card">
 
                         <div class="card-body">
-                            <div class="justify-content-end d-flex">
-                                <button class="btn btn-info mr-2" data-target="#modal_filter" data-toggle="modal"><i
+                            <div class="d-flex justify-content-end">
+                                <button class="btn btn-info" data-target="#modal_filter" data-toggle="modal"><i
                                         class="fa-solid fa-filter"></i> Filter</button>
-                                <form action="{{ route('createPdf') }}" method="get">
-                                    @csrf
-                                    <div class="form-group col-12" hidden>
-                                        <input type="number" required name="bidang_id" value="{{ $bidang_id }}"
-                                            class="form-control">
-
-                                    </div>
-
-                                    <div class="form-group col-12" hidden>
-                                        <input type="number" required name="status" value="{{ $status }}"
-                                            class="form-control">
-
-                                    </div>
-                                    <div class="form-group col-12" hidden>
-                                        <label>Tanggal Awal</label>
-
-                                        <input type="date" value="{{ $dateFrom }}" required name="date_from"
-                                            class="form-control">
-                                    </div>
-
-                                    <div class="form-group col-12" hidden>
-                                        <label>Tanggal Akhir</label>
-                                        <input type="date" value="{{ $dateEnd }}" required name="date_end"
-                                            class="form-control">
-                                    </div>
-
-
-
-                                    <button type="submit" class="btn btn-primary"><i class="fa-solid fa-download"></i>
-                                        Unduh PDF</a>
-
-                                </form>
-
                             </div>
 
 
-                            <div class="table-responsive mt-4">
+
+                            <div class="table-responsive mt-3">
                                 <table class="table table-striped" id="table-layanan">
                                     <thead>
 
@@ -391,7 +343,7 @@
                         </div>
                         <div class="modal-body">
                             <div class="form-group col-12" hidden>
-                                <input type="number" hidden required name="status" value="3"
+                                <input type="number" hidden required name="status" value="0"
                                     class="form-control">
 
                             </div>
