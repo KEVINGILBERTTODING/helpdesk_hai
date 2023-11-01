@@ -101,13 +101,14 @@
             </ol>
             <div class="carousel-inner" role="listbox">
                 <div class="carousel-item active">
-                    <img src="{{ asset('template/landing_page/img/carousel-1.jpg') }}" class="img-fluid" alt="First slide">
+                    <img src="{{ asset('template/landing_page/img/' . $dataApp['img_banner1']) }}" class="img-fluid"
+                        alt="First slide">
                     <div class="carousel-caption">
                         <div class="container carousel-content">
                             <h6 class="text-secondary h4 animated fadeInUp">Help Desk</h6>
-                            <h1 class="text-white display-1 mb-4 animated fadeInRight">Kejaksaan Tinggi Jawa Tengah</h1>
-                            <p class="mb-4 text-white fs-5 animated fadeInDown">Lorem ipsum dolor sit amet elit. Sed
-                                efficitur quis purus ut interdum. Pellentesque aliquam dolor eget urna ultricies tincidunt.
+                            <h1 class="text-white display-1 mb-4 animated fadeInRight">{{ $dataApp['header1'] }}</h1>
+                            <p class="mb-4 text-white fs-5 animated fadeInDown">
+                                {{ $dataApp['header_desc1'] }}
                             </p>
                             <a href="{{ route('login') }}" class="me-2"><button type="button"
                                     class="px-4 py-sm-3 px-sm-5 btn btn-primary rounded-pill carousel-content-btn1 animated fadeInLeft">Masuk</button></a>
@@ -116,15 +117,16 @@
                 </div>
 
                 <div class="carousel-item">
-                    <img src="{{ asset('template/landing_page/img/carousel-3.jpg') }}" class="img-fluid" alt="Second slide">
+                    <img src="{{ asset('template/landing_page/img/' . $dataApp['img_banner2']) }}" class="img-fluid"
+                        alt="Second slide">
                     <div class="carousel-caption">
                         <div class="container carousel-content">
                             <h6 class="text-secondary h4 animated fadeInUp">Help Desk</h6>
-                            <h1 class="text-white display-1 mb-4 animated fadeInLeft">Kejaksaan Tinggi Jawa Tengah</h1>
-                            <p class="mb-4 text-white fs-5 animated fadeInDown">Lorem ipsum dolor sit amet elit. Sed
-                                efficitur quis purus ut interdum. Pellentesque aliquam dolor eget urna ultricies tincidunt.
+                            <h1 class="text-white display-1 mb-4 animated fadeInLeft">{{ $dataApp['header2'] }}</h1>
+                            <p class="mb-4 text-white fs-5 animated fadeInDown">
+                                {{ $dataApp['header_desc2'] }}
                             </p>
-                            <a href="" class="me-2"><button type="button"
+                            <a href="{{ route('login') }}" class="me-2"><button type="button"
                                     class="px-4 py-sm-3 px-sm-5 btn btn-primary rounded-pill carousel-content-btn1 animated fadeInLeft">Masuk</button></a>
                         </div>
                     </div>
@@ -185,26 +187,18 @@
             <div class="row g-5">
                 <div class="col-lg-5 col-md-6 col-sm-12 wow fadeIn" data-wow-delay=".3s">
                     <div class="h-100 position-relative">
-                        <img src="{{ asset('template/landing_page/img/about-1.jpg') }}" class="img-fluid w-75 rounded"
-                            alt="" style="margin-bottom: 25%;">
+                        <img src="{{ asset('template/landing_page/img/' . $dataApp['img_about_us1']) }}"
+                            class="img-fluid w-75 rounded" alt="" style="margin-bottom: 25%;">
                         <div class="position-absolute w-75" style="top: 25%; left: 25%;">
-                            <img src="{{ asset('template/landing_page/img/about-2.jpg') }}" class="img-fluid w-100 rounded"
-                                alt="">
+                            <img src="{{ asset('template/landing_page/img/' . $dataApp['img_about_us2']) }}"
+                                class="img-fluid w-100 rounded" alt="">
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-7 col-md-6 col-sm-12 wow fadeIn" data-wow-delay=".5s">
                     <h5 class="text-primary">Tentang Kami</h5>
                     <h1 class="mb-4">Help Desk Kejaksaan Tinggi Jawa Tengah</h1>
-                    <p>Selamat datang di website resmi Helpdesk Kejaksaan Tinggi Jawa Tengah! Kami hadir sebagai solusi
-                        terbaik
-                        bagi para staff dan pegawai Kejaksaan Tinggi Jawa Tengah dalam mengajukan permohonan kepada
-                        DASKRIMTI
-                        (Divisi Administrasi dan Kepegawaian) secara efisien dan transparan. Kami berkomitmen untuk
-                        menyediakan
-                        layanan terbaik dengan cepat dan mudah, sehingga Anda dapat fokus pada tugas-tugas Anda yang
-                        penting.
-                        Terima kasih telah mempercayai kami sebagai partner dalam menjalankan tugas-tugas Anda.</p>
+                    <p>{{ $dataApp['about_us'] }}</p>
                 </div>
             </div>
         </div>
@@ -833,21 +827,22 @@
             <div class="row g-5">
                 <div class="col-lg-3 col-md-6">
                     <a href="index.html">
-                        <h1 class="text-white fw-bold d-block">Help Desk<span class="text-secondary"> KEJATENG</span>
+                        <h1 class="text-white fw-bold d-block">Help Desk<span class="text-secondary"> KEJATI JATENG</span>
                         </h1>
                     </a>
-                    <p class="mt-4 text-light">Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta facere
-                        delectus qui placeat inventore consectetur repellendus optio debitis.</p>
-                    <div class="d-flex hightech-link">
-                        <a href="https://www.facebook.com/KejatiJateng"
+                    <p class="mt-4 text-light">
+                        {{ $dataApp['footer_desc'] }}
+                    </p>
+                    {{-- <div class="d-flex hightech-link">
+                        <a href="{{ $dataApp['url_facebook'] }}"
                             class="btn-light nav-fill btn btn-square rounded-circle me-2"><i
                                 class="fab fa-facebook-f text-primary"></i></a>
-                        <a href="" class="btn-light nav-fill btn btn-square rounded-circle me-2"><i
+                        <a href="{{ $dataApp['url_x'] }}" class="btn-light nav-fill btn btn-square rounded-circle me-2"><i
                                 class="fab fa-twitter text-primary"></i></a>
-                        <a href="https://www.instagram.com/kejatijateng/"
+                        <a href="{{ $dataApp['url_instagram'] }}"
                             class="btn-light nav-fill btn btn-square rounded-circle me-2"><i
                                 class="fab fa-instagram text-primary"></i></a>
-                    </div>
+                    </div> --}}
                 </div>
                 <div class="col-lg-3 col-md-6">
                     <a href="#" class="h3 text-secondary">Link</a>
@@ -861,38 +856,39 @@
 
                     </div>
                 </div>
-                {{-- <div class="col-lg-3 col-md-6">
-                    <a href="#" class="h3 text-secondary">Help Link</a>
-                    <div class="mt-4 d-flex flex-column help-link">
-                        <a href="" class="mb-2 text-white"><i
-                                class="fas fa-angle-right text-secondary me-2"></i>Terms Of use</a>
-                        <a href="" class="mb-2 text-white"><i
-                                class="fas fa-angle-right text-secondary me-2"></i>Privacy Policy</a>
-                        <a href="" class="mb-2 text-white"><i
-                                class="fas fa-angle-right text-secondary me-2"></i>Helps</a>
-                        <a href="" class="mb-2 text-white"><i
-                                class="fas fa-angle-right text-secondary me-2"></i>FQAs</a>
-                        <a href="" class="mb-2 text-white"><i
-                                class="fas fa-angle-right text-secondary me-2"></i>Contact</a>
-                    </div>
-                </div> --}}
+
                 <div class="col-lg-3 col-md-6">
-                    <a href="#" class="h3 text-secondary">Contact Us</a>
-                    <div class="text-white mt-4 d-flex flex-column contact-link">
-                        <a href="#" class="pb-3 text-light border-bottom border-primary"><i
-                                class="fas fa-map-marker-alt text-secondary me-2"></i> 123 Street, New York, USA</a>
-                        <a href="#" class="py-3 text-light border-bottom border-primary"><i
-                                class="fas fa-phone-alt text-secondary me-2"></i> +123 456 7890</a>
-                        <a href="#" class="py-3 text-light border-bottom border-primary"><i
-                                class="fas fa-envelope text-secondary me-2"></i> info@exmple.con</a>
+                    <a href="#" class="h3 text-secondary">Sosial Media</a>
+                    <div class="mt-4 d-flex flex-column help-link">
+                        <a href="{{ $dataApp['url_instagram'] }}" class="mb-2 text-white"><i
+                                class="fas fa-angle-right text-secondary me-2"></i>Instagram</a>
+                        <a href="{{ $dataApp['url_facebook'] }}" class="mb-2 text-white"><i
+                                class="fas fa-angle-right text-secondary me-2"></i>Facebook</a>
+                        <a href="{{ $dataApp['url_x'] }}" class="mb-2 text-white"><i
+                                class="fas fa-angle-right text-secondary me-2"></i>X</a>
                     </div>
                 </div>
+
+                <div class="col-lg-3 col-md-6">
+                    <a href="#" class="h3 text-secondary">Hubungi Kami</a>
+                    <div class="text-white mt-4 d-flex flex-column contact-link">
+                        <a href="#" class="pb-3 text-light border-bottom border-primary"><i
+                                class="fas fa-map-marker-alt text-secondary me-2"></i>{{ $dataApp['address'] }}</a>
+                        <a href="#" class="py-3 text-light border-bottom border-primary"><i
+                                class="fas fa-phone-alt text-secondary me-2"></i> {{ $dataApp['telp'] }}</a>
+                        <a href="#" class="py-3 text-light border-bottom border-primary"><i
+                                class="fas fa-envelope text-secondary me-2"></i>{{ $dataApp['email'] }}</a>
+                    </div>
+                </div>
+
+
             </div>
             <hr class="text-light mt-5 mb-4">
             <div class="row">
                 <div class="col-md-6 text-center text-md-start">
-                    <span class="text-light"><a href="#" class="text-secondary"><i
-                                class="fas fa-copyright text-secondary me-2"></i>HAI Kejati Jateng</a>, All right
+                    <span class="text-light"><a href="https://kejati-jawatengah.kejaksaan.go.id/"
+                            class="text-secondary"><i class="fas fa-copyright text-secondary me-2"></i>HAI Kejati
+                            Jateng</a>, All right
                         reserved.</span>
                 </div>
                 <div class="col-md-6 text-center text-md-end">
@@ -903,5 +899,7 @@
             </div>
         </div>
     </div>
+
+
     <!-- Footer End -->
 @endsection

@@ -13,6 +13,7 @@ use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\user\auth\AuthController;
 use App\Http\Controllers\user\main\MainController;
 use App\Http\Controllers\user\UserController;
+use App\Models\AppModel;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -32,7 +33,11 @@ Route::get('/', function () {
     } else  if (session('login') && session('role') == 'staff') {
         return redirect()->route('dashboard');
     } else {
-        return view('landing_page.index');
+        $data = AppModel::where('app_id', 1)->first();
+        $data = [
+            'dataApp' => $data
+        ];
+        return view('landing_page.index', $data);
     }
 })->name('/');
 
