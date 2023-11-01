@@ -126,7 +126,7 @@
                             <div class="card-header">
                                 <h4>Data Tentang Aplikasi</h4>
                             </div>
-                            <form action="{{ route('updateAboutUs') }}" method="post">
+                            <form action="{{ route('updateAboutUs') }}" method="post" enctype="multipart/form-data">
                                 @csrf
                                 <div class="card-body">
                                     <div class="form-group">
