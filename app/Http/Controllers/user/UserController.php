@@ -83,7 +83,7 @@ class UserController extends Controller
 
     function updateProfile(Request $request)
     {
-        if (session('login') != true) {
+        if (session('login') != true && session('role') != 'staff') {
             return redirect('login');
         }
 

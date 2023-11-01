@@ -9,8 +9,8 @@ class NotificationController extends Controller
 {
     function markAllRead()
     {
-        if (session('login') != true) {
-            return redirect()->route('login');
+        if (session('login') != true && session('role') != 'staff') {
+            return redirect('login');
         }
 
         try {
@@ -30,8 +30,8 @@ class NotificationController extends Controller
 
     function delete()
     {
-        if (session('login') != true) {
-            return redirect()->route('login');
+        if (session('login') != true && session('role') != 'staff') {
+            return redirect('login');
         }
 
         try {
