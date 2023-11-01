@@ -99,6 +99,7 @@ class PuModel extends Model
                 ->leftJoin('balasan_permohonan', 'permohonan.permohonan_id', '=', 'balasan_permohonan.permohonan_id')
                 ->leftJoin('bidang', 'users.bidang_id', '=', 'bidang.bidang_id')
                 ->where('permohonan.status', $status)
+                ->orderBy('permohonan.permohonan_id', 'desc')
                 ->get();
             return $data;
         }
