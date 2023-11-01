@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\AppModel;
 use App\Models\DaskrmtiModel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Validator;
 
 class SettingsController extends Controller
@@ -183,6 +184,179 @@ class SettingsController extends Controller
             }
         } catch (\Throwable $th) {
             return redirect()->back()->with('failed', $th->getMessage())->withInput();
+        }
+    }
+
+
+    function updateBanner(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'header1' => 'required|string',
+            'header_desc1' => 'required|string',
+            'header2' => 'required|string',
+            'header_desc2' => 'required|string',
+        ], [
+            'header1.required' => 'Header utama tidak boleh kosong',
+            'header1.string' => 'Header utama tidak harus berupa huruf dan angka',
+            'header_desc1.required' => 'Deskripsi header utama tidak boleh kosong',
+            'header_desc1.string' => 'Deskripsi header utama tidak harus berupa huruf dan angka',
+            'header2.required' => 'Header kedua tidak boleh kosong',
+            'header2.string' => 'Header kedua tidak harus berupa huruf dan angka',
+            'header_desc2.required' => 'Deskripsi header kedua tidak boleh kosong',
+            'header_desc2.string' => 'Deskripsi header kedua tidak harus berupa huruf dan angka',
+
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()->with('failed', $validator->errors()->first());
+        }
+
+        if ($request->hasFile('img_banner1') && $request->hasFile('img_banner2')) {
+            $validatorImg = Validator::make($request->all(), [
+                'img_banner1' => 'required|image|mimes:png,jpg,jpeg|max:5000',
+                'img_banner2' => 'required|image|mimes:png,jpg,jpeg|max:5000',
+            ], [
+                'img_banner1.required' => 'Gambar banner utama tidak boleh kosong',
+                'img_banner1.image' => 'Gambar banner utama tidak valid',
+                'img_banner1.mimes' => 'Format gambar banner utama tidak valid',
+                'img_banner1.max' => 'Ukuran gambar banner utama tidak boleh lebih dari 5 MB',
+                'img_banner2.required' => 'Gambar banner kedua tidak boleh kosong',
+                'img_banner2.image' => 'Gambar banner kedua tidak valid',
+                'img_banner2.mimes' => 'Format gambar banner kedua tidak valid',
+                'img_banner2.max' => 'Ukuran gambar banner kedua tidak boleh lebih dari 5 MB',
+
+            ]);
+
+            if ($validatorImg->fails()) {
+                return redirect()->back()->with('failed', $validatorImg->errors());
+            }
+
+
+            try {
+
+                $fileBanner1 = $request->file('img_banner1');
+                $fileBanner2 = $request->file('img_banner2');
+                $fileNameBanner1 = 'Banner_1.' . $fileBanner1->getClientOriginalExtension();
+                $fileNameBanner2 = 'Banner_2.' . $fileBanner2->getClientOriginalExtension();
+                $fileBanner1->move('template/landing_page/img', $fileNameBanner1);
+                $fileBanner2->move('template/landing_page/img', $fileNameBanner2);
+                $data = [
+
+                    'header1' => $request->input('header1'),
+                    'header_desc1' => $request->input('header_desc1'),
+                    'header2' => $request->input('header2'),
+                    'header_desc2' => $request->input('header_desc2'),
+                    'img_banner1' => $fileNameBanner1,
+                    'img_banner2' => $fileNameBanner2,
+                ];
+
+                $update =  AppModel::where('app_id', 1)->update($data);
+                if ($update) {
+                    return redirect()->back()->with('success', 'Berhasil mengubah data banner');
+                } else {
+                    return redirect()->back()->with('failed', 'Gagal mengubah data banner');
+                }
+            } catch (\Throwable $th) {
+                return redirect()->back()->with('failed', 'Terjadi kesalahan');
+            }
+        } else if ($request->hasFile('img_banner1') && !$request->hasFile('img_banner2')) {
+            $validatorImg = Validator::make($request->all(), [
+                'img_banner1' => 'required|image|mimes:png,jpg,jpeg|max:5000'
+            ], [
+                'img_banner1.required' => 'Gambar banner utama tidak boleh kosong',
+                'img_banner1.image' => 'Gambar banner utama tidak valid',
+                'img_banner1.mimes' => 'Format gambar banner utama tidak valid',
+                'img_banner1.max' => 'Ukuran gambar banner utama tidak boleh lebih dari 5 MB'
+
+            ]);
+
+            if ($validatorImg->fails()) {
+                return redirect()->back()->with('failed', $validatorImg->errors());
+            }
+
+
+            try {
+
+                $fileBanner1 = $request->file('img_banner1');
+                $fileNameBanner1 = 'Banner_1.' . $fileBanner1->getClientOriginalExtension();
+                $fileBanner1->move('template/landing_page/img', $fileNameBanner1);
+                $data = [
+
+                    'header1' => $request->input('header1'),
+                    'header_desc1' => $request->input('header_desc1'),
+                    'header2' => $request->input('header2'),
+                    'header_desc2' => $request->input('header_desc2'),
+                    'img_banner1' => $fileNameBanner1,
+
+                ];
+
+                $update =  AppModel::where('app_id', 1)->update($data);
+                if ($update) {
+                    return redirect()->back()->with('success', 'Berhasil mengubah data banner');
+                } else {
+                    return redirect()->back()->with('failed', 'Gagal mengubah data banner');
+                }
+            } catch (\Throwable $th) {
+                return redirect()->back()->with('failed', 'Terjadi kesalahan');
+            }
+        } else if (!$request->hasFile('img_banner1') && $request->hasFile('img_banner2')) {
+            $validatorImg = Validator::make($request->all(), [
+                'img_banner2' => 'required|image|mimes:png,jpg,jpeg|max:5000'
+            ], [
+                'img_banner2.required' => 'Gambar banner kedua tidak boleh kosong',
+                'img_banner2.image' => 'Gambar banner kedua tidak valid',
+                'img_banner2.mimes' => 'Format gambar banner kedua tidak valid',
+                'img_banner2.max' => 'Ukuran gambar banner kedua tidak boleh lebih dari 5 MB',
+
+            ]);
+
+            if ($validatorImg->fails()) {
+                return redirect()->back()->with('failed', $validatorImg->errors());
+            }
+
+
+            try {
+
+
+                $fileBanner2 = $request->file('img_banner2');
+                $fileNameBanner2 = 'Banner_2.' . $fileBanner2->getClientOriginalExtension();
+                $fileBanner2->move('template/landing_page/img', $fileNameBanner2);
+                $data = [
+
+                    'header1' => $request->input('header1'),
+                    'header_desc1' => $request->input('header_desc1'),
+                    'header2' => $request->input('header2'),
+                    'header_desc2' => $request->input('header_desc2'),
+                    'img_banner2' => $fileNameBanner2,
+                ];
+
+                $update =  AppModel::where('app_id', 1)->update($data);
+                if ($update) {
+                    return redirect()->back()->with('success', 'Berhasil mengubah data banner');
+                } else {
+                    return redirect()->back()->with('failed', 'Gagal mengubah data banner');
+                }
+            } catch (\Throwable $th) {
+                return redirect()->back()->with('failed', 'Terjadi kesalahan');
+            }
+        } else {
+            $data = [
+                'header1' => $request->input('header1'),
+                'header_desc1' => $request->input('header_desc1'),
+                'header2' => $request->input('header2'),
+                'header_desc2' => $request->input('header_desc2'),
+            ];
+
+            try {
+                $update =  AppModel::where('app_id', 1)->update($data);
+                if ($update) {
+                    return redirect()->back()->with('success', 'Berhasil mengubah data banner');
+                } else {
+                    return redirect()->back()->with('failed', 'Gagal mengubah data banner');
+                }
+            } catch (\Throwable $th) {
+                return redirect()->back()->with('failed', 'Terjadi kesalahan');
+            }
         }
     }
 }

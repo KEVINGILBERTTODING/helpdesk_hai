@@ -237,52 +237,61 @@
                             <div class="card-header">
                                 <h4>Data Banner</h4>
                             </div>
-                            <div class="card-body">
-                                <div class="section-title">Banner Utama</div>
-                                <div class="form-group">
-                                    <label>Header</label>
-                                    <textarea type="text" name="header1" required class="form-control"></textarea>
+
+                            <form action="{{ route('updateBanner') }}" method="post" enctype="multipart/form-data">
+                                @csrf
+                                <div class="card-body">
+                                    <div class="section-title">Banner Pertama</div>
+                                    <div class="form-group">
+                                        <label>Header</label>
+                                        <textarea type="text" name="header1" required class="form-control">{{ $dataApp['header1'] }}</textarea>
+
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label>Deskripsi</label>
+                                        <textarea type="text" name="header_desc1" required class="form-control">{{ $dataApp['header_desc1'] }}</textarea>
+
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label>Banner</label>
+                                        <input type="file" class="form-control" name="img_banner1"
+                                            accept=".jpg,.png,.jpeg">
+                                        <p class="text-primary">{{ $dataApp['img_banner1'] }}</p>
+
+
+                                    </div>
+
+                                    <div class="section-title">Banner Kedua</div>
+                                    <div class="form-group">
+                                        <label>Header</label>
+                                        <textarea type="text" name="header2" required class="form-control">{{ $dataApp['header2'] }}</textarea>
+
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label>Deskripsi</label>
+                                        <textarea type="text" name="header_desc2" required class="form-control">{{ $dataApp['header_desc2'] }}</textarea>
+
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label>Banner</label>
+                                        <input type="file" class="form-control" name="img_banner2"
+                                            accept=".jpg,.png,.jpeg">
+                                        <p class="text-primary">{{ $dataApp['img_banner2'] }}</p>
+
+
+                                    </div>
 
                                 </div>
-
-                                <div class="form-group">
-                                    <label>Deskripsi</label>
-                                    <textarea type="text" name="header_desc1" required class="form-control"></textarea>
-
+                                <div class="card-footer text-right">
+                                    <button class="btn btn-primary">Simpan Perubahan</button>
                                 </div>
 
-                                <div class="form-group">
-                                    <label>Banner</label>
-                                    <input type="file" class="form-control" name="img_banner1"
-                                        accept=".jpg,.png,.jpeg">
-                                    <p class="text-primary">{{ $dataApp['banner1'] }}</p>
+                            </form>
 
-
-                                </div>
-
-                                <div class="section-title">Banner Kedua</div>
-                                <div class="form-group">
-                                    <label>Header</label>
-                                    <textarea type="text" name="header2" required class="form-control"></textarea>
-
-                                </div>
-
-                                <div class="form-group">
-                                    <label>Deskripsi</label>
-                                    <textarea type="text" name="header_desc2" required class="form-control"></textarea>
-
-                                </div>
-
-                                <div class="form-group">
-                                    <label>Banner</label>
-                                    <input type="file" class="form-control" name="img_banner1"
-                                        accept=".jpg,.png,.jpeg">
-                                    <p class="text-primary">{{ $dataApp['banner2'] }}</p>
-
-
-                                </div>
-
-                            </div>
                         </div>
 
                     </div>
