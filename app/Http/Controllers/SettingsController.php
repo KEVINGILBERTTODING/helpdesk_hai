@@ -359,4 +359,33 @@ class SettingsController extends Controller
             }
         }
     }
+
+    function updateFooter(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'footer_desc' => 'required|string'
+        ], [
+            'footer_desc.required' => 'Deskripsi footer tidak boleh kosong',
+            'footer_desc.string' => 'Deskripsi footer hanya boleh berupa huruf dan angka'
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()->with('failed', $validator->errors()->first());
+        }
+
+        try {
+            $data = [
+                'footer_desc' => $request->input('footer_desc')
+            ];
+
+            $update = AppModel::where('app_id', 1)->update($data);
+            if ($update) {
+                return redirect()->back()->with('success', 'Berhasil mengubah data footer');
+            } else {
+                return redirect()->back()->with('failed', 'Gagal mengubah data footer');
+            }
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('failed', 'Terjadi kesalahan');
+        }
+    }
 }

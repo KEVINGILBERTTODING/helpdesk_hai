@@ -117,3 +117,4 @@ Route::post('updatePasswordDaskrimti', [DaskrimtiAuthController::class, 'updateP
 Route::get('pengaturan', [SettingsController::class, 'index'])->name('pengaturan')->middleware('daskrimti');
 Route::post('updateAboutUs', [SettingsController::class, 'updateAboutUs'])->name('updateAboutUs')->middleware('daskrimti');
 Route::post('updateBanner', [SettingsController::class, 'updateBanner'])->name('updateBanner')->middleware('daskrimti');
+Route::post('updateFooter', [SettingsController::class, 'updateFooter'])->name('updateFooter')->middleware('daskrimti');

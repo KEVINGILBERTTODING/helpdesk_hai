@@ -192,41 +192,22 @@
                         {{-- Form edit data footer --}}
                         <div class="card">
                             <div class="card-header">
-                                <h4>Footer</h4>
+                                <h4>Edit Data Footer</h4>
                             </div>
                             <div class="card-body">
-                                <div class="form-group">
-                                    <div class="control-label">Toggle switches</div>
-                                    <div class="custom-switches-stacked mt-2">
-                                        <label class="custom-switch">
-                                            <input type="radio" name="option" value="1"
-                                                class="custom-switch-input" checked>
-                                            <span class="custom-switch-indicator"></span>
-                                            <span class="custom-switch-description">Option 1</span>
-                                        </label>
-                                        <label class="custom-switch">
-                                            <input type="radio" name="option" value="2"
-                                                class="custom-switch-input">
-                                            <span class="custom-switch-indicator"></span>
-                                            <span class="custom-switch-description">Option 2</span>
-                                        </label>
-                                        <label class="custom-switch">
-                                            <input type="radio" name="option" value="3"
-                                                class="custom-switch-input">
-                                            <span class="custom-switch-indicator"></span>
-                                            <span class="custom-switch-description">Option 3</span>
-                                        </label>
+                                <form action="{{ route('updateFooter') }}" method="post">
+                                    @csrf
+                                    <div class="form-group">
+                                        <label>Deskripsi Footer</label>
+                                        <textarea type="text" name="footer_desc" required class="form-control">{{ $dataApp['footer_desc'] }}</textarea>
+
                                     </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="control-label">Toggle switch single</div>
-                                    <label class="custom-switch mt-2">
-                                        <input type="checkbox" name="custom-switch-checkbox" class="custom-switch-input">
-                                        <span class="custom-switch-indicator"></span>
-                                        <span class="custom-switch-description">I agree with terms and conditions</span>
-                                    </label>
-                                </div>
+
                             </div>
+                            <div class="card-footer text-right">
+                                <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
+                            </div>
+                            </form>
                         </div>
 
                     </div>
