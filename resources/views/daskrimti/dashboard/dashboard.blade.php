@@ -87,7 +87,7 @@
                 <li class="menu-header">Pengaturan</li>
                 <li>
                     <a href="{{ route('pengaturan') }}"><i class="fa-solid fa-wrench"></i></i>
-                        <span>Pengaturan Aplikasi</span></a>
+                        <span>Pengaturan Website</span></a>
                 </li>
                 <li class="menu-header">Akun</li>
                 <li>

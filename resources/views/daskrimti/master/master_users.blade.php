@@ -83,6 +83,11 @@
                     </ul>
 
                 </li>
+                <li class="menu-header">Pengaturan</li>
+                <li>
+                    <a href="{{ route('pengaturan') }}"><i class="fa-solid fa-wrench"></i></i>
+                        <span>Pengaturan Website</span></a>
+                </li>
                 <li class="menu-header">Akun</li>
                 <li>
                     <a href="{{ route('profileDaskrimti') }}"><i class="fa-solid fa-user"></i> <span>Profil</span></a>

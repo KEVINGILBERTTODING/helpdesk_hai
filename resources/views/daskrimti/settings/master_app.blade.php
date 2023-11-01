@@ -55,7 +55,7 @@
             </div>
             <ul class="sidebar-menu">
                 <li class="menu-header">Dashboard</li>
-                <li class="active">
+                <li>
                     <a href="{{ route('daskrimtiDashboard') }}"><i class="fa-solid fa-house"></i> <span>Dashboard</span></a>
                 </li>
                 <li class="menu-header">Data Permohonan</li>
@@ -85,10 +85,10 @@
                     </ul>
 
                 </li>
-                <li class="menu-header">Pengaturan</li>
-                <li>
+                <li class="menu-header active">Pengaturan</li>
+                <li class="active">
                     <a href="{{ route('pengaturan') }}"><i class="fa-solid fa-wrench"></i></i>
-                        <span>Pengaturan Aplikasi</span></a>
+                        <span>Pengaturan Website</span></a>
                 </li>
                 <li class="menu-header">Akun</li>
                 <li>
@@ -107,17 +107,16 @@
     <div class="main-content">
         <section class="section">
             <div class="section-header">
-                <h1>Advanced Forms</h1>
+                <h1>Pengaturan Website</h1>
                 <div class="section-header-breadcrumb">
-                    <div class="breadcrumb-item active"><a href="#">Dashboard</a></div>
-                    <div class="breadcrumb-item"><a href="#">Forms</a></div>
-                    <div class="breadcrumb-item">Advanced Forms</div>
+                    <div class="breadcrumb-item active"><a href="{{ route('daskrimtiDashboard') }}">Dashboard</a></div>
+                    <div class="breadcrumb-item">Pengaturan website</div>
                 </div>
             </div>
 
             <div class="section-body">
-                <h2 class="section-title">Advanced Forms</h2>
-                <p class="section-lead">We provide advanced input fields, such as date picker, color picker, and so on.</p>
+                <h2 class="section-title">Form Pengaturan Website</h2>
+                <p class="section-lead">Anda dapat mengubah tampilan pada halaman awal website pada halaman ini.</p>
 
                 <div class="row">
                     {{-- Form edit data about us --}}
