@@ -58,6 +58,24 @@
 
     <!-- Template Javascript -->
     <script src="{{ asset('template/landing_page/js/main.js') }}"></script>
+    <script>
+        window.addEventListener('beforeunload', function(e) {
+            e.preventDefault();
+            // Kirim permintaan ke server Laravel untuk menghapus sesi
+            fetch('/logout-session', {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                    }
+                })
+                .then(response => {
+                    // Sesi telah dihapus, Anda dapat mengarahkan pengguna ke halaman lain jika perlu
+                })
+                .catch(error => {
+                    // Handle error jika ada
+                });
+        });
+    </script>
 </body>
 
 </html>

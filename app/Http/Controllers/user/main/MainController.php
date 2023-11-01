@@ -13,6 +13,7 @@ use App\Models\User;
 use App\Models\UserModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Validator;
 use Ramsey\Uuid\Type\Integer;
 
@@ -256,12 +257,42 @@ class MainController extends Controller
     function downloadFilePermohonan($fileName)
     {
         $path = public_path('data/file/' . $fileName);
-        if (fileExists($path)) {
-            return response()->download($path);
+
+
+        if (file_exists($path)) {
+            // Determine the appropriate content type based on the file extension.
+            $fileExtension = pathinfo($path, PATHINFO_EXTENSION);
+            $contentType = $this->getContentType($fileExtension);
+
+            if ($contentType) {
+                // Set the content type header.
+                $headers = [
+                    'Content-Type: ' . $contentType,
+                ];
+
+                // Return the file for download.
+                return response()->download($path, $fileName, $headers);
+            }
         } else {
             return abort(404);
         }
     }
+
+    // Function to determine the content type based on the file extension.
+    private function getContentType($fileExtension)
+    {
+        switch ($fileExtension) {
+            case 'pdf':
+                return 'application/pdf';
+            case 'jpg':
+            case 'jpeg':
+                return 'image/jpeg';
+                // Add more cases for other file types if needed.
+            default:
+                return false; // Unknown file type.
+        }
+    }
+
 
     function deletePermohonan($id)
     {

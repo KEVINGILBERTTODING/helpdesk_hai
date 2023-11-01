@@ -9,6 +9,7 @@ use App\Http\Controllers\daskrimti\main\TypeController;
 use App\Http\Controllers\daskrimti\main\UsersController;
 use App\Http\Controllers\daskrimti\permohonan\PermohonanController;
 use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\user\auth\AuthController;
 use App\Http\Controllers\user\main\MainController;
 use App\Http\Controllers\user\UserController;
@@ -113,3 +114,4 @@ Route::get('daskrimtiForgetPassword', [DaskrimtiAuthController::class, 'forgetPa
 Route::get('sendResetPasswordToken', [DaskrimtiAuthController::class, 'sendResetPasswordToken'])->name('sendResetPasswordToken');
 Route::get('newPasswordDaskrimti/{daskrimtiId}', [DaskrimtiAuthController::class, 'newPassword'])->name('newPasswordDaskrimti');
 Route::post('updatePasswordDaskrimti', [DaskrimtiAuthController::class, 'updatePassword'])->name('updatePasswordDaskrimti');
+Route::get('pengaturan', [SettingsController::class, 'index'])->name('pengaturan')->middleware('daskrimti');

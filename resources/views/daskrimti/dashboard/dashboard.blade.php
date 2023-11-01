@@ -60,7 +60,7 @@
                 <li class="menu-header">Data Permohonan</li>
                 <li class="dropdown">
                     <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i
-                            class="fa-regular fa-folder"></i> <span>Permohonan</span></a>
+                            class="fa-solid fa-folder"></i> <span>Permohonan</span></a>
                     <ul class="dropdown-menu">
 
                         <li><a class="nav-link" href="{{ route('semuaPermohonan') }}">Semua Permohonan</a>
@@ -74,7 +74,7 @@
                 <li class="menu-header">Data Master</li>
                 <li class="dropdown">
                     <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i
-                            class="fa-solid fa-wrench"></i> <span>Data Master</span></a>
+                            class="fa-solid fa-layer-group"></i> <span>Data Master</span></a>
                     <ul class="dropdown-menu">
                         <li><a class="nav-link" href="{{ route('users') }}">Data Staff</a></li>
                         <li><a class="nav-link" href="{{ route('layanan') }}">Data Layanan</a></li>
@@ -83,6 +83,11 @@
 
                     </ul>
 
+                </li>
+                <li class="menu-header">Pengaturan</li>
+                <li>
+                    <a href="{{ route('pengaturan') }}"><i class="fa-solid fa-wrench"></i></i>
+                        <span>Pengaturan Aplikasi</span></a>
                 </li>
                 <li class="menu-header">Akun</li>
                 <li>
