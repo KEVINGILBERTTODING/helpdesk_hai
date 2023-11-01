@@ -256,7 +256,7 @@ class MainController extends Controller
 
     function downloadFilePermohonan($fileName)
     {
-        $path = public_path('data/file/' . $fileName);
+        $path = public_path() . "/data/file/" . $fileName;
 
 
         if (file_exists($path)) {
@@ -266,9 +266,13 @@ class MainController extends Controller
 
             if ($contentType) {
                 // Set the content type header.
+
+
                 $headers = [
                     'Content-Type: ' . $contentType,
                 ];
+
+                ob_end_clean();
 
                 // Return the file for download.
                 return response()->download($path, $fileName, $headers);
@@ -285,6 +289,7 @@ class MainController extends Controller
             case 'pdf':
                 return 'application/pdf';
             case 'jpg':
+            case 'png':
             case 'jpeg':
                 return 'image/jpeg';
                 // Add more cases for other file types if needed.
