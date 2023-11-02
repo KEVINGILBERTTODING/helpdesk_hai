@@ -39,13 +39,12 @@ class UsersController extends Controller
     function insertUser(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'nrp' => 'required|numeric|unique:users,nrp',
+            'nrp' => 'required|unique:users,nrp',
             'name' => 'required|string',
             'bidang_id' => 'required|integer',
             'email' => 'required|email|unique:users,email',
         ], [
             'nrp.required' => 'NRP tidak boleh kosong',
-            'nrp.numeric' => 'NRP hanya boleh berupa angka',
             'nrp.unique' => 'NRP telah terdaftar',
             'name.required' => 'Nama lengkap tidak boleh kosong',
             'name.string' => 'Nama lengkap hanya boleh berupa huruf dan angka',
@@ -88,7 +87,7 @@ class UsersController extends Controller
         $userId = $request->input('user_id');
         $validator = Validator::make($request->all(), [
             'user_id' => 'required|integer',
-            'nrp' => 'required|numeric|unique:users,nrp,' .  $userId . ',user_id',
+            'nrp' => 'required|unique:users,nrp,' .  $userId . ',user_id',
             'name' => 'required|string',
             'bidang_id' => 'required|integer',
             'email' => 'required|email|unique:users,email,' . $userId . ',user_id',
@@ -97,7 +96,6 @@ class UsersController extends Controller
             'user_id.required' => 'Terjadi kesalahan',
             'user_id.integer' => 'Terjadi kesalahan',
             'nrp.required' => 'NRP tidak boleh kosong',
-            'nrp.numeric' => 'NRP hanya boleh berupa angka',
             'nrp.unique' => 'NRP telah terdaftar',
             'name.required' => 'Nama lengkap tidak boleh kosong',
             'name.string' => 'Nama lengkap hanya boleh berupa huruf dan angka',
