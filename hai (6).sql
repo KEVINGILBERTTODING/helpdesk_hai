@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Nov 01, 2023 at 10:54 PM
+-- Generation Time: Nov 02, 2023 at 03:45 AM
 -- Server version: 8.0.30
 -- PHP Version: 8.1.10
 
@@ -226,7 +226,7 @@ INSERT INTO `type` (`type_id`, `nama_type`, `status`, `created_at`, `updated_at`
 
 CREATE TABLE `users` (
   `user_id` bigint NOT NULL,
-  `nrp` int NOT NULL,
+  `nrp` varchar(30) NOT NULL,
   `email` varchar(80) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   `password` varchar(300) NOT NULL,
   `name` varchar(80) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
@@ -351,7 +351,7 @@ ALTER TABLE `type`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` bigint NOT NULL AUTO_INCREMENT;
+  MODIFY `user_id` bigint NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
