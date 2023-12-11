@@ -86,9 +86,11 @@ class PermohonanController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'user_id' => 'required|integer',
+            'file' => 'nullable|mimes:pdf|max:5028',
             'balasan' => 'required|string',
             'permohonan_id' => 'required|integer',
-            'email' => 'required|email'
+            'email' => 'required|email',
+
         ]);
 
         if ($validator->fails()) {
@@ -101,12 +103,29 @@ class PermohonanController extends Controller
             $user = User::where('email', $email)->first();
             $dataUser = UserModel::where('user_id', $request->input('user_id'))->first();
             $dataDaskrimti = DaskrmtiModel::where('daskrimti_id', session('daskrimti_id'))->first();
-            $dataBalasan = [
-                'permohonan_id' => $permohonanId,
-                'daskrimti_id' => session('daskrimti_id'),
-                'balasan' => $request->input('balasan'),
-                'created_at' => date('Y-m-d H:i:s')
-            ];
+
+            if ($request->hasFile('file')) { // jika ada file berkas pendukung
+                $file = $request->file('file');
+                $fileName = 'BRKS-' . $request->user_id . '-' . $permohonanId . '.' . $file->getClientOriginalExtension();
+                $file->move('data/file_balasan', $fileName);
+                $dataBalasan = [
+                    'permohonan_id' => $permohonanId,
+                    'daskrimti_id' => session('daskrimti_id'),
+                    'balasan' => $request->input('balasan'),
+                    'file' => $fileName,
+                    'created_at' => date('Y-m-d H:i:s')
+                ];
+            } else {
+                $dataBalasan = [
+                    'permohonan_id' => $permohonanId,
+                    'daskrimti_id' => session('daskrimti_id'),
+                    'balasan' => $request->input('balasan'),
+                    'created_at' => date('Y-m-d H:i:s')
+                ];
+            }
+
+
+
 
             $dataPermohonan = [
                 'status' => 1

@@ -69,7 +69,8 @@ class PuModel extends Model
                 'bidang.nama_bidang',
                 'layanan.nama_layanan',
                 'type.nama_type',
-                'balasan_permohonan.balasan'
+                'balasan_permohonan.balasan',
+                'balasan_permohonan.file as file_balasan'
             )
 
                 ->leftJoin('layanan', 'permohonan.layanan_id', '=', 'layanan.layanan_id')
@@ -90,7 +91,9 @@ class PuModel extends Model
                 'users.email',
                 'bidang.nama_bidang',
                 'layanan.nama_layanan',
-                'type.nama_type'
+                'type.nama_type',
+                'balasan_permohonan.balasan',
+                'balasan_permohonan.file as file_balasan'
             )
 
                 ->leftJoin('layanan', 'permohonan.layanan_id', '=', 'layanan.layanan_id')

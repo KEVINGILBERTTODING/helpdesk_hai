@@ -282,6 +282,34 @@ class MainController extends Controller
         }
     }
 
+    function downloadFileBalasan($fileName)
+    {
+        $path = public_path() . "/data/file_balasan/" . $fileName;
+
+
+        if (file_exists($path)) {
+            // Determine the appropriate content type based on the file extension.
+            $fileExtension = pathinfo($path, PATHINFO_EXTENSION);
+            $contentType = $this->getContentType($fileExtension);
+
+            if ($contentType) {
+                // Set the content type header.
+
+
+                $headers = [
+                    'Content-Type: ' . $contentType,
+                ];
+
+                ob_end_clean();
+
+                // Return the file for download.
+                return response()->download($path, $fileName, $headers);
+            }
+        } else {
+            return abort(404);
+        }
+    }
+
     // Function to determine the content type based on the file extension.
     private function getContentType($fileExtension)
     {

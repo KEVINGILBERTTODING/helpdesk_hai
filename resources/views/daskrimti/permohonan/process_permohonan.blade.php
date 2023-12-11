@@ -148,6 +148,7 @@
                                         <th>Keterangan</th>
                                         <th>Berkas Pendukung</th>
                                         <th>Status</th>
+                                        <th>File Balasan</th>
                                         <th>Balasan</th>
                                         <th>Aksi</th>
                                     </thead>
@@ -169,9 +170,9 @@
                                                 <td>
                                                     @if ($dtlyn->file != null)
                                                         <a href="{{ route('downloadFilePermohonan', $dtlyn->file) }}"
-                                                            class="btn btn-primary btn-sm">Unduh berkas</button>
-                                                        @else
-                                                            Tidak ada berkas.
+                                                            class="btn btn-primary btn-sm">Unduh berkas</a>
+                                                    @else
+                                                        Tidak ada berkas.
                                                     @endif
                                                 </td>
                                                 <td>
@@ -181,6 +182,14 @@
                                                         <div class="badge badge-warning">Proses</div>
                                                     @else
                                                         <div class="badge badge-danger">Ditolak</div>
+                                                    @endif
+                                                </td>
+                                                <td>
+                                                    @if ($dtlyn->file_balasan != null)
+                                                        <a href="{{ route('downloadFileBalasan', $dtlyn->file_balasan) }}"
+                                                            class="btn btn-primary btn-sm">Unduh file balasan</a>
+                                                    @else
+                                                        -
                                                     @endif
                                                 </td>
                                                 <td>
@@ -228,7 +237,7 @@
             <div class="modal fade" tabindex="-1" role="dialog" id="modal_accept_{{ $dtyyn->permohonan_id }}">
                 <div class="modal-dialog " role="document">
                     <div class="modal-content modal-dialog-scrollable">
-                        <form action="{{ route('acceptPermohonan') }}" method="post">
+                        <form action="{{ route('acceptPermohonan') }}" method="post" enctype="multipart/form-data">
                             @csrf
                             <div class="modal-header">
                                 <h5 class="modal-title">Konfirmasi Permohonan</h5>
@@ -240,10 +249,9 @@
                                 <div class="form-group col-12" hidden>
                                     <input type="number" readonly hidden required name="permohonan_id"
                                         value="{{ $dtyyn->permohonan_id }}" class="form-control">
-
                                 </div>
                                 <div class="form-group col-12" hidden>
-                                    <input type="email-" readonly hidden required name="email"
+                                    <input type="email" readonly hidden required name="email"
                                         value="{{ $dtyyn->email }}" class="form-control">
                                 </div>
 
@@ -252,25 +260,23 @@
                                         class="form-control">
                                 </div>
 
-
-
+                                <div class="form-group col-12">
+                                    <label>File Balasan</label>
+                                    <input type="file" name="file" class="form-control" accept=".pdf">
+                                    <span class="text text-sm text-warning" style="margin-top: 10px;">Format .pdf | ukuran
+                                        5 MB</span>
+                                </div>
 
                                 <div class="form-group col-12">
                                     <label>Balasan Permohonan</label>
-
                                     <textarea required name="balasan" required class="form-control" rows="7">{{ $dtyyn->balasan }}</textarea>
                                 </div>
-
-
-
-
                             </div>
 
                             <div class="modal-footer bg-whitesmoke br">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
                                 <button type="submit" class="btn btn-primary">Konfirmasi</button>
                             </div>
-
 
                         </form>
                     </div>

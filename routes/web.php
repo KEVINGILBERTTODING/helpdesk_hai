@@ -67,6 +67,7 @@ Route::get('updatePermohonan/{id}', [MainController::class, 'updatePermohonan'])
 Route::post('updateData', [MainController::class, 'updateData'])->name('updateData');
 Route::get('deletePermohonan/{id}', [MainController::class, 'deletePermohonan'])->name('deletePermohonan');
 Route::get('downloadFilePermohonan/{fileName}', [MainController::class, 'downloadFilePermohonan'])->name('downloadFilePermohonan');
+Route::get('downloadFileBalasan/{fileName}', [MainController::class, 'downloadFileBalasan'])->name('downloadFileBalasan');
 Route::post('insertPermohonan', [MainController::class, 'insertPermohonan'])->name('insertPermohonan');
 Route::get('profile', [UserController::class, 'profile'])->name('profile');
 Route::post('updateProfilPhoto', [UserController::class, 'updateProfilPhoto'])->name('updateProfilPhoto');
