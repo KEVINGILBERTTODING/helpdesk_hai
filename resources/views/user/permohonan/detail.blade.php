@@ -319,13 +319,15 @@
                                         <label>File Pendukung</label>
                                         @if ($dataPermohonan['file'] != null)
                                             <a href="{{ route('downloadFilePermohonan', $dataPermohonan['file']) }}"
-                                                class="btn btn-primary form-control">Downlod</a>
+                                                class="btn btn-info form-control"><i class="fa fa-download"></i> Unduh
+                                                file pendukung</a>
                                         @else
                                             <p>Tidak ada file pendukung.</p>
                                         @endif
 
                                     </div>
                                 </div>
+
 
                                 <div class="row">
                                     <div class="form-group col-12">
@@ -396,7 +398,26 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <p>{{ $dataPermohonan['balasan'] }}</p>
+                    @if ($dataPermohonan['status'] == 1)
+                        <div class="form-group ">
+                            <label>File Balasan</label>
+                            @if ($dataPermohonan['file_balasan'] != null)
+                                <a href="{{ route('downloadFileBalasan', $dataPermohonan['file_balasan']) }}"
+                                    class="btn btn-primary form-control"><i class="fa fa-download"></i>
+                                    Unduh file balasan</a>
+                            @else
+                                <p>Tidak ada file balasan.</p>
+                            @endif
+
+                        </div>
+                    @endif
+
+                    <div class="form-group">
+                        <label>Balasan</label>
+                        <p>{{ $dataPermohonan['balasan'] }}</p>
+
+
+                    </div>
 
                 </div>
                 <div class="modal-footer bg-whitesmoke br">

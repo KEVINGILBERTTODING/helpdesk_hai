@@ -21,7 +21,8 @@ class PuModel extends Model
             'layanan.nama_layanan',
             'type.nama_type',
             'balasan_permohonan.balasan',
-            'balasan_permohonan.created_at as tgl_balasan'
+            'balasan_permohonan.created_at as tgl_balasan',
+            'balasan_permohonan.file as file_balasan'
         )
             ->join('users', 'permohonan.user_id', '=', 'users.user_id')
             ->join('layanan', 'permohonan.layanan_id', '=', 'layanan.layanan_id')
