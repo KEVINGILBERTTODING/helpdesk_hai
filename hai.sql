@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Nov 02, 2023 at 03:45 AM
+-- Generation Time: Dec 11, 2023 at 01:19 AM
 -- Server version: 8.0.30
 -- PHP Version: 8.1.10
 
@@ -67,10 +67,18 @@ CREATE TABLE `balasan_permohonan` (
   `permohonan_id` bigint NOT NULL,
   `daskrimti_id` int NOT NULL,
   `balasan` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
+  `file` varchar(150) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   `status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '1 = is active\r\n0 = not active',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `balasan_permohonan`
+--
+
+INSERT INTO `balasan_permohonan` (`balasan_permohonan_id`, `permohonan_id`, `daskrimti_id`, `balasan`, `file`, `status`, `created_at`, `updated_at`) VALUES
+(1, 1, 1, 'Baik, permohonan disetujui', 'BRKS-7-1.pdf', 1, '2023-12-11 01:02:18', '2023-12-11 01:02:18');
 
 -- --------------------------------------------------------
 
@@ -173,6 +181,13 @@ CREATE TABLE `notification` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
+--
+-- Dumping data for table `notification`
+--
+
+INSERT INTO `notification` (`notif_id`, `user_id`, `permohonan_id`, `type`, `is_read`, `created_at`, `updated_at`) VALUES
+(1, 7, 1, 1, 0, '2023-12-11 01:02:18', '2023-12-11 01:02:18');
+
 -- --------------------------------------------------------
 
 --
@@ -191,6 +206,13 @@ CREATE TABLE `permohonan` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `permohonan`
+--
+
+INSERT INTO `permohonan` (`permohonan_id`, `user_id`, `subject`, `layanan_id`, `keterangan`, `file`, `type_id`, `status`, `created_at`, `updated_at`) VALUES
+(1, 7, 'Test Permohonan', 6, 'Test', '1698907196_7.jpg', 1, 1, '2023-11-02 06:39:56', '2023-12-11 01:02:18');
 
 -- --------------------------------------------------------
 
@@ -236,6 +258,13 @@ CREATE TABLE `users` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`user_id`, `nrp`, `email`, `password`, `name`, `bidang_id`, `status`, `profile_photo`, `created_at`, `updated_at`) VALUES
+(7, '12345', 'gilberttodingkevin@gmail.com', '$2y$10$PWyJhivSdglzjc4VsZf6jOngqEvJ1M82Hlnsj93PY4kK5SXhYY0iS', 'kevin gilbert toding', 5, 1, 'default.png', '2023-11-02 06:38:31', '2023-11-02 06:44:26');
 
 --
 -- Indexes for dumped tables
@@ -309,7 +338,7 @@ ALTER TABLE `app`
 -- AUTO_INCREMENT for table `balasan_permohonan`
 --
 ALTER TABLE `balasan_permohonan`
-  MODIFY `balasan_permohonan_id` bigint NOT NULL AUTO_INCREMENT;
+  MODIFY `balasan_permohonan_id` bigint NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `bidang`
@@ -333,13 +362,13 @@ ALTER TABLE `layanan`
 -- AUTO_INCREMENT for table `notification`
 --
 ALTER TABLE `notification`
-  MODIFY `notif_id` bigint NOT NULL AUTO_INCREMENT;
+  MODIFY `notif_id` bigint NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `permohonan`
 --
 ALTER TABLE `permohonan`
-  MODIFY `permohonan_id` bigint NOT NULL AUTO_INCREMENT;
+  MODIFY `permohonan_id` bigint NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `type`
@@ -351,7 +380,7 @@ ALTER TABLE `type`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` bigint NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `user_id` bigint NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
